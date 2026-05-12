@@ -216,7 +216,7 @@ const CnabLineComponent = ({ index, raw, isSelected, focusedField, cursorOffset,
 
   const renderTextWithHighlights = (text) => {
     if (!text) return null;
-    return text.split('').map((char, i) => (
+    return [...text].map((char, i) => (
       <span key={i} className={`cnab-char ${char === ' ' ? 'opacity-20' : ''}`}>
         {char === ' ' && showWhitespace ? '·' : (char === ' ' ? '\u00A0' : char)}
       </span>
