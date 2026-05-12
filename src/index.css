@@ -42,7 +42,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 10px; /* Rigorosamente 10px */
+    width: 1ch; /* Usa a largura real do caractere da fonte */
     font-size: 14px;
     line-height: 2rem;
     height: 100%;

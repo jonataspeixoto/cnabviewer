@@ -101,7 +101,7 @@ export const CnabExplorer = () => {
       <div 
         ref={containerRef}
         onScroll={handleScroll}
-        className="flex-1 overflow-auto custom-scrollbar p-6 relative"
+        className="flex-1 overflow-auto custom-scrollbar p-6 relative font-cnab text-[14px]"
       >
         {/* Espaçador para manter o scrollbar correto */}
         <div style={{ height: `${rawLines.length * ROW_HEIGHT}px`, width: '100%', position: 'absolute', top: 0, left: 0, pointerEvents: 'none' }} />
@@ -110,7 +110,7 @@ export const CnabExplorer = () => {
         {visualSettings.showLimitLine && (
           <div 
             className="absolute top-0 bottom-0 border-r border-dashed border-red-500/50 z-0 pointer-events-none"
-            style={{ left: `${24 + 48 + 2400}px` }} 
+            style={{ left: `calc(24px + 48px + 240ch)` }} 
           />
         )}
 

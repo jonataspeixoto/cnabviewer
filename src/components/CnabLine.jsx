@@ -246,7 +246,7 @@ const CnabLineComponent = ({ index, raw, isSelected, onSelect }) => {
           key={`${field.name}-${idx}`}
           onClick={(e) => handleFieldClick(e, field.name, val)}
           style={{ 
-            width: `${charCount * 10}px`, 
+            width: `${charCount}ch`, 
             fontSize: '14px',
             boxShadow: visualSettings.isContinuous ? 'none' : 'inset -1px 0 0 0 rgba(100, 116, 139, 0.3)'
           }}
@@ -318,7 +318,7 @@ const CnabLineComponent = ({ index, raw, isSelected, onSelect }) => {
         key="extra-territory"
         onClick={(e) => handleFieldClick(e, '_extra', extraVal)}
         style={{ 
-          width: isFocused ? '400px' : `${Math.max(extraVal.length, 6) * 10}px`, 
+          width: isFocused ? '40ch' : `${Math.max(extraVal.length, 6)}ch`, 
           fontSize: '14px',
           boxShadow: visualSettings.isContinuous ? 'none' : 'inset 1px 0 0 0 rgba(100, 116, 139, 0.3)'
         }}
