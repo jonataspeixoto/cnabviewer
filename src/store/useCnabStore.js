@@ -183,8 +183,8 @@ export const useCnabStore = create(
 
       exportToRem: () => {
         const { rawLines, fileName } = get();
-        const content = rawLines.join('\n');
-        const blob = new Blob([content], { type: 'text/plain' });
+        const content = rawLines.join('\r\n');
+        const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
@@ -205,7 +205,7 @@ export const useCnabStore = create(
         });
 
         const content = JSON.stringify(structuredData, null, 2);
-        const blob = new Blob([content], { type: 'application/json' });
+        const blob = new Blob([content], { type: 'application/json;charset=utf-8' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;

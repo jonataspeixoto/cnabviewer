@@ -15,7 +15,7 @@ export const Dropzone = () => {
       const lines = text.split(/\r?\n/).filter(line => line.length > 0);
       setRawLines(lines, file.name);
     };
-    reader.readAsText(file);
+    reader.readAsText(file, 'UTF-8');
   };
 
   const onDrop = (e) => {
