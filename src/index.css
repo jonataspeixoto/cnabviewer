@@ -1,0 +1,107 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cnab-numeric: #3b82f6;
+  --color-cnab-alpha: #10b981;
+  --color-cnab-date: #f59e0b;
+  --color-cnab-error: #ef4444;
+  --color-cnab-meta: #6b7280;
+  --color-cnab-bg: #0f172a;
+  --color-cnab-panel: #1e293b;
+
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #0f172a;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  @layer base {
+  body {
+    @apply bg-slate-950 text-slate-200 antialiased selection:bg-blue-500/30;
+  }
+}
+
+@layer components {
+  .font-cnab, .cnab-char {
+    font-family: Consolas, Monaco, "Lucida Console", "Liberation Mono", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Courier New", monospace;
+    font-variant-ligatures: none;
+    font-kerning: none;
+    font-stretch: normal;
+    letter-spacing: 0;
+  }
+
+  .cnab-char {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 10px; /* Rigorosamente 10px */
+    font-size: 14px;
+    line-height: 2rem;
+    height: 100%;
+    vertical-align: top;
+    white-space: pre;
+    -webkit-font-smoothing: antialiased;
+  }
+}
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  min-width: 320px;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+#root {
+  width: 100%;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1e293b;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #475569;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
+
+/* Glassmorphism utilities */
+.glass {
+  background: rgba(30, 41, 59, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.cnab-line-active {
+  background: rgba(59, 130, 246, 0.1);
+  border-left: 4px solid #3b82f6;
+}
+
+@keyframes pulse-red {
+  0%, 100% { outline: 2px solid transparent; }
+  50% { outline: 2px solid #ef4444; }
+}
+
+.animate-error {
+  animation: pulse-red 2s infinite;
+}
