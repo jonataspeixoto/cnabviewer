@@ -1,18 +1,43 @@
-import React, { useState, useEffect, useRef, useMemo } from 'react';
+import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { useCnabStore } from '../store/useCnabStore';
 import { CnabLine } from './CnabLine';
 import { Dropzone } from './Dropzone';
 import { cnabEngine } from '../utils/cnab/engine';
-import { ContextBar } from './ContextBar';
 
 const ROW_HEIGHT = 32; // h-8 = 32px
 const BUFFER_SIZE = 10;
 
 export const CnabExplorer = () => {
-  const { rawLines, activeRules, selectedLineIndex, selectLine, visualSettings, toggleVisualSetting } = useCnabStore();
+  const rawLines = useCnabStore(state => state.rawLines);
+  const linesCount = rawLines.length;
+  const activeRules = useCnabStore(state => state.activeRules);
+  const selectedLineIndex = useCnabStore(state => state.selectedLineIndex);
+  const focusedField = useCnabStore(state => state.focusedField);
+  const cursorOffset = useCnabStore(state => state.cursorOffset);
+  const selectLine = useCnabStore(state => state.selectLine);
+  const visualSettings = useCnabStore(state => state.visualSettings);
+  const toggleVisualSetting = useCnabStore(state => state.toggleVisualSetting);
+  
   const [scrollTop, setScrollTop] = useState(0);
   const [containerHeight, setContainerHeight] = useState(0);
   const containerRef = useRef(null);
+
+  // console.log(`[RENDER] CnabExplorer: lines=${linesCount} selected=${selectedLineIndex} scrollTop=${scrollTop}`);
+
+  // Auto-scroll quando a linha selecionada muda via teclado
+  useEffect(() => {
+    if (selectedLineIndex !== null && containerRef.current) {
+      const scrollContainer = containerRef.current;
+      const targetScroll = selectedLineIndex * ROW_HEIGHT;
+      const buffer = ROW_HEIGHT * 2; // Buffer de 2 linhas
+
+      if (targetScroll < scrollContainer.scrollTop) {
+        scrollContainer.scrollTop = targetScroll - buffer;
+      } else if (targetScroll + ROW_HEIGHT > scrollContainer.scrollTop + containerHeight) {
+        scrollContainer.scrollTop = targetScroll - containerHeight + ROW_HEIGHT + buffer;
+      }
+    }
+  }, [selectedLineIndex, containerHeight]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -27,6 +52,54 @@ export const CnabExplorer = () => {
 
   const handleScroll = (e) => {
     setScrollTop(e.target.scrollTop);
+  };
+
+  const handleSelect = useCallback((idx) => {
+    selectLine(idx);
+    // Dá foco ao container para habilitar navegação por teclado após clique
+    containerRef.current?.focus();
+  }, [selectLine]);
+
+  const handleKeyDown = (e) => {
+    // Evita conflito se o usuário estiver digitando em um input/textarea
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.isContentEditable) {
+      return;
+    }
+
+    let nextIndex = selectedLineIndex;
+
+    switch (e.key) {
+      case 'ArrowDown':
+        nextIndex = selectedLineIndex === null ? 0 : Math.min(rawLines.length - 1, selectedLineIndex + 1);
+        e.preventDefault();
+        break;
+      case 'ArrowUp':
+        nextIndex = selectedLineIndex === null ? 0 : Math.max(0, selectedLineIndex - 1);
+        e.preventDefault();
+        break;
+      case 'PageDown':
+        nextIndex = selectedLineIndex === null ? 10 : Math.min(rawLines.length - 1, selectedLineIndex + 10);
+        e.preventDefault();
+        break;
+      case 'PageUp':
+        nextIndex = selectedLineIndex === null ? 0 : Math.max(0, selectedLineIndex - 10);
+        e.preventDefault();
+        break;
+      case 'Home':
+        nextIndex = 0;
+        e.preventDefault();
+        break;
+      case 'End':
+        nextIndex = rawLines.length - 1;
+        e.preventDefault();
+        break;
+      default:
+        return;
+    }
+
+    if (nextIndex !== selectedLineIndex) {
+      selectLine(nextIndex);
+    }
   };
 
   // Cálculo das linhas visíveis
@@ -54,9 +127,11 @@ export const CnabExplorer = () => {
   const visibleLines = rawLines.slice(startIndex, endIndex);
 
   return (
-    <div className="flex-1 flex flex-col bg-cnab-bg overflow-hidden relative">
-      <ContextBar />
-      
+    <div 
+      className="flex-1 flex flex-col bg-cnab-bg overflow-hidden relative outline-none"
+      onKeyDown={handleKeyDown}
+      tabIndex={0}
+    >
       <div className="h-10 border-b border-slate-800 bg-slate-900/40 px-4 flex items-center gap-4">
         <label className="flex items-center gap-2 cursor-pointer group">
           <input 
@@ -124,7 +199,9 @@ export const CnabExplorer = () => {
               index={startIndex + i}
               raw={line}
               isSelected={selectedLineIndex === startIndex + i}
-              onSelect={selectLine}
+              focusedField={selectedLineIndex === startIndex + i ? focusedField : null}
+              cursorOffset={selectedLineIndex === startIndex + i ? cursorOffset : 0}
+              onSelect={handleSelect}
             />
           ))}
         </div>

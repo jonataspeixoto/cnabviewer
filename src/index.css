@@ -23,7 +23,11 @@
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
-  @layer base {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@layer base {
   body {
     @apply bg-slate-950 text-slate-200 antialiased selection:bg-blue-500/30;
   }
@@ -42,16 +46,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 1ch; /* Usa a largura real do caractere da fonte */
+    width: 1ch;
     font-size: 14px;
     line-height: 2rem;
     height: 100%;
     vertical-align: top;
     white-space: pre;
-    -webkit-font-smoothing: antialiased;
   }
-}
-  -moz-osx-font-smoothing: grayscale;
 }
 
 body {

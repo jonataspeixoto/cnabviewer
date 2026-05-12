@@ -3,7 +3,7 @@
  * Logs are only shown if the debug mode is active (can be tied to an environment variable or store setting).
  */
 
-const IS_DEBUG = true; // No futuro pode ser: import.meta.env.VITE_DEBUG === 'true'
+const IS_DEBUG = false; // Desabilitado para melhorar a performance. Mude para true apenas para debugging profundo.
 
 export const logger = {
   debug: (message, ...args) => {

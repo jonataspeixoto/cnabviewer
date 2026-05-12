@@ -1,30 +1,42 @@
 import React, { useMemo, useState, useCallback, useEffect, useRef, memo } from 'react';
 import { useCnabStore } from '../store/useCnabStore';
 import { cnabEngine } from '../utils/cnab/engine';
-import { logger } from '../utils/logger';
 
-const CnabLineComponent = ({ index, raw, isSelected, onSelect }) => {
-  const { focusedField, setFocusedField, activeRules, visualSettings, updateLine } = useCnabStore();
+const CnabLineComponent = ({ index, raw, isSelected, focusedField, cursorOffset, onSelect }) => {
+  const activeRules = useCnabStore(state => state.activeRules);
+  const showWhitespace = useCnabStore(state => state.visualSettings.showWhitespace);
+  const isContinuous = useCnabStore(state => state.visualSettings.isContinuous);
+  const updateLine = useCnabStore(state => state.updateLine);
+  const undo = useCnabStore(state => state.undo);
+  const redo = useCnabStore(state => state.redo);
+  const focusFieldAction = useCnabStore(state => state.focusField);
+  
+  // console.log(`[RENDER] CnabLine index=${index} isSelected=${isSelected} focusedField=${focusedField}`);
   const [localVal, setLocalVal] = useState(null);
   const inputRef = useRef(null);
 
   useEffect(() => {
     if (focusedField && isSelected && inputRef.current) {
-      // Pequeno timeout para garantir que o DOM estabilizou após o re-render da store
       const timer = setTimeout(() => {
         if (inputRef.current) {
           inputRef.current.focus();
-          inputRef.current.select(); // Seleciona o texto para facilitar a edição rápida
+          // Usa o offset calculado no clique
+          const pos = cursorOffset || 0;
+          inputRef.current.setSelectionRange(pos, pos);
         }
       }, 10);
       return () => clearTimeout(timer);
     }
-  }, [focusedField, isSelected]);
+  }, [focusedField, isSelected, cursorOffset]);
   
-  const parsed = useMemo(() => cnabEngine.parseLine(raw, activeRules), [raw, activeRules]);
+  const parsed = useMemo(() => {
+    const lines = useCnabStore.getState().rawLines;
+    return cnabEngine.parseLine(raw, { activeRules, rawLines: lines, index });
+  }, [raw, activeRules, index]);
 
   const schema = useMemo(() => {
-    const s = cnabEngine.getSchema(raw);
+    const lines = useCnabStore.getState().rawLines;
+    const s = cnabEngine.getSchema(raw, lines, index);
     if (s) return s;
     return {
       label: "Registro Desconhecido",
@@ -32,7 +44,7 @@ const CnabLineComponent = ({ index, raw, isSelected, onSelect }) => {
         { name: "raw_data", start: 1, end: Math.max(raw.length, 240), type: "A", label: "Dados Brutos" }
       ]
     };
-  }, [raw]);
+  }, [raw, index]);
 
   const lastFieldEnd = useMemo(() => {
     const fields = schema.fields;
@@ -41,18 +53,12 @@ const CnabLineComponent = ({ index, raw, isSelected, onSelect }) => {
 
   const commitChange = useCallback((valueToCommit) => {
     const val = valueToCommit !== undefined ? valueToCommit : localVal;
-    if (val === null) {
-      logger.debug(`[CNAB-DEBUG] commitChange abortado: localVal é null na linha ${index + 1}`);
-      return;
-    }
+    if (val === null) return;
     
     const fields = schema.fields;
     const field = fields.find(f => f.name === focusedField);
     
-    if (!field && focusedField !== '_extra') {
-      logger.debug(`[CNAB-DEBUG] commitChange abortado: campo '${focusedField}' não encontrado na linha ${index + 1}`);
-      return;
-    }
+    if (!field && focusedField !== '_extra') return;
 
     let fullLine = raw;
     let finalVal = val !== undefined ? val : (localVal || "");
@@ -90,7 +96,6 @@ const CnabLineComponent = ({ index, raw, isSelected, onSelect }) => {
       // IMPORTANTE: Só sincronizamos se o valor no store for DIFERENTE do que nós mesmos enviamos.
       // Isso evita o loop de feedback que estava 'bugando' a escrita.
       if (externalVal !== localVal && externalVal !== lastCommittedValue.current) {
-        logger.debug(`[CNAB-DEBUG] Sincronização externa detectada (Undo/Redo): "${localVal}" -> "${externalVal}"`);
         setLocalVal(externalVal);
         lastCommittedValue.current = externalVal;
       }
@@ -117,19 +122,25 @@ const CnabLineComponent = ({ index, raw, isSelected, onSelect }) => {
 
   const handleFieldClick = useCallback((e, fieldName, currentVal) => {
     e.stopPropagation();
-    logger.debug(`[CNAB-DEBUG] Clique no campo '${fieldName}' da linha ${index + 1}. Valor atual: "${currentVal}"`);
-    onSelect(index);
+    
+    const field = schema.fields.find(f => f.name === fieldName);
+    const charCount = field ? (field.end - field.start + 1) : (currentVal?.length || 20);
+
+    // Cálculo dinâmico baseado na largura real (1CH) do campo
+    const rect = e.currentTarget.getBoundingClientRect();
+    const offsetX = e.clientX - rect.left;
+    const exactCharWidth = rect.width / charCount;
+    const clickOffset = Math.min(charCount, Math.max(0, Math.round(offsetX / exactCharWidth)));
+    
+    // console.log(`[ACTION] Field Click: line=${index} field=${fieldName} offset=${clickOffset}`);
     
     if (focusedField && localVal !== null) {
-      logger.debug(`[CNAB-DEBUG] Salvando campo anterior '${focusedField}' antes de mudar foco`);
       commitChange();
     }
     
-    setFocusedField(fieldName);
+    focusFieldAction(index, fieldName, clickOffset);
     setLocalVal(currentVal);
-  }, [index, onSelect, focusedField, localVal, commitChange, setFocusedField]);
-
-  const commitTimer = useRef(null);
+  }, [index, focusFieldAction, focusedField, localVal, commitChange, schema.fields]);
 
   const handleInputChange = useCallback((e) => {
     const val = e.target.value;
@@ -138,19 +149,12 @@ const CnabLineComponent = ({ index, raw, isSelected, onSelect }) => {
     
     cursorRef.current = { start, end };
     setLocalVal(val);
-    
-    if (commitTimer.current) clearTimeout(commitTimer.current);
-    commitTimer.current = setTimeout(() => {
-      commitChange(val);
-    }, 100);
-  }, [commitChange]);
+  }, []);
 
-  const { undo, redo } = useCnabStore();
 
   const handleKeyDown = useCallback((e, idx, fields) => {
     // Intercepta Undo/Redo
     if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') {
-      if (commitTimer.current) clearTimeout(commitTimer.current);
       e.preventDefault();
       if (e.shiftKey) {
         redo();
@@ -166,7 +170,6 @@ const CnabLineComponent = ({ index, raw, isSelected, onSelect }) => {
     }
 
     if (e.key === 'Tab') {
-      logger.debug(`[CNAB-DEBUG] Tecla TAB pressionada no campo '${focusedField}'`);
       e.preventDefault();
       commitChange();
       
@@ -196,29 +199,26 @@ const CnabLineComponent = ({ index, raw, isSelected, onSelect }) => {
       }
 
       if (nextFieldName) {
-        logger.debug(`[CNAB-DEBUG] TAB navegando para '${nextFieldName}'`);
-        setFocusedField(nextFieldName);
+        focusFieldAction(index, nextFieldName);
         setLocalVal(nextVal);
       }
     }
     if (e.key === 'Enter') {
-      logger.debug(`[CNAB-DEBUG] Tecla ENTER pressionada. Comitando campo '${focusedField}'`);
       commitChange();
-      setFocusedField(null);
+      focusFieldAction(index, null);
       setLocalVal(null);
     }
     if (e.key === 'Escape') {
-      logger.debug(`[CNAB-DEBUG] Tecla ESCAPE pressionada. Cancelando edição no campo '${focusedField}'`);
-      setFocusedField(null);
+      focusFieldAction(index, null);
       setLocalVal(null);
     }
-  }, [commitChange, focusedField, lastFieldEnd, raw, setFocusedField]);
+  }, [commitChange, focusedField, lastFieldEnd, raw, index, focusFieldAction]);
 
   const renderTextWithHighlights = (text) => {
     if (!text) return null;
     return text.split('').map((char, i) => (
       <span key={i} className={`cnab-char ${char === ' ' ? 'opacity-20' : ''}`}>
-        {char === ' ' && visualSettings.showWhitespace ? '·' : (char === ' ' ? '\u00A0' : char)}
+        {char === ' ' && showWhitespace ? '·' : (char === ' ' ? '\u00A0' : char)}
       </span>
     ));
   };
@@ -248,7 +248,7 @@ const CnabLineComponent = ({ index, raw, isSelected, onSelect }) => {
           style={{ 
             width: `${charCount}ch`, 
             fontSize: '14px',
-            boxShadow: visualSettings.isContinuous ? 'none' : 'inset -1px 0 0 0 rgba(100, 116, 139, 0.3)'
+            boxShadow: isContinuous ? 'none' : 'inset -1px 0 0 0 rgba(100, 116, 139, 0.3)'
           }}
           className={`
             relative flex-shrink-0 font-cnab transition-all h-7 flex items-center overflow-hidden cursor-text
@@ -286,10 +286,9 @@ const CnabLineComponent = ({ index, raw, isSelected, onSelect }) => {
                 value={localVal !== null ? localVal : val}
                 onChange={handleInputChange}
                 onBlur={() => {
-                  logger.debug(`[CNAB-DEBUG] Campo '${focusedField}' perdeu foco (Blur).`);
                   commitChange();
                   setLocalVal(null);
-                  setFocusedField(null);
+                  focusFieldAction(index, null);
                 }}
                 onKeyDown={(e) => handleKeyDown(e, idx, fields)}
                 onClick={(e) => e.stopPropagation()}
@@ -320,7 +319,7 @@ const CnabLineComponent = ({ index, raw, isSelected, onSelect }) => {
         style={{ 
           width: isFocused ? '40ch' : `${Math.max(extraVal.length, 6)}ch`, 
           fontSize: '14px',
-          boxShadow: visualSettings.isContinuous ? 'none' : 'inset 1px 0 0 0 rgba(100, 116, 139, 0.3)'
+          boxShadow: isContinuous ? 'none' : 'inset 1px 0 0 0 rgba(100, 116, 139, 0.3)'
         }}
         className={`
           relative flex-shrink-0 font-cnab transition-all h-7 flex items-center overflow-hidden cursor-text
@@ -353,10 +352,9 @@ const CnabLineComponent = ({ index, raw, isSelected, onSelect }) => {
               value={localVal !== null ? localVal : extraVal}
               onChange={handleInputChange}
               onBlur={() => {
-                logger.debug(`[CNAB-DEBUG] Zona EXTRA perdeu foco (Blur).`);
                 commitChange();
                 setLocalVal(null);
-                setFocusedField(null);
+                focusFieldAction(index, null);
               }}
               onKeyDown={(e) => handleKeyDown(e, fields.length, fields)}
               onClick={(e) => e.stopPropagation()}

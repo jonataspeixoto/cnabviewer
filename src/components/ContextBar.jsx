@@ -4,7 +4,10 @@ import { cnabEngine } from '../utils/cnab/engine';
 import { ChevronRight, FileCode, Box, Layers, MousePointer2, ExternalLink, Plus, Trash2 } from 'lucide-react';
 
 export const ContextBar = () => {
-  const { rawLines, selectedLineIndex, focusedField, activeRules } = useCnabStore();
+  const rawLines = useCnabStore(state => state.rawLines);
+  const selectedLineIndex = useCnabStore(state => state.selectedLineIndex);
+  const focusedField = useCnabStore(state => state.focusedField);
+  const activeRules = useCnabStore(state => state.activeRules);
 
   if (selectedLineIndex === null) {
     return (
