@@ -20,13 +20,19 @@ class DocService {
         let text = await response.text();
         
         // 1. Remoção de Ruído (Headers/Footers repetitivos)
-        text = text.replace(/“Um sistema financeiro saudável.*?País”\s*\d*/g, '');
+        // Usamos uma regex mais abrangente para aspas e variações de texto
+        text = text.replace(/[“\""']Um sistema financeiro saudável.*?País[”\""']\s*\d*/g, '');
         text = text.replace(/!\[FEBRABAN logo\].*?\n/g, '');
+        text = text.replace(/FEBRABAN logo/g, '');
         text = text.replace(/Layout Padrão Febraban 240 posições V10.9 http:\/\/www.febraban.org.br/g, '');
-        text = text.replace(/page_\d+_image_\d+_v\d+\.jpg/g, ''); // Remove referências a imagens de logo
+        text = text.replace(/page_\d+_image_\d+_v\d+\.jpg/g, '');
 
         // 2. Pré-processamento: Garante que entradas de índice fiquem em parágrafos separados
+        // Resolve casos onde o índice está quebrado em múltiplas linhas antes dos pontos
         text = text.replace(/(\.{5,}\s*\d+\**)\s*\n([^\n#])/g, '$1\n\n$2');
+        
+        // Remove linhas vazias extras que podem ter sido criadas pela remoção de ruído
+        text = text.replace(/\n{3,}/g, '\n\n');
         
         this.rawContent = text;
         this.parse();
@@ -115,7 +121,13 @@ class DocService {
       .replace(/<\/table>/g, '</table></div>')
       // Regex robusto para capturar entradas de índice mesmo com <strong> ou outras tags
       .replace(/<p>(.*?)(?:<strong>)?(\.{3,})\s*(\d+)(?:<\/strong>)?(.*?)<\/p>/g, (match, label, dots, page, suffix) => {
-        const cleanLabel = label.replace(/<\/strong>$/, '').replace(/^<strong>/, '').trim();
+        // Limpa o label e remove pontos residuais
+        const cleanLabel = label
+          .replace(/<\/strong>$/, '')
+          .replace(/^<strong>/, '')
+          .replace(/\.+$/, '')
+          .trim();
+          
         const slug = this.slugify(cleanLabel);
         
         return `
