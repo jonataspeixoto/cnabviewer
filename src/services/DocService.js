@@ -20,18 +20,20 @@ class DocService {
         let text = await response.text();
         
         // 1. Remoção de Ruído (Headers/Footers repetitivos)
-        // Usamos uma regex mais abrangente para aspas e variações de texto
         text = text.replace(/[“\""']Um sistema financeiro saudável.*?País[”\""']\s*\d*/g, '');
         text = text.replace(/!\[FEBRABAN logo\].*?\n/g, '');
         text = text.replace(/FEBRABAN logo/g, '');
         text = text.replace(/Layout Padrão Febraban 240 posições V10.9 http:\/\/www.febraban.org.br/g, '');
         text = text.replace(/page_\d+_image_\d+_v\d+\.jpg/g, '');
 
-        // 2. Pré-processamento: Garante que entradas de índice fiquem em parágrafos separados
-        // Resolve casos onde o índice está quebrado em múltiplas linhas antes dos pontos
+        // 2. Correção de Títulos que deveriam ser Itens
+        // Remove # de linhas que contém o padrão de pontos do índice
+        text = text.replace(/^#+ (.*?\.{5,}.*?)$/gm, '$1');
+
+        // 3. Pré-processamento: Garante que entradas de índice fiquem em parágrafos separados
         text = text.replace(/(\.{5,}\s*\d+\**)\s*\n([^\n#])/g, '$1\n\n$2');
         
-        // Remove linhas vazias extras que podem ter sido criadas pela remoção de ruído
+        // Remove linhas vazias extras
         text = text.replace(/\n{3,}/g, '\n\n');
         
         this.rawContent = text;
@@ -116,30 +118,37 @@ class DocService {
 
   formatHtml(html) {
     if (!html) return '';
-    return html
+    let processedHtml = html
       .replace(/<table>/g, '<div class="table-container"><table>')
-      .replace(/<\/table>/g, '</table></div>')
-      // Regex robusto para capturar entradas de índice mesmo com <strong> ou outras tags
-      .replace(/<p>(.*?)(?:<strong>)?(\.{3,})\s*(\d+)(?:<\/strong>)?(.*?)<\/p>/g, (match, label, dots, page, suffix) => {
-        // Limpa o label e remove pontos residuais
-        const cleanLabel = label
-          .replace(/<\/strong>$/, '')
-          .replace(/^<strong>/, '')
-          .replace(/\.+$/, '')
-          .trim();
-          
-        const slug = this.slugify(cleanLabel);
+      .replace(/<\/table>/g, '</table></div>');
+    
+    // Captura entradas de índice de forma global, independente de estarem no mesmo <p>
+    // Procuramos o padrão de label + pontos + página
+    const entryRegex = /(?:<p>)?([^>\n<]+?)(?:<strong>)?(\.{3,})\s*(\d+)(?:<\/strong>)?(?:<\/p>)?/g;
+    
+    processedHtml = processedHtml.replace(entryRegex, (match, label, dots, page) => {
+      const cleanLabel = label
+        .replace(/<\/strong>$/, '')
+        .replace(/^<strong>/, '')
+        .replace(/\.+$/, '')
+        .trim();
         
-        return `
-          <a href="#${slug}" class="dotted-leader-link">
-            <div class="dotted-leader">
-              <span class="label"><strong>${cleanLabel}</strong></span>
-              <span class="dots"></span>
-              <span class="page">${page}</span>
-            </div>
-          </a>
-        `;
-      });
+      if (!cleanLabel || cleanLabel.length < 2) return match;
+
+      const slug = this.slugify(cleanLabel);
+      
+      return `
+        <a href="#${slug}" class="dotted-leader-link">
+          <div class="dotted-leader">
+            <span class="label"><strong>${cleanLabel}</strong></span>
+            <span class="dots"></span>
+            <span class="page">${page}</span>
+          </div>
+        </a>
+      `;
+    });
+
+    return processedHtml;
   }
 
   slugify(text) {
