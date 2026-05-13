@@ -19,8 +19,13 @@ class DocService {
         if (!response.ok) throw new Error('Falha ao carregar o manual');
         let text = await response.text();
         
-        // Pré-processamento: Garante que entradas de índice fiquem em parágrafos separados
-        // Procura padrão de pontos+número e garante que a próxima linha seja um parágrafo novo
+        // 1. Remoção de Ruído (Headers/Footers repetitivos)
+        text = text.replace(/“Um sistema financeiro saudável.*?País”\s*\d*/g, '');
+        text = text.replace(/!\[FEBRABAN logo\].*?\n/g, '');
+        text = text.replace(/Layout Padrão Febraban 240 posições V10.9 http:\/\/www.febraban.org.br/g, '');
+        text = text.replace(/page_\d+_image_\d+_v\d+\.jpg/g, ''); // Remove referências a imagens de logo
+
+        // 2. Pré-processamento: Garante que entradas de índice fiquem em parágrafos separados
         text = text.replace(/(\.{5,}\s*\d+\**)\s*\n([^\n#])/g, '$1\n\n$2');
         
         this.rawContent = text;
@@ -110,16 +115,29 @@ class DocService {
       .replace(/<\/table>/g, '</table></div>')
       // Regex robusto para capturar entradas de índice mesmo com <strong> ou outras tags
       .replace(/<p>(.*?)(?:<strong>)?(\.{3,})\s*(\d+)(?:<\/strong>)?(.*?)<\/p>/g, (match, label, dots, page, suffix) => {
-        // Limpa o label de tags de fechamento órfãs se o regex capturou algo estranho
-        const cleanLabel = label.replace(/<\/strong>$/, '').replace(/^<strong>/, '');
+        const cleanLabel = label.replace(/<\/strong>$/, '').replace(/^<strong>/, '').trim();
+        const slug = this.slugify(cleanLabel);
+        
         return `
-          <div class="dotted-leader">
-            <span class="label"><strong>${cleanLabel}</strong></span>
-            <span class="dots"></span>
-            <span class="page">${page}</span>
-          </div>
+          <a href="#${slug}" class="dotted-leader-link">
+            <div class="dotted-leader">
+              <span class="label"><strong>${cleanLabel}</strong></span>
+              <span class="dots"></span>
+              <span class="page">${page}</span>
+            </div>
+          </a>
         `;
       });
+  }
+
+  slugify(text) {
+    return text
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '') // Remove acentos
+      .replace(/[^\w\s-]/g, '')
+      .replace(/[\s_-]+/g, '-')
+      .replace(/^-+|-+$/g, '');
   }
 
   getRule(ruleId) {

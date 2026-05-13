@@ -189,3 +189,20 @@ body {
   min-width: 3ch;
   text-align: right;
 }
+
+.dotted-leader-link {
+  text-decoration: none !important;
+  color: inherit !important;
+  display: block;
+  transition: all 0.2s ease;
+  border-radius: 6px;
+}
+
+.dotted-leader-link:hover {
+  background: rgba(59, 130, 246, 0.08);
+  transform: translateX(4px);
+}
+
+.dotted-leader-link:hover .dots {
+  border-bottom-color: #60a5fa;
+}
