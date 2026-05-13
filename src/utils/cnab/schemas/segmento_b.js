@@ -36,11 +36,9 @@ export const CNAB_SCHEMA_SEGMENTO_B = {
       { name: "tipo_registro", ruleId: "G003", start: 8, end: 8, type: "N", label: "Tipo de Registro", default: "3" },
       { name: "numero_sequencial", ruleId: "G038", start: 9, end: 13, type: "N", label: "Nº Sequencial no Lote" },
       { name: "codigo_segmento", ruleId: "G039", start: 14, end: 14, type: "A", label: "Código Segmento", default: "B" },
-      { name: "uso_exclusivo_febraban_1", ruleId: "G004", start: 15, end: 17, type: "A", label: "Uso Exclusivo FEBRABAN/CNAB", default: " " },
-      // O campo 18-19 pode ser G100 (PIX) ou Tipo Inscrição (Standard)
-      // No schema base, vamos deixar como 'identificador_b' e a lógica dinâmica resolve
-      { name: "identificacao_entrada", ruleId: "G100", start: 18, end: 19, type: "N", label: "Identificador (Tipo Inscrição ou Iniciação Pix)" },
-      { name: "numero_inscricao_favorecido", ruleId: "G006", start: 20, end: 32, type: "N", label: "Nº de Inscrição do Favorecido" },
+      { name: "forma_iniciacao", ruleId: "G100", start: 15, end: 17, type: "A", label: "Forma de Iniciação", default: " " },
+      { name: "tipo_inscricao_favorecido", ruleId: "G005", start: 18, end: 18, type: "N", label: "Tipo de Inscrição do Favorecido" },
+      { name: "numero_inscricao_favorecido", ruleId: "G006", start: 19, end: 32, type: "N", label: "Nº de Inscrição do Favorecido" },
       // Os campos abaixo serão substituídos dinamicamente pelo engine.js
       { name: "informacoes_complementares_b", ruleId: "G101", start: 33, end: 226, type: "A", label: "Informações Complementares G101" },
       { name: "codigo_ug_centralizadora", ruleId: "P012", start: 227, end: 232, type: "N", label: "Código UG Centralizadora (SIAPE)" },

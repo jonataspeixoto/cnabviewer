@@ -1,5 +1,5 @@
-import { CNAB_SCHEMAS, CNAB_SEGMENTO_N_SUB_TYPES, CNAB_SEGMENTO_J52_SUB_TYPES, CNAB_SEGMENTO_B_SUB_TYPES } from './schemas';
-import { CNAB_RULES } from './rules';
+import { CNAB_SCHEMAS, CNAB_SEGMENTO_N_SUB_TYPES, CNAB_SEGMENTO_J52_SUB_TYPES, CNAB_SEGMENTO_B_SUB_TYPES } from './schemas.js';
+import { CNAB_RULES } from './rules.js';
 
 export const cnabEngine = {
   /**
@@ -107,7 +107,7 @@ export const cnabEngine = {
               if (["45", "47"].includes(formaLancamento)) {
                 subType = [...CNAB_SEGMENTO_B_SUB_TYPES.pix];
                 // Ajuste fino para G100 (Iniciação)
-                const g100 = line.substring(17, 19);
+                const g100 = line.substring(14, 17);
                 const chaveIdx = subType.findIndex(f => f.name === "chave_pix");
                 if (chaveIdx !== -1) {
                   if (g100 === "05") {

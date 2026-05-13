@@ -275,11 +275,17 @@ const CnabLineComponent = ({ index, raw, isSelected, focusedField, cursorOffset,
     const segmenter = new Intl.Segmenter('en', { granularity: 'grapheme' });
     const segments = Array.from(segmenter.segment(text)).map(s => s.segment);
 
-    return segments.map((char, i) => (
-      <span key={i} className={`cnab-char ${char === ' ' ? 'opacity-20' : ''}`}>
-        {char === ' ' && showWhitespace ? '·' : (char === ' ' ? '\u00A0' : char)}
-      </span>
-    ));
+    return segments.map((char, i) => {
+      const isCursor = isSelected && fieldName === focusedField && i === cursorOffset;
+      return (
+        <span 
+          key={i} 
+          className={`cnab-char ${char === ' ' ? 'opacity-20' : ''} ${isCursor ? 'bg-blue-500 text-white ring-1 ring-blue-400 z-10' : ''}`}
+        >
+          {char === ' ' && showWhitespace ? '·' : (char === ' ' ? '\u00A0' : char)}
+        </span>
+      );
+    });
   };
 
   const getBgColor = (type) => {
@@ -319,7 +325,7 @@ const CnabLineComponent = ({ index, raw, isSelected, focusedField, cursorOffset,
             relative flex-shrink-0 font-cnab transition-all h-7 flex items-center overflow-hidden cursor-text
             ${isFocused ? 'bg-blue-600/40 z-20 ring-2 ring-blue-400 shadow-xl' : 'hover:bg-slate-700/30'}
             ${isReserved ? 'bg-slate-800/20' : ''}
-            ${hasError && !isFocused ? 'bg-red-500/20' : ''}
+            ${hasError && !isFocused ? 'bg-red-500/20 ring-1 ring-red-500/50 animate-pulse' : ''}
             ${isDynamic ? 'bg-indigo-500/10 border-x border-dashed border-indigo-500/30' : ''}
           `}
           title={`${isDynamic ? '[CAMPO DINÂMICO] ' : ''}${field.label} (${field.start}-${field.end})${rule?.desc ? '\n' + rule.desc : ''}${optionsText}${hasError ? '\n\nERRO: ' + hasError : ''}`}

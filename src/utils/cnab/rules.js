@@ -1,4 +1,4 @@
-import { bankAlgorithms } from './validators/banks';
+import { bankAlgorithms } from './validators/banks.js';
 
 /**
  * Validadores Genéricos baseados nos tipos do Manual
