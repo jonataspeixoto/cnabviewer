@@ -236,5 +236,6 @@ export const CnabExplorer = () => {
         </div>
       </div>
     </div>
+    </div>
   );
 };
