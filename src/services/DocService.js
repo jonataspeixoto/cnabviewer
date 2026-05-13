@@ -17,7 +17,13 @@ class DocService {
       try {
         const response = await fetch('/docs/febraban-v109.md');
         if (!response.ok) throw new Error('Falha ao carregar o manual');
-        this.rawContent = await response.text();
+        let text = await response.text();
+        
+        // Pré-processamento: Garante que entradas de índice fiquem em parágrafos separados
+        // Procura padrão de pontos+número e garante que a próxima linha seja um parágrafo novo
+        text = text.replace(/(\.{5,}\s*\d+\**)\s*\n([^\n#])/g, '$1\n\n$2');
+        
+        this.rawContent = text;
         this.parse();
         this.isLoaded = true;
       } catch (error) {
@@ -102,10 +108,13 @@ class DocService {
     return html
       .replace(/<table>/g, '<div class="table-container"><table>')
       .replace(/<\/table>/g, '</table></div>')
-      .replace(/<p>(.*?)(\.{3,})\s*(\d+)<\/p>/g, (match, label, dots, page) => {
+      // Regex robusto para capturar entradas de índice mesmo com <strong> ou outras tags
+      .replace(/<p>(.*?)(?:<strong>)?(\.{3,})\s*(\d+)(?:<\/strong>)?(.*?)<\/p>/g, (match, label, dots, page, suffix) => {
+        // Limpa o label de tags de fechamento órfãs se o regex capturou algo estranho
+        const cleanLabel = label.replace(/<\/strong>$/, '').replace(/^<strong>/, '');
         return `
           <div class="dotted-leader">
-            <span class="label">${label}</span>
+            <span class="label"><strong>${cleanLabel}</strong></span>
             <span class="dots"></span>
             <span class="page">${page}</span>
           </div>

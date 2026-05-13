@@ -173,19 +173,7 @@ export const DocumentationPanel = ({ isOpen, onClose, initialRule, initialSectio
           </div>
           
           <div class="markdown-content">
-            ${parsedHtml
-              .replace(/<table>/g, '<div class="table-container"><table>')
-              .replace(/<\/table>/g, '</table></div>')
-              .replace(/<p>(.*?)(\.{3,})\s*(\d+)<\/p>/g, (match, label, dots, page) => {
-                return `
-                  <div class="dotted-leader">
-                    <span class="label">${label}</span>
-                    <span class="dots"></span>
-                    <span class="page">${page}</span>
-                  </div>
-                `;
-              })
-            }
+            ${docService.formatHtml(parsedHtml)}
           </div>
           
           <div class="footer-note">
