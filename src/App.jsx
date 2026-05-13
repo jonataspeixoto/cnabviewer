@@ -3,9 +3,11 @@ import { CnabExplorer } from './components/CnabExplorer';
 import { EditorPanel } from './components/EditorPanel';
 import { AuditPanel } from './components/AuditPanel';
 import { ContextBar } from './components/ContextBar';
+import { StatusBar } from './components/StatusBar';
 import { SaveConfirmationModal } from './components/SaveConfirmationModal';
+import { DocumentationPanel } from './components/DocumentationPanel';
 import { useCnabStore } from './store/useCnabStore';
-import { Undo2, Redo2, Download, FileJson, Layers, X } from 'lucide-react';
+import { Undo2, Redo2, Download, FileJson, Layers, X, BookOpen } from 'lucide-react';
 
 function App() {
   // Seletores Granulares para evitar renderizações globais inúteis
@@ -13,6 +15,11 @@ function App() {
   const historyLen = useCnabStore(state => state.history.length);
   const futureLen = useCnabStore(state => state.future.length);
   const linesCount = useCnabStore(state => state.rawLines.length);
+  const isDocOpen = useCnabStore(state => state.isDocOpen);
+  const focusedRule = useCnabStore(state => state.focusedRule);
+  const focusedSection = useCnabStore(state => state.focusedSection);
+  const openDoc = useCnabStore(state => state.openDoc);
+  const closeDoc = useCnabStore(state => state.closeDoc);
   
   const toggleVisualSetting = useCnabStore(state => state.toggleVisualSetting);
   const undo = useCnabStore(state => state.undo);
@@ -55,8 +62,10 @@ function App() {
 
   const [editorWidth, setEditorWidth] = useState(400);
   const [auditWidth, setAuditWidth] = useState(320);
+  const [docWidth, setDocWidth] = useState(450);
   const [isResizingEditor, setIsResizingEditor] = useState(false);
   const [isResizingAudit, setIsResizingAudit] = useState(false);
+  const [isResizingDoc, setIsResizingDoc] = useState(false);
 
   const startResizingEditor = useCallback((e) => {
     e.preventDefault();
@@ -71,6 +80,7 @@ function App() {
   const stopResizing = useCallback(() => {
     setIsResizingEditor(false);
     setIsResizingAudit(false);
+    setIsResizingDoc(false);
   }, []);
 
   const resize = useCallback((e) => {
@@ -83,10 +93,14 @@ function App() {
       const newWidth = window.innerWidth - e.clientX;
       if (newWidth > 150 && newWidth < 600) setAuditWidth(newWidth);
     }
-  }, [isResizingEditor, isResizingAudit, auditWidth, isAuditCollapsed]);
+    if (isResizingDoc) {
+      const newWidth = window.innerWidth - e.clientX;
+      if (newWidth > 300 && newWidth < 900) setDocWidth(newWidth);
+    }
+  }, [isResizingEditor, isResizingAudit, isResizingDoc, auditWidth, isAuditCollapsed]);
 
   useEffect(() => {
-    if (isResizingEditor || isResizingAudit) {
+    if (isResizingEditor || isResizingAudit || isResizingDoc) {
       window.addEventListener('mousemove', resize);
       window.addEventListener('mouseup', stopResizing);
     }
@@ -135,6 +149,15 @@ function App() {
 
         {/* Action Center */}
         <div className="flex items-center gap-3">
+          {/* Documentation Button */}
+          <button 
+            onClick={() => openDoc()}
+            className="flex items-center gap-2 px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg transition-all border border-slate-700 text-[10px] font-bold uppercase tracking-wider group"
+          >
+            <BookOpen className="w-3.5 h-3.5 text-blue-400 group-hover:scale-110 transition-transform" />
+            Manual
+          </button>
+
           {/* History Group */}
           <div className="flex items-center bg-slate-950/50 p-1 rounded-lg border border-slate-800 mr-2">
             <button 
@@ -229,11 +252,20 @@ function App() {
           )}
         </div>
       </main>
+      <StatusBar />
       <SaveConfirmationModal 
         isOpen={showConfirmModal}
         onClose={() => setShowConfirmModal(false)}
         onConfirm={handleConfirmClose}
         onDiscard={handleDiscardClose}
+      />
+      <DocumentationPanel 
+        isOpen={isDocOpen} 
+        onClose={closeDoc} 
+        initialRule={focusedRule}
+        initialSection={focusedSection}
+        width={docWidth}
+        onResizeStart={() => setIsResizingDoc(true)}
       />
     </div>
   );

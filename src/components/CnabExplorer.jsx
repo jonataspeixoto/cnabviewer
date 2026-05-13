@@ -23,25 +23,43 @@ export const CnabExplorer = () => {
   const [containerHeight, setContainerHeight] = useState(0);
   const containerRef = useRef(null);
 
-  // Auto-scroll quando a linha selecionada muda ou há um comando de jump
+  // Auto-scroll inteligente: Centraliza em pulos (audit), mas preserva posição em cliques manuais
+  const lastJumpRef = useRef(lastJump);
+  
   useEffect(() => {
     if (selectedLineIndex !== null && containerRef.current) {
       const scrollContainer = containerRef.current;
       const targetScroll = selectedLineIndex * ROW_HEIGHT;
       const currentScroll = scrollContainer.scrollTop;
+      const viewportHeight = scrollContainer.clientHeight;
       
-      // Centraliza a linha na tela para melhor visibilidade
-      const centerScroll = targetScroll - (containerHeight / 2) + (ROW_HEIGHT / 2);
-      
-      // Só scrolla suavemente se estiver longe, senão faz imediato para performance
-      const distance = Math.abs(currentScroll - centerScroll);
-      
-      scrollContainer.scrollTo({
-        top: Math.max(0, centerScroll),
-        behavior: distance > 200 ? 'smooth' : 'auto'
-      });
+      const isJump = lastJump !== lastJumpRef.current;
+      lastJumpRef.current = lastJump;
+
+      // Se for um jump (audit), sempre centraliza
+      if (isJump) {
+        const centerScroll = targetScroll - (viewportHeight / 2) + (ROW_HEIGHT / 2);
+        scrollContainer.scrollTo({
+          top: Math.max(0, centerScroll),
+          behavior: 'smooth'
+        });
+        return;
+      }
+
+      // Se for seleção manual, só scrolla se estiver fora do viewport (com margem)
+      const margin = ROW_HEIGHT * 2;
+      const isAbove = targetScroll < currentScroll + margin;
+      const isBelow = targetScroll > currentScroll + viewportHeight - margin;
+
+      if (isAbove || isBelow) {
+        const centerScroll = targetScroll - (viewportHeight / 2) + (ROW_HEIGHT / 2);
+        scrollContainer.scrollTo({
+          top: Math.max(0, centerScroll),
+          behavior: 'auto'
+        });
+      }
     }
-  }, [selectedLineIndex, lastJump, containerHeight]);
+  }, [selectedLineIndex, lastJump]); // Removemos containerHeight para evitar jitter em resize
 
   useEffect(() => {
     const handleResize = () => {
@@ -52,7 +70,7 @@ export const CnabExplorer = () => {
     handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, [rawLines]);
+  }, [rawLines.length]); // Somente recalcula se o número de linhas mudar
 
   const handleScroll = (e) => {
     setScrollTop(e.target.scrollTop);

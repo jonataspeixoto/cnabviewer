@@ -2,7 +2,7 @@ import React, { useMemo, useState, useEffect, useRef } from 'react';
 import { useCnabStore } from '../store/useCnabStore';
 import { CNAB_RULES } from '../utils/cnab/rules';
 import { CNAB_SCHEMAS } from '../utils/cnab/schemas';
-import { AlertCircle, CheckCircle2, ChevronRight, XCircle, Settings, ClipboardList, Filter, Search } from 'lucide-react';
+import { AlertCircle, CheckCircle2, ChevronRight, XCircle, Settings, ClipboardList, Filter, Search, BookOpen } from 'lucide-react';
 import AuditWorker from '../utils/cnab/audit.worker.js?worker';
 
 export const AuditPanel = ({ onMinimize }) => {
@@ -243,6 +243,18 @@ export const AuditPanel = ({ onMinimize }) => {
                           <p className="text-[10px] text-slate-500 leading-tight line-clamp-2 italic">{rule.desc}</p>
                         )}
                       </div>
+                      
+                      {/* Documentation Button */}
+                      <button 
+                        onMouseDown={(e) => {
+                          e.stopPropagation();
+                          useCnabStore.getState().openDoc(id);
+                        }}
+                        className="p-2 hover:bg-blue-500/10 rounded-md text-slate-600 hover:text-blue-400 transition-all opacity-0 group-hover:opacity-100"
+                        title="Ver no Manual"
+                      >
+                        <BookOpen className="w-4 h-4" />
+                      </button>
                     </div>
                   );
                 })}

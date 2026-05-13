@@ -54,6 +54,27 @@ export const EditorPanel = ({ onMinimize }) => {
     setFormData({ ...parsed, _raw: value });
   };
 
+  const setCursorOffset = useCnabStore(state => state.setCursorOffset);
+
+  const handleCursorMove = (e) => {
+    const codeUnitPos = e.target.selectionStart;
+    const text = e.target.value || "";
+    
+    // Converte para grafemas para a StatusBar
+    const segmenter = new Intl.Segmenter('en', { granularity: 'grapheme' });
+    const segments = Array.from(segmenter.segment(text));
+    
+    let graphemeCount = 0;
+    let currentCodeUnit = 0;
+    for (const segment of segments) {
+      if (currentCodeUnit >= codeUnitPos) break;
+      currentCodeUnit += segment.segment.length;
+      graphemeCount++;
+    }
+    
+    setCursorOffset(graphemeCount);
+  };
+
   const handleSave = () => {
     updateLine(selectedLineIndex, formData);
   };
@@ -62,7 +83,7 @@ export const EditorPanel = ({ onMinimize }) => {
   const errorCount = Object.keys(errors).length;
 
   return (
-    <div className="w-full h-full bg-slate-900/50 flex flex-col overflow-hidden">
+    <div className="w-full h-full bg-slate-900/50 flex flex-col overflow-hidden" data-editor-panel="true">
       <div className="p-4 border-b border-slate-800 bg-slate-900/80 backdrop-blur-md flex items-center justify-between">
         <div>
           <h2 className="text-sm font-bold text-white uppercase tracking-wider">
@@ -113,7 +134,16 @@ export const EditorPanel = ({ onMinimize }) => {
               </div>
               <textarea 
                 value={formData._raw ?? rawLines[selectedLineIndex]}
-                onChange={(e) => handleRawLineChange(e.target.value)}
+                onFocus={(e) => {
+                  setFocusedField(null);
+                  handleCursorMove(e);
+                }}
+                onChange={(e) => {
+                  handleRawLineChange(e.target.value);
+                  handleCursorMove(e);
+                }}
+                onClick={handleCursorMove}
+                onKeyUp={handleCursorMove}
                 className="w-full h-20 bg-slate-900 border border-slate-700 rounded px-3 py-2 text-xs text-slate-200 outline-none focus:border-blue-500 font-mono resize-none leading-relaxed"
                 spellCheck={false}
               />
@@ -181,7 +211,12 @@ export const EditorPanel = ({ onMinimize }) => {
                         value={formData[field.name] || ''}
                         onFocus={() => setFocusedField(field.name)}
                         onBlur={handleSave}
-                        onChange={(e) => handleChange(field.name, e.target.value)}
+                        onChange={(e) => {
+                          handleChange(field.name, e.target.value);
+                          handleCursorMove(e);
+                        }}
+                        onClick={handleCursorMove}
+                        onKeyUp={handleCursorMove}
                         className={`w-full bg-slate-900 border ${isFocused ? 'border-blue-500 ring-1 ring-blue-500/20' : hasError ? 'border-red-500/50 focus:border-red-500' : 'border-slate-700 focus:border-blue-500'} rounded px-3 py-1.5 text-xs text-slate-200 outline-none transition-all font-mono`}
                       />
                     )}

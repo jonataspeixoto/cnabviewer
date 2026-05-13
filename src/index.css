@@ -109,3 +109,52 @@ body {
 .animate-error {
   animation: pulse-red 2s infinite;
 }
+
+/* Manual Documentation Styles */
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.8rem;
+  background: rgba(15, 23, 42, 0.5);
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.prose th {
+  background: rgba(30, 41, 59, 0.8);
+  color: #94a3b8;
+  font-weight: 600;
+  text-align: left;
+  padding: 0.75rem;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.prose td {
+  padding: 0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  color: #cbd5e1;
+  vertical-align: top;
+}
+
+.prose tr:hover {
+  background: rgba(59, 130, 246, 0.05);
+}
+
+.prose strong {
+  color: #f1f5f9;
+}
+
+.prose em {
+  color: #94a3b8;
+  font-style: italic;
+}
+
+.prose br {
+  display: block;
+  margin-bottom: 0.25rem;
+  content: "";
+}

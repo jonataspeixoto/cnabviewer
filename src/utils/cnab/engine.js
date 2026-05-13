@@ -1,4 +1,4 @@
-import { CNAB_SCHEMAS, CNAB_SEGMENTO_N_SUB_TYPES, CNAB_SEGMENTO_J52_SUB_TYPES } from './schemas';
+import { CNAB_SCHEMAS, CNAB_SEGMENTO_N_SUB_TYPES, CNAB_SEGMENTO_J52_SUB_TYPES, CNAB_SEGMENTO_B_SUB_TYPES } from './schemas';
 import { CNAB_RULES } from './rules';
 
 export const cnabEngine = {
@@ -39,7 +39,8 @@ export const cnabEngine = {
           // Substitui todos os campos de identificação (a partir da pos 20) pelo sub-layout PIX
           const startIdx = fields.findIndex(f => f.start >= 20);
           if (startIdx !== -1) {
-            fields.splice(startIdx, fields.length - startIdx, ...subType);
+            const dynamicFields = subType.map(f => ({ ...f, isDynamic: true }));
+            fields.splice(startIdx, fields.length - startIdx, ...dynamicFields);
           }
           return { ...baseSchema, fields };
         }
@@ -72,7 +73,8 @@ export const cnabEngine = {
           const fields = [...baseSchema.fields];
           const infoIdx = fields.findIndex(f => f.name === "informacoes_complementares");
           if (infoIdx !== -1) {
-            fields.splice(infoIdx, 1, ...subType);
+            const dynamicFields = subType.map(f => ({ ...f, isDynamic: true }));
+            fields.splice(infoIdx, 1, ...dynamicFields);
           }
           return { ...baseSchema, fields };
         }
@@ -91,6 +93,44 @@ export const cnabEngine = {
         "U": CNAB_SCHEMAS.segmento_u,
         "S": CNAB_SCHEMAS.segmento_s
       };
+
+      if (codSegmento === 'B') {
+        const baseSchema = CNAB_SCHEMAS.segmento_b;
+        let subType = CNAB_SEGMENTO_B_SUB_TYPES.standard; // Default
+        
+        if (rawLines.length > 0 && index >= 0) {
+          const currentLote = line.substring(3, 7);
+          for (let i = index; i >= 0; i--) {
+            const l = rawLines[i];
+            if (l.substring(3, 7) === currentLote && l.substring(7, 8) === "1") {
+              const formaLancamento = l.substring(11, 13);
+              if (["45", "47"].includes(formaLancamento)) {
+                subType = [...CNAB_SEGMENTO_B_SUB_TYPES.pix];
+                // Ajuste fino para G100 (Iniciação)
+                const g100 = line.substring(17, 19);
+                const chaveIdx = subType.findIndex(f => f.name === "chave_pix");
+                if (chaveIdx !== -1) {
+                  if (g100 === "05") {
+                    subType[chaveIdx] = { ...subType[chaveIdx], label: "Tipo de Conta do Recebedor" };
+                  } else if (["01", "02", "04"].includes(g100)) {
+                    subType[chaveIdx] = { ...subType[chaveIdx], label: "Chave Pix (Email/Telefone/Aleatória)" };
+                  }
+                }
+              }
+              break;
+            }
+          }
+        }
+
+        const fields = [...baseSchema.fields];
+        const infoIdx = fields.findIndex(f => f.name === "informacoes_complementares_b");
+        if (infoIdx !== -1) {
+          const dynamicFields = subType.map(f => ({ ...f, isDynamic: true }));
+          fields.splice(infoIdx, 1, ...dynamicFields);
+        }
+        return { ...baseSchema, fields };
+      }
+
       return segMap[codSegmento] || null;
     }
     return null;
@@ -115,15 +155,28 @@ export const cnabEngine = {
     schema.fields.forEach(field => {
       const val = line.substring(field.start - 1, field.end);
       result[field.name] = val;
+
+      // Validação básica de tipo
+      if (field.type === "N") {
+        if (!/^\d+$/.test(val)) {
+          result._metadata.errors[field.name] = "Campo numérico contém caracteres inválidos (apenas 0-9 permitidos)";
+        }
+      } else if (field.type === "A") {
+        // Apenas letras maiúsculas/minúsculas, números e espaços
+        if (!/^[A-Za-z0-9\s]*$/.test(val)) {
+          result._metadata.errors[field.name] = "Campo alfanumérico contém caracteres inválidos (apenas letras, números e espaços permitidos)";
+        }
+      }
     });
 
-    // Segunda passada: Validação com contexto total da linha
+    // Segunda passada: Validação de regras específicas
     schema.fields.forEach(field => {
       const fieldId = `${schema.id}:${field.name}`;
       const isDisabled = disabledFields.includes(fieldId);
       const ruleName = field.rule || field.ruleId;
 
-      if (!isDisabled && ruleName && CNAB_RULES[ruleName] && activeRules[ruleName] !== false) {
+      // Só executa regra se não houver erro de tipo básico já reportado (para não sobrecarregar)
+      if (!result._metadata.errors[field.name] && !isDisabled && ruleName && CNAB_RULES[ruleName] && activeRules[ruleName] !== false) {
         const error = CNAB_RULES[ruleName].validate(result[field.name], result);
         if (error !== true) {
           result._metadata.errors[field.name] = error;

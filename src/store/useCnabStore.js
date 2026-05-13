@@ -28,7 +28,15 @@ export const useCnabStore = create(
         showWhitespace: true,
       },
 
+      // Documentação
+      isDocOpen: false,
+      focusedRule: null,
+      focusedSection: null,
+
       // Actions
+      openDoc: (ruleId = null, section = null) => set({ isDocOpen: true, focusedRule: ruleId, focusedSection: section }),
+      closeDoc: () => set({ isDocOpen: false, focusedRule: null, focusedSection: null }),
+
       setRawLines: (lines, name) => {
         const filteredLines = Array.isArray(lines) ? lines.filter(l => typeof l === 'string') : [];
         set({ rawLines: filteredLines, fileName: name, selectedLineIndex: null, history: [], future: [] });
@@ -54,6 +62,8 @@ export const useCnabStore = create(
           isEditorCollapsed: state.visualSettings.autoExpandOnFocus ? false : state.visualSettings.isEditorCollapsed 
         }
       })),
+
+      setCursorOffset: (offset) => set({ cursorOffset: offset }),
 
       focusField: (lineIndex, fieldName, offset = 0) => set((state) => {
         const needsExpand = state.visualSettings.autoExpandOnFocus && state.visualSettings.isEditorCollapsed;

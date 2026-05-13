@@ -1,7 +1,7 @@
 import { CNAB_SCHEMAS_ARQUIVO } from './schemas/arquivo';
 import { CNAB_SCHEMAS_LOTE } from './schemas/lote';
 import { CNAB_SCHEMA_SEGMENTO_A } from './schemas/segmento_a';
-import { CNAB_SCHEMA_SEGMENTO_B } from './schemas/segmento_b';
+import { CNAB_SCHEMA_SEGMENTO_B, CNAB_SEGMENTO_B_SUB_TYPES } from './schemas/segmento_b';
 import { CNAB_SCHEMA_SEGMENTO_J, CNAB_SEGMENTO_J52_SUB_TYPES } from './schemas/segmento_j';
 import { CNAB_SCHEMA_SEGMENTO_P } from './schemas/segmento_p';
 import { CNAB_SCHEMA_SEGMENTO_Q } from './schemas/segmento_q';
@@ -32,4 +32,4 @@ export const CNAB_SCHEMAS = {
   ...CNAB_SCHEMA_SEGMENTO_O
 };
 
-export { CNAB_SEGMENTO_N_SUB_TYPES, CNAB_SEGMENTO_J52_SUB_TYPES };
+export { CNAB_SEGMENTO_N_SUB_TYPES, CNAB_SEGMENTO_J52_SUB_TYPES, CNAB_SEGMENTO_B_SUB_TYPES };

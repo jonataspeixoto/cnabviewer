@@ -28,8 +28,67 @@ const validators = {
   },
   amount: (val) => /^\d+$/.test(val) || "Valor deve ser numérico (centavos)",
   dynamicTaxId: (val) => {
-    const clean = val.replace(/\D/g, '');
-    return (clean.length === 11 || clean.length === 14 || clean.length === 0) || "Tamanho inválido (CPF:11, CNPJ:14)";
+    if (!val || val.trim() === "" || /^[0 ]+$/.test(val)) return true;
+    
+    const raw = val.trim();
+    
+    // Se o campo tem 15 caracteres, o primeiro DEVE ser '0'
+    if (raw.length === 15 && raw[0] !== '0') {
+      return "Erro: Em campo de 15 posições, a 1ª posição deve ser zero";
+    }
+
+    // Pega o conteúdo útil (removendo o preenchimento de zeros à esquerda se for campo de 15)
+    const cleanStr = raw.length === 15 ? raw.substring(1) : raw;
+    const significant = cleanStr.replace(/^0+/, '');
+
+    const validateCPF = (cpf) => {
+      const s = cpf.padStart(11, '0');
+      if (s.length !== 11 || /^(\d)\1+$/.test(s) || /\D/.test(s)) return false;
+      let sum = 0, rest;
+      for (let i = 1; i <= 9; i++) sum += parseInt(s.substring(i-1, i)) * (11 - i);
+      rest = (sum * 10) % 11;
+      if (rest === 10 || rest === 11) rest = 0;
+      if (rest !== parseInt(s.substring(9, 10))) return false;
+      sum = 0;
+      for (let i = 1; i <= 10; i++) sum += parseInt(s.substring(i-1, i)) * (12 - i);
+      rest = (sum * 10) % 11;
+      if (rest === 10 || rest === 11) rest = 0;
+      return rest === parseInt(s.substring(10, 11));
+    };
+
+    const validateCNPJ = (cnpj) => {
+      const s = cnpj.padStart(14, '0').toUpperCase();
+      if (s.length !== 14) return false;
+      
+      const getVal = (c) => {
+        const code = c.charCodeAt(0);
+        return (code >= 65 && code <= 90) ? (code - 55) : parseInt(c);
+      };
+
+      const weights1 = [5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
+      const weights2 = [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
+
+      let sum = 0;
+      for (let i = 0; i < 12; i++) sum += getVal(s[i]) * weights1[i];
+      let res = sum % 11;
+      let dv1 = res < 2 ? 0 : 11 - res;
+      if (parseInt(s[12]) !== dv1) return false;
+
+      sum = 0;
+      for (let i = 0; i < 13; i++) sum += getVal(s[i]) * weights2[i];
+      res = sum % 11;
+      let dv2 = res < 2 ? 0 : 11 - res;
+      return parseInt(s[13]) === dv2;
+    };
+
+    const hasAlpha = /[A-Z]/i.test(significant);
+    if (significant.length > 11 || hasAlpha) {
+      return validateCNPJ(cleanStr.slice(-14)) || "CNPJ Inválido (incluindo Alfanumérico)";
+    } else if (significant.length > 0) {
+      return validateCPF(significant) || "CPF Inválido";
+    }
+    
+    return true;
   },
   filler: () => true
 };

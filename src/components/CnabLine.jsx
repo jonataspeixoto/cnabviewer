@@ -1,5 +1,7 @@
 import React, { useMemo, useState, useCallback, useEffect, useRef, memo } from 'react';
+import { BookOpen } from 'lucide-react';
 import { useCnabStore } from '../store/useCnabStore';
+import { CNAB_RULES } from '../utils/cnab/rules';
 import { cnabEngine } from '../utils/cnab/engine';
 
 const CnabLineComponent = ({ index, raw, isSelected, focusedField, cursorOffset, onSelect }) => {
@@ -25,7 +27,11 @@ const CnabLineComponent = ({ index, raw, isSelected, focusedField, cursorOffset,
     if (focusedField && isSelected && inputRef.current) {
       const timer = setTimeout(() => {
         if (inputRef.current) {
-          inputRef.current.focus();
+          // Só rouba o foco se o foco atual NÃO estiver no painel de edição
+          const isFocusInEditor = document.activeElement?.closest('[data-editor-panel="true"]');
+          if (!isFocusInEditor) {
+            inputRef.current.focus();
+          }
           // Mapeia o offset de grafemas para o offset de code units da string
           const segmenter = new Intl.Segmenter('en', { granularity: 'grapheme' });
           const segments = Array.from(segmenter.segment(rawRef.current || ''));
@@ -133,6 +139,12 @@ const CnabLineComponent = ({ index, raw, isSelected, focusedField, cursorOffset,
 
   const handleFieldClick = useCallback((e, fieldName, currentVal) => {
     e.stopPropagation();
+    
+    // Se já estivermos editando ESTE campo, não fazemos nada (deixamos o handleCursorMove agir)
+    if (isSelected && focusedField === fieldName && localVal !== null) {
+      return;
+    }
+
     onSelect(index);
     
     let charElement = e.target.closest('.cnab-char');
@@ -160,14 +172,38 @@ const CnabLineComponent = ({ index, raw, isSelected, focusedField, cursorOffset,
     setLocalVal(currentVal);
   }, [index, onSelect, focusFieldAction, focusedField, localVal, commitChange]);
 
+  const setCursorOffset = useCnabStore(state => state.setCursorOffset);
+  
+  const handleCursorMove = useCallback((e) => {
+    e.stopPropagation(); // Evita que o clique no input suba para o container do campo
+    const codeUnitPos = e.target.selectionStart;
+    const text = e.target.value;
+    
+    // Converte code units (browser) para contagem de grafemas (StatusBar/CNAB)
+    const segmenter = new Intl.Segmenter('en', { granularity: 'grapheme' });
+    const segments = Array.from(segmenter.segment(text));
+    
+    let graphemeCount = 0;
+    let currentCodeUnit = 0;
+    for (const segment of segments) {
+      if (currentCodeUnit >= codeUnitPos) break;
+      currentCodeUnit += segment.segment.length;
+      graphemeCount++;
+    }
+    
+    setCursorOffset(graphemeCount);
+  }, [setCursorOffset]);
+
   const handleInputChange = useCallback((e) => {
+    e.stopPropagation();
     const val = e.target.value;
     const start = e.target.selectionStart;
     const end = e.target.selectionEnd;
     
     cursorRef.current = { start, end };
     setLocalVal(val);
-  }, []);
+    handleCursorMove(e);
+  }, [handleCursorMove]);
 
 
   const handleKeyDown = useCallback((e, idx, fields) => {
@@ -263,6 +299,12 @@ const CnabLineComponent = ({ index, raw, isSelected, focusedField, cursorOffset,
       const isReserved = field.name.includes('uso_exclusivo') || field.name === 'filler';
       const hasError = errors[field.name];
       const charCount = field.end - field.start + 1;
+      
+      const rule = CNAB_RULES[field.rule || field.ruleId];
+      const options = field.options || rule?.options;
+      const optionsText = options ? `\n\nValores Válidos:\n${options.map(o => `• ${o.value}: ${o.label}`).join('\n')}` : '';
+
+      const isDynamic = field.isDynamic;
 
       return (
         <div
@@ -278,8 +320,9 @@ const CnabLineComponent = ({ index, raw, isSelected, focusedField, cursorOffset,
             ${isFocused ? 'bg-blue-600/40 z-20 ring-2 ring-blue-400 shadow-xl' : 'hover:bg-slate-700/30'}
             ${isReserved ? 'bg-slate-800/20' : ''}
             ${hasError && !isFocused ? 'bg-red-500/20' : ''}
+            ${isDynamic ? 'bg-indigo-500/10 border-x border-dashed border-indigo-500/30' : ''}
           `}
-          title={`${field.label} (${field.start}-${field.end})${hasError ? ': ' + hasError : ''}`}
+          title={`${isDynamic ? '[CAMPO DINÂMICO] ' : ''}${field.label} (${field.start}-${field.end})${rule?.desc ? '\n' + rule.desc : ''}${optionsText}${hasError ? '\n\nERRO: ' + hasError : ''}`}
         >
           {isFocused ? (
             <div className="relative w-full h-full overflow-hidden">
@@ -308,14 +351,53 @@ const CnabLineComponent = ({ index, raw, isSelected, focusedField, cursorOffset,
                 maxLength={charCount}
                 value={localVal !== null ? localVal : val}
                 onChange={handleInputChange}
+                onClick={handleCursorMove}
+                onKeyUp={handleCursorMove}
                 onBlur={() => {
                   commitChange();
                   setLocalVal(null);
                   focusFieldAction(index, null);
                 }}
                 onKeyDown={(e) => handleKeyDown(e, idx, fields)}
-                onClick={(e) => e.stopPropagation()}
               />
+
+              {/* Suggestions Popover */}
+              {options && options.length > 0 && (
+                <div className="absolute top-full left-0 mt-1 min-w-[200px] max-h-48 bg-slate-900/95 backdrop-blur-xl border border-slate-700 rounded-lg shadow-2xl z-50 overflow-y-auto custom-scrollbar p-1 animate-in fade-in slide-in-from-top-1 duration-200">
+                  <div className="px-2 py-1.5 border-b border-slate-800 mb-1 flex items-center justify-between">
+                    <span className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Sugestões de Valores</span>
+                    <button 
+                      onMouseDown={(e) => {
+                        e.preventDefault();
+                        useCnabStore.getState().openDoc(field.rule || field.ruleId);
+                      }}
+                      className="p-1 hover:bg-blue-500/10 rounded text-blue-400/60 hover:text-blue-400 transition-colors"
+                      title="Ver no Manual"
+                    >
+                      <BookOpen className="w-3 h-3" />
+                    </button>
+                  </div>
+                  {options.map((opt) => (
+                    <button
+                      key={opt.value}
+                      onMouseDown={(e) => {
+                        e.preventDefault(); // Evita perder o foco do input
+                        setLocalVal(opt.value);
+                        // Força o commit imediato ou deixa para o blur
+                      }}
+                      className="w-full text-left px-2 py-1.5 hover:bg-blue-600/20 rounded flex flex-col gap-0.5 group transition-colors"
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className="text-[11px] font-bold text-blue-400 group-hover:text-blue-300 font-mono">{opt.value}</span>
+                        {String(localVal || val).trim() === String(opt.value) && (
+                          <div className="w-1.5 h-1.5 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.6)]" />
+                        )}
+                      </div>
+                      <span className="text-[10px] text-slate-400 leading-tight">{opt.label}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
           ) : (
             <>
@@ -374,13 +456,14 @@ const CnabLineComponent = ({ index, raw, isSelected, focusedField, cursorOffset,
               spellCheck="false"
               value={localVal !== null ? localVal : extraVal}
               onChange={handleInputChange}
+              onClick={handleCursorMove}
+              onKeyUp={handleCursorMove}
               onBlur={() => {
                 commitChange();
                 setLocalVal(null);
                 focusFieldAction(index, null);
               }}
               onKeyDown={(e) => handleKeyDown(e, fields.length, fields)}
-              onClick={(e) => e.stopPropagation()}
               placeholder="Extras..."
             />
           </div>
