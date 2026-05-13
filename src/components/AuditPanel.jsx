@@ -11,8 +11,7 @@ export const AuditPanel = ({ onMinimize }) => {
   const disabledFields = useCnabStore(state => state.disabledFields);
   const toggleFieldValidation = useCnabStore(state => state.toggleFieldValidation);
   const toggleRule = useCnabStore(state => state.toggleRule);
-  const selectLine = useCnabStore(state => state.selectLine);
-  const setFocusedField = useCnabStore(state => state.setFocusedField);
+  const jumpToLine = useCnabStore(state => state.jumpToLine);
   const setBulkRules = useCnabStore(state => state.setBulkRules);
   
   const currentWorker = useRef(null);
@@ -83,10 +82,7 @@ export const AuditPanel = ({ onMinimize }) => {
   const validationCount = errors.filter(e => e.type === 'validation').length;
 
   const handleJumpToError = (err) => {
-    selectLine(err.lineIndex);
-    if (err.fieldName !== '_line') {
-      setFocusedField(err.fieldName);
-    }
+    jumpToLine(err.lineIndex, err.fieldName !== '_line' ? err.fieldName : null);
   };
 
   return (

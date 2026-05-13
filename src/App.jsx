@@ -3,8 +3,9 @@ import { CnabExplorer } from './components/CnabExplorer';
 import { EditorPanel } from './components/EditorPanel';
 import { AuditPanel } from './components/AuditPanel';
 import { ContextBar } from './components/ContextBar';
+import { SaveConfirmationModal } from './components/SaveConfirmationModal';
 import { useCnabStore } from './store/useCnabStore';
-import { Undo2, Redo2, Download, FileJson, Layers } from 'lucide-react';
+import { Undo2, Redo2, Download, FileJson, Layers, X } from 'lucide-react';
 
 function App() {
   // Seletores Granulares para evitar renderizações globais inúteis
@@ -19,8 +20,36 @@ function App() {
   const setRawLines = useCnabStore(state => state.setRawLines);
   const exportToRem = useCnabStore(state => state.exportToRem);
   const exportToJson = useCnabStore(state => state.exportToJson);
-  const isEditorCollapsed = useCnabStore(state => state.visualSettings.isEditorCollapsed);
-  const isAuditCollapsed = useCnabStore(state => state.visualSettings.isAuditCollapsed);
+  const { isEditorCollapsed, isAuditCollapsed } = useCnabStore(state => state.visualSettings);
+  const resetProject = useCnabStore(state => state.resetProject);
+  
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  
+  const handleNewFile = useCallback(() => {
+    if (historyLen > 0) {
+      setShowConfirmModal(true);
+    } else {
+      resetProject();
+    }
+  }, [historyLen, resetProject]);
+
+  const handleConfirmClose = useCallback(() => {
+    // Tenta fazer o download
+    try {
+      exportToRem();
+      // Se chegou aqui sem erro, assumimos que o download foi disparado e podemos apagar
+      resetProject();
+      setShowConfirmModal(false);
+    } catch (err) {
+      console.error("Falha no download:", err);
+      alert("Erro ao gerar arquivo para download. Tente novamente.");
+    }
+  }, [exportToRem, resetProject]);
+
+  const handleDiscardClose = useCallback(() => {
+    resetProject();
+    setShowConfirmModal(false);
+  }, [resetProject]);
 
   // console.log(`[RENDER] App shell: file=${fileName} lines=${linesCount} undo=${historyLen}`);
 
@@ -85,12 +114,21 @@ function App() {
 
           {/* File Info */}
           {fileName && (
-            <div className="h-10 px-4 flex flex-col justify-center border-l border-slate-800">
-              <div className="text-[9px] text-slate-500 font-bold uppercase tracking-tighter mb-0.5">Arquivo Atual</div>
-              <div className="flex items-center gap-2">
-                <span className="text-xs font-medium text-slate-300 truncate max-w-[240px]">{fileName}</span>
-                <span className="px-1.5 py-0.5 rounded bg-blue-500/10 text-[9px] font-bold text-blue-400 border border-blue-500/20">{linesCount} REGISTROS</span>
+            <div className="h-10 px-4 flex items-center border-l border-slate-800 gap-4">
+              <div className="flex flex-col justify-center">
+                <div className="text-[9px] text-slate-500 font-bold uppercase tracking-tighter mb-0.5">Arquivo Atual</div>
+                <div className="flex items-center gap-2">
+                  <span className="text-xs font-medium text-slate-300 truncate max-w-[240px]">{fileName}</span>
+                  <span className="px-1.5 py-0.5 rounded bg-blue-500/10 text-[9px] font-bold text-blue-400 border border-blue-500/20">{linesCount} REGISTROS</span>
+                </div>
               </div>
+              <button 
+                onClick={handleNewFile}
+                className="p-2 rounded-lg hover:bg-red-500/10 text-slate-500 hover:text-red-400 transition-all"
+                title="Fechar arquivo e iniciar novo"
+              >
+                <X className="w-4 h-4" />
+              </button>
             </div>
           )}
         </div>
@@ -191,6 +229,12 @@ function App() {
           )}
         </div>
       </main>
+      <SaveConfirmationModal 
+        isOpen={showConfirmModal}
+        onClose={() => setShowConfirmModal(false)}
+        onConfirm={handleConfirmClose}
+        onDiscard={handleDiscardClose}
+      />
     </div>
   );
 }

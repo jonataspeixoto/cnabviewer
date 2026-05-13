@@ -11,6 +11,7 @@ export const useCnabStore = create(
       selectedLineIndex: null,
       focusedField: null,
       cursorOffset: 0,
+      lastJump: 0,
       history: [], 
       future: [],
       
@@ -33,15 +34,17 @@ export const useCnabStore = create(
         set({ rawLines: filteredLines, fileName: name, selectedLineIndex: null, history: [], future: [] });
       },
 
-      selectLine: (index) => set((state) => ({ 
-        selectedLineIndex: index, 
-        focusedField: null, 
-        cursorOffset: 0,
-        visualSettings: { 
-          ...state.visualSettings, 
-          isEditorCollapsed: state.visualSettings.autoExpandOnFocus ? false : state.visualSettings.isEditorCollapsed 
-        }
-      })),
+      selectLine: (index) => {
+        set((state) => ({ 
+          selectedLineIndex: index, 
+          focusedField: null, 
+          cursorOffset: 0,
+          visualSettings: { 
+            ...state.visualSettings, 
+            isEditorCollapsed: state.visualSettings.autoExpandOnFocus ? false : state.visualSettings.isEditorCollapsed 
+          }
+        }));
+      },
 
       setFocusedField: (fieldName, offset = 0) => set((state) => ({ 
         focusedField: fieldName, 
@@ -58,6 +61,20 @@ export const useCnabStore = create(
           selectedLineIndex: lineIndex,
           focusedField: fieldName,
           cursorOffset: offset,
+          visualSettings: needsExpand ? { 
+            ...state.visualSettings, 
+            isEditorCollapsed: false 
+          } : state.visualSettings
+        };
+      }),
+
+      jumpToLine: (lineIndex, fieldName = null, offset = 0) => set((state) => {
+        const needsExpand = state.visualSettings.autoExpandOnFocus && state.visualSettings.isEditorCollapsed;
+        return {
+          selectedLineIndex: lineIndex,
+          focusedField: fieldName,
+          cursorOffset: offset,
+          lastJump: Date.now(),
           visualSettings: needsExpand ? { 
             ...state.visualSettings, 
             isEditorCollapsed: false 
@@ -212,7 +229,17 @@ export const useCnabStore = create(
         a.download = (fileName || 'arquivo').replace(/\.[^/.]+$/, "") + '.json';
         a.click();
         URL.revokeObjectURL(url);
-      }
+      },
+      
+      resetProject: () => set({
+        fileName: '',
+        rawLines: [],
+        selectedLineIndex: null,
+        focusedField: null,
+        cursorOffset: 0,
+        history: [],
+        future: []
+      })
     }),
     {
       name: 'cnab-storage',

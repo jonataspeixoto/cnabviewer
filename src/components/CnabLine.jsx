@@ -14,15 +14,26 @@ const CnabLineComponent = ({ index, raw, isSelected, focusedField, cursorOffset,
   // console.log(`[RENDER] CnabLine index=${index} isSelected=${isSelected} focusedField=${focusedField}`);
   const [localVal, setLocalVal] = useState(null);
   const inputRef = useRef(null);
+  const rawRef = useRef(raw);
+  
+  // Atualiza o ref sempre que raw mudar, sem disparar o useEffect do cursor
+  useEffect(() => {
+    rawRef.current = raw;
+  }, [raw]);
 
   useEffect(() => {
     if (focusedField && isSelected && inputRef.current) {
       const timer = setTimeout(() => {
         if (inputRef.current) {
           inputRef.current.focus();
-          // Usa o offset calculado no clique
-          const pos = cursorOffset || 0;
-          inputRef.current.setSelectionRange(pos, pos);
+          // Mapeia o offset de grafemas para o offset de code units da string
+          const segmenter = new Intl.Segmenter('en', { granularity: 'grapheme' });
+          const segments = Array.from(segmenter.segment(rawRef.current || ''));
+          let codeUnitPos = 0;
+          for (let i = 0; i < Math.min(cursorOffset || 0, segments.length); i++) {
+            codeUnitPos += segments[i].segment.length;
+          }
+          inputRef.current.setSelectionRange(codeUnitPos, codeUnitPos);
         }
       }, 10);
       return () => clearTimeout(timer);
@@ -122,17 +133,24 @@ const CnabLineComponent = ({ index, raw, isSelected, focusedField, cursorOffset,
 
   const handleFieldClick = useCallback((e, fieldName, currentVal) => {
     e.stopPropagation();
+    onSelect(index);
     
-    const field = schema.fields.find(f => f.name === fieldName);
-    const charCount = field ? (field.end - field.start + 1) : (currentVal?.length || 20);
+    let charElement = e.target.closest('.cnab-char');
+    
+    // Fallback: se não clicou diretamente no caractere (ex: clicou no padding do campo), 
+    // procura qual filho está sob a coordenada X do mouse
+    if (!charElement) {
+      const children = Array.from(e.currentTarget.querySelectorAll('.cnab-char'));
+      charElement = children.find(child => {
+        const r = child.getBoundingClientRect();
+        return e.clientX >= r.left && e.clientX <= r.right;
+      }) || children[children.length - 1];
+    }
 
-    // Cálculo dinâmico baseado na largura real (1CH) do campo
-    const rect = e.currentTarget.getBoundingClientRect();
-    const offsetX = e.clientX - rect.left;
-    const exactCharWidth = rect.width / charCount;
-    const clickOffset = Math.min(charCount, Math.max(0, Math.round(offsetX / exactCharWidth)));
-    
-    // console.log(`[ACTION] Field Click: line=${index} field=${fieldName} offset=${clickOffset}`);
+    if (!charElement) return;
+
+    const allChars = Array.from(e.currentTarget.querySelectorAll('.cnab-char'));
+    const clickOffset = allChars.indexOf(charElement);
     
     if (focusedField && localVal !== null) {
       commitChange();
@@ -140,7 +158,7 @@ const CnabLineComponent = ({ index, raw, isSelected, focusedField, cursorOffset,
     
     focusFieldAction(index, fieldName, clickOffset);
     setLocalVal(currentVal);
-  }, [index, focusFieldAction, focusedField, localVal, commitChange, schema.fields]);
+  }, [index, onSelect, focusFieldAction, focusedField, localVal, commitChange]);
 
   const handleInputChange = useCallback((e) => {
     const val = e.target.value;
@@ -216,7 +234,12 @@ const CnabLineComponent = ({ index, raw, isSelected, focusedField, cursorOffset,
 
   const renderTextWithHighlights = (text) => {
     if (!text) return null;
-    return [...text].map((char, i) => (
+    
+    // Usa Intl.Segmenter para lidar corretamente com emojis complexos (corações, bandeiras, etc)
+    const segmenter = new Intl.Segmenter('en', { granularity: 'grapheme' });
+    const segments = Array.from(segmenter.segment(text)).map(s => s.segment);
+
+    return segments.map((char, i) => (
       <span key={i} className={`cnab-char ${char === ' ' ? 'opacity-20' : ''}`}>
         {char === ' ' && showWhitespace ? '·' : (char === ' ' ? '\u00A0' : char)}
       </span>

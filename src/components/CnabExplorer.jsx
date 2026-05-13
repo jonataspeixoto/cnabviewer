@@ -13,6 +13,7 @@ export const CnabExplorer = () => {
   const activeRules = useCnabStore(state => state.activeRules);
   const selectedLineIndex = useCnabStore(state => state.selectedLineIndex);
   const focusedField = useCnabStore(state => state.focusedField);
+  const lastJump = useCnabStore(state => state.lastJump);
   const cursorOffset = useCnabStore(state => state.cursorOffset);
   const selectLine = useCnabStore(state => state.selectLine);
   const visualSettings = useCnabStore(state => state.visualSettings);
@@ -22,22 +23,25 @@ export const CnabExplorer = () => {
   const [containerHeight, setContainerHeight] = useState(0);
   const containerRef = useRef(null);
 
-  // console.log(`[RENDER] CnabExplorer: lines=${linesCount} selected=${selectedLineIndex} scrollTop=${scrollTop}`);
-
-  // Auto-scroll quando a linha selecionada muda via teclado
+  // Auto-scroll quando a linha selecionada muda ou há um comando de jump
   useEffect(() => {
     if (selectedLineIndex !== null && containerRef.current) {
       const scrollContainer = containerRef.current;
       const targetScroll = selectedLineIndex * ROW_HEIGHT;
-      const buffer = ROW_HEIGHT * 2; // Buffer de 2 linhas
-
-      if (targetScroll < scrollContainer.scrollTop) {
-        scrollContainer.scrollTop = targetScroll - buffer;
-      } else if (targetScroll + ROW_HEIGHT > scrollContainer.scrollTop + containerHeight) {
-        scrollContainer.scrollTop = targetScroll - containerHeight + ROW_HEIGHT + buffer;
-      }
+      const currentScroll = scrollContainer.scrollTop;
+      
+      // Centraliza a linha na tela para melhor visibilidade
+      const centerScroll = targetScroll - (containerHeight / 2) + (ROW_HEIGHT / 2);
+      
+      // Só scrolla suavemente se estiver longe, senão faz imediato para performance
+      const distance = Math.abs(currentScroll - centerScroll);
+      
+      scrollContainer.scrollTo({
+        top: Math.max(0, centerScroll),
+        behavior: distance > 200 ? 'smooth' : 'auto'
+      });
     }
-  }, [selectedLineIndex, containerHeight]);
+  }, [selectedLineIndex, lastJump, containerHeight]);
 
   useEffect(() => {
     const handleResize = () => {
