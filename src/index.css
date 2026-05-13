@@ -158,3 +158,34 @@ body {
   margin-bottom: 0.25rem;
   content: "";
 }
+
+/* Dotted Leader for Index entries */
+.dotted-leader {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+}
+.dotted-leader .label {
+  flex-shrink: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.dotted-leader .dots {
+  flex-grow: 1;
+  border-bottom: 2px dotted rgba(100, 116, 139, 0.4);
+  height: 1px;
+  position: relative;
+  top: -4px;
+  min-width: 20px;
+}
+.dotted-leader .page {
+  flex-shrink: 0;
+  font-weight: 700;
+  color: #60a5fa;
+  font-family: 'JetBrains Mono', monospace;
+  min-width: 3ch;
+  text-align: right;
+}

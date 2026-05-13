@@ -45,7 +45,7 @@ class DocService {
         id,
         title,
         description: description,
-        html: marked.parse(description)
+        html: this.formatHtml(marked.parse(description))
       };
     }
 
@@ -93,8 +93,24 @@ class DocService {
     const content = this.rawContent.substring(startPos, nextSectionPos);
     return {
       title: key.toUpperCase(),
-      html: marked.parse(content)
+      html: this.formatHtml(marked.parse(content))
     };
+  }
+
+  formatHtml(html) {
+    if (!html) return '';
+    return html
+      .replace(/<table>/g, '<div class="table-container"><table>')
+      .replace(/<\/table>/g, '</table></div>')
+      .replace(/<p>(.*?)(\.{3,})\s*(\d+)<\/p>/g, (match, label, dots, page) => {
+        return `
+          <div class="dotted-leader">
+            <span class="label">${label}</span>
+            <span class="dots"></span>
+            <span class="page">${page}</span>
+          </div>
+        `;
+      });
   }
 
   getRule(ruleId) {

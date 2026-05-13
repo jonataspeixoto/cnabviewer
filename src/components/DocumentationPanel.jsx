@@ -123,6 +123,37 @@ export const DocumentationPanel = ({ isOpen, onClose, initialRule, initialSectio
             margin-top: 60px;
           }
           
+          /* Dotted Leader for Index */
+          .dotted-leader {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+          }
+          .dotted-leader .label {
+            flex-shrink: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+          .dotted-leader .dots {
+            flex-grow: 1;
+            border-bottom: 2px dotted #334155;
+            height: 1px;
+            position: relative;
+            top: -4px;
+            min-width: 20px;
+          }
+          .dotted-leader .page {
+            flex-shrink: 0;
+            font-weight: 700;
+            color: #60a5fa;
+            font-family: 'JetBrains Mono', monospace;
+            min-width: 3ch;
+            text-align: right;
+          }
+          
           /* Scrollbar */
           ::-webkit-scrollbar { width: 10px; }
           ::-webkit-scrollbar-track { background: #0f172a; }
@@ -142,7 +173,19 @@ export const DocumentationPanel = ({ isOpen, onClose, initialRule, initialSectio
           </div>
           
           <div class="markdown-content">
-            ${parsedHtml.replace(/<table>/g, '<div class="table-container"><table>').replace(/<\/table>/g, '</table></div>')}
+            ${parsedHtml
+              .replace(/<table>/g, '<div class="table-container"><table>')
+              .replace(/<\/table>/g, '</table></div>')
+              .replace(/<p>(.*?)(\.{3,})\s*(\d+)<\/p>/g, (match, label, dots, page) => {
+                return `
+                  <div class="dotted-leader">
+                    <span class="label">${label}</span>
+                    <span class="dots"></span>
+                    <span class="page">${page}</span>
+                  </div>
+                `;
+              })
+            }
           </div>
           
           <div class="footer-note">
