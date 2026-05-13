@@ -20,21 +20,24 @@ class DocService {
         let text = await response.text();
         
         // 1. Remoção de Ruído (Headers/Footers repetitivos)
-        text = text.replace(/[“\""']Um sistema financeiro saudável.*?País[”\""']\s*\d*/g, '');
+        // Usamos [\s\S]*? para capturar quebras de linha dentro da frase
+        text = text.replace(/[“\""']\s*Um sistema financeiro saudável[\s\S]*?sustentável do País\s*[”\""']\s*\d*/g, '');
         text = text.replace(/!\[FEBRABAN logo\].*?\n/g, '');
         text = text.replace(/FEBRABAN logo/g, '');
         text = text.replace(/Layout Padrão Febraban 240 posições V10.9 http:\/\/www.febraban.org.br/g, '');
         text = text.replace(/page_\d+_image_\d+_v\d+\.jpg/g, '');
 
-        // 2. Correção de Títulos que deveriam ser Itens
-        // Remove # de linhas que contém o padrão de pontos do índice
-        text = text.replace(/^#+ (.*?\.{5,}.*?)$/gm, '$1');
+        // 2. Correção de Títulos que deveriam ser Itens (Índice)
+        // Pega linhas que começam com # mas parecem entradas de índice (terminam em número)
+        text = text.replace(/^#+ (.*?[\d\.]+\s*)$/gm, '$1');
 
         // 3. Pré-processamento: Garante que entradas de índice fiquem em parágrafos separados
-        text = text.replace(/(\.{5,}\s*\d+\**)\s*\n([^\n#])/g, '$1\n\n$2');
+        // Tenta detectar entradas mesmo sem pontos (ex: V - Vendor 205)
+        text = text.replace(/([A-Z0-9\.\s-]+? - .*?\s+\d+)\s*\n/g, '$1\n\n');
+        text = text.replace(/(\.{3,}\s*\d+\**)\s*\n([^\n#])/g, '$1\n\n$2');
         
         // Remove linhas vazias extras
-        text = text.replace(/\n{3,}/g, '\n\n');
+        text = text.replace(/\n{4,}/g, '\n\n');
         
         this.rawContent = text;
         this.parse();
@@ -122,9 +125,9 @@ class DocService {
       .replace(/<table>/g, '<div class="table-container"><table>')
       .replace(/<\/table>/g, '</table></div>');
     
-    // Captura entradas de índice de forma global, independente de estarem no mesmo <p>
-    // Procuramos o padrão de label + pontos + página
-    const entryRegex = /(?:<p>)?([^>\n<]+?)(?:<strong>)?(\.{3,})\s*(\d+)(?:<\/strong>)?(?:<\/p>)?/g;
+    // Captura entradas de índice de forma global
+    // Procuramos o padrão de label + (pontos OU espaços) + página
+    const entryRegex = /(?:<p>)?([^>\n<]+?)(?:<strong>)?(\.{2,}| {2,})\s*(\d+)(?:<\/strong>)?(?:<\/p>)?/g;
     
     processedHtml = processedHtml.replace(entryRegex, (match, label, dots, page) => {
       const cleanLabel = label
@@ -133,7 +136,10 @@ class DocService {
         .replace(/\.+$/, '')
         .trim();
         
-      if (!cleanLabel || cleanLabel.length < 2) return match;
+      if (!cleanLabel || cleanLabel.length < 3) return match;
+
+      // Evita falsos positivos se não houver pontos e o label não parecer uma entrada de índice
+      if (dots.trim() === '' && !/^[A-Z\d]/.test(cleanLabel)) return match;
 
       const slug = this.slugify(cleanLabel);
       
