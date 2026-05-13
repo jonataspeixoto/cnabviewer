@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { X, Book, Info, ExternalLink, Search, Loader2, BookOpen, ChevronRight, Maximize2, GripVertical } from 'lucide-react';
 import { docService } from '../services/DocService';
+import { marked } from 'marked';
 
 export const DocumentationPanel = ({ isOpen, onClose, initialRule, initialSection, width, onResizeStart }) => {
   const [loading, setLoading] = useState(false);
@@ -60,31 +61,94 @@ export const DocumentationPanel = ({ isOpen, onClose, initialRule, initialSectio
   };
 
   const openFullManual = () => {
+    // Aumentamos para 15000 linhas para dar mais contexto, mas ainda protegendo o browser
+    const contentToParse = docService.rawContent ? docService.rawContent.split('\n').slice(0, 15000).join('\n') : '';
+    const parsedHtml = marked(contentToParse);
+
     const fullHtml = `
       <!DOCTYPE html>
-      <html>
+      <html lang="pt-BR">
       <head>
+        <meta charset="UTF-8">
         <title>Manual FEBRABAN 240 v10.9 - Completo</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
         <style>
-          body { background: #0f172a; color: #cbd5e1; font-family: sans-serif; line-height: 1.6; }
-          .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
-          h1, h2, h3 { color: #f1f5f9; margin-top: 2em; margin-bottom: 1em; border-bottom: 1px solid #334155; padding-bottom: 0.5em; }
-          table { width: 100%; border-collapse: collapse; margin: 2em 0; font-size: 0.85em; background: rgba(30, 41, 59, 0.5); border: 1px solid #475569; }
-          th { background: #1e293b; padding: 12px; text-align: left; border: 1px solid #475569; color: #94a3b8; text-transform: uppercase; }
-          td { padding: 12px; border: 1px solid #475569; }
-          tr:hover { background: rgba(59, 130, 246, 0.05); }
-          strong { color: #fff; }
+          @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap');
+          
+          body { 
+            background: #0f172a; 
+            color: #cbd5e1; 
+            font-family: 'Inter', sans-serif; 
+            line-height: 1.6; 
+          }
+          .container { max-width: 1100px; margin: 0 auto; padding: 60px 20px; }
+          
+          /* Typography Improvements */
+          h1 { color: #f8fafc; font-size: 2.5rem; font-weight: 800; margin-top: 3rem; margin-bottom: 1.5rem; border-bottom: 2px solid #334155; padding-bottom: 0.75rem; }
+          h2 { color: #f1f5f9; font-size: 1.8rem; font-weight: 700; margin-top: 2.5rem; margin-bottom: 1rem; border-bottom: 1px solid #334155; padding-bottom: 0.5rem; }
+          h3 { color: #e2e8f0; font-size: 1.4rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem; }
+          
+          p { margin-bottom: 1.25rem; }
+          ul, ol { margin-bottom: 1.25rem; padding-left: 1.5rem; }
+          li { margin-bottom: 0.5rem; }
+          
+          code { font-family: 'JetBrains Mono', monospace; background: #1e293b; padding: 0.2rem 0.4rem; rounded: 4px; color: #38bdf8; font-size: 0.9em; }
+          
+          /* Table Styling */
+          .table-container { overflow-x: auto; margin: 2.5rem 0; border-radius: 12px; border: 1px solid #334155; background: rgba(15, 23, 42, 0.5); }
+          table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+          th { background: #1e293b; padding: 14px; text-align: left; border-bottom: 1px solid #334155; color: #94a3b8; text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em; }
+          td { padding: 14px; border-bottom: 1px solid #1e293b; border-right: 1px solid #1e293b; }
+          tr:last-child td { border-bottom: none; }
+          td:last-child { border-right: none; }
+          tr:hover { background: rgba(59, 130, 246, 0.03); }
+          
+          strong { color: #f8fafc; font-weight: 600; }
+          
+          .header-card {
+            margin-bottom: 50px; 
+            padding: 40px; 
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); 
+            border-radius: 20px; 
+            border: 1px solid #334155;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+          }
+          
+          .footer-note {
+            text-align: center; 
+            padding: 60px; 
+            color: #64748b; 
+            font-style: italic;
+            border-top: 1px dashed #334155;
+            margin-top: 60px;
+          }
+          
+          /* Scrollbar */
+          ::-webkit-scrollbar { width: 10px; }
+          ::-webkit-scrollbar-track { background: #0f172a; }
+          ::-webkit-scrollbar-thumb { background: #334155; border-radius: 5px; }
+          ::-webkit-scrollbar-thumb:hover { background: #475569; }
         </style>
       </head>
       <body>
         <div class="container">
-          <div style="margin-bottom: 40px; padding: 20px; background: #1e293b; border-radius: 12px; border: 1px solid #334155;">
-            <h1 style="margin-top: 0;">Manual Técnico Integrado</h1>
-            <p>Este documento contém o conteúdo completo do manual padrão FEBRABAN 240 posições V10.9.</p>
+          <div class="header-card">
+            <h1 style="margin-top: 0; border: none;">Manual Técnico Integrado</h1>
+            <p style="font-size: 1.1rem; color: #94a3b8;">Documentação Completa - FEBRABAN CNAB240 V10.9</p>
+            <div style="margin-top: 20px; display: flex; gap: 10px;">
+              <span style="padding: 4px 12px; background: #3b82f620; color: #60a5fa; border-radius: 20px; font-size: 11px; font-weight: 700; border: 1px solid #3b82f640;">OFICIAL</span>
+              <span style="padding: 4px 12px; background: #10b98120; color: #34d399; border-radius: 20px; font-size: 11px; font-weight: 700; border: 1px solid #10b98140;">v10.9</span>
+            </div>
           </div>
-          ${docService.rawContent ? docService.rawContent.replace(/<table>/g, '<div style="overflow-x:auto;"><table>').replace(/<\/table>/g, '</table></div>').split('\n').slice(0, 5000).join('\n') : 'Carregando...'}
-          <p style="text-align:center; padding: 40px; color: #64748b;">(Apenas as primeiras 5000 linhas são exibidas para performance. Use a busca no aplicativo para seções específicas.)</p>
+          
+          <div class="markdown-content">
+            ${parsedHtml.replace(/<table>/g, '<div class="table-container"><table>').replace(/<\/table>/g, '</table></div>')}
+          </div>
+          
+          <div class="footer-note">
+            <p>Fim da visualização parcial (15.000 linhas).</p>
+            <p>Para uma consulta completa e interativa, utilize as ferramentas de busca e auditoria no aplicativo principal.</p>
+          </div>
         </div>
       </body>
       </html>
