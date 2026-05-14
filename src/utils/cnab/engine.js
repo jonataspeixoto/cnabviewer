@@ -104,6 +104,7 @@ export const cnabEngine = {
         let subType = CNAB_SEGMENTO_B_SUB_TYPES.standard;
         let subSchemaLabel = "Padrão (Crédito)";
         let isDebito = false;
+        let isPix = false;
         
         if (rawLines.length > 0 && index >= 0) {
           const currentLote = line.substring(3, 7);
@@ -114,6 +115,7 @@ export const cnabEngine = {
               const formaLancamento = l.substring(11, 13);
               
               if (["45", "47"].includes(formaLancamento)) {
+                isPix = true;
                 subType = [...CNAB_SEGMENTO_B_SUB_TYPES.pix];
                 subSchemaLabel = "PIX";
                 const g100 = line.substring(14, 17);
@@ -148,7 +150,7 @@ export const cnabEngine = {
           baseSchema.fields = baseSchema.fields.filter(f => !["codigo_ug_centralizadora", "codigo_ispb"].includes(f.name));
           // Adiciona o campo de Uso FEBRABAN final
           baseSchema.fields.push({ name: "uso_exclusivo_febraban_b", ruleId: "G004", start: 227, end: 240, type: "A", label: "Uso Exclusivo FEBRABAN", default: " " });
-        } else {
+        } else if (isPix) {
           const fIdx = baseSchema.fields.findIndex(f => f.name === "forma_iniciacao");
           const tIdx = baseSchema.fields.findIndex(f => f.name === "tipo_inscricao");
           const nIdx = baseSchema.fields.findIndex(f => f.name === "numero_inscricao");
@@ -156,6 +158,17 @@ export const cnabEngine = {
             baseSchema.fields[fIdx].label = "Forma de Iniciação";
             baseSchema.fields[fIdx].ruleId = "G100";
           }
+          if (tIdx !== -1) baseSchema.fields[tIdx].label = "Tipo de Inscrição do Favorecido";
+          if (nIdx !== -1) baseSchema.fields[nIdx].label = "Nº de Inscrição do Favorecido";
+        } else {
+          // Outros créditos (01, 03, etc) -> Campo de iniciação deve ser Filler
+          const fIdx = baseSchema.fields.findIndex(f => f.name === "forma_iniciacao");
+          if (fIdx !== -1) {
+            baseSchema.fields[fIdx].label = "Uso Exclusivo FEBRABAN/CNAB";
+            baseSchema.fields[fIdx].ruleId = "G004";
+          }
+          const tIdx = baseSchema.fields.findIndex(f => f.name === "tipo_inscricao");
+          const nIdx = baseSchema.fields.findIndex(f => f.name === "numero_inscricao");
           if (tIdx !== -1) baseSchema.fields[tIdx].label = "Tipo de Inscrição do Favorecido";
           if (nIdx !== -1) baseSchema.fields[nIdx].label = "Nº de Inscrição do Favorecido";
         }
