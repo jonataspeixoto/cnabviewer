@@ -681,13 +681,7 @@ O Tamanho do Registro é de **240** bytes.
     </tr>
     <tr>
         <td>16.0</td>
-        <td rowspan="6">A
-r
-q
-u
-i
-v
-o</td>
+        <td rowspan="6">Arquivo</td>
         <td>Código</td>
         <td>Código Remessa / Retorno</td>
         <td>143</td>
@@ -2631,8 +2625,8 @@ Creditada</td>
     <tr>
         <td>09.1</td>
         <td rowspan="9">Empresa</td>
-        <td>Inscri Tipo
-crição</td>
+        <td>Tipo Inscrição
+</td>
         <td>Tipo de Inscrição da Empresa</td>
         <td>18</td>
         <td>18</td>
@@ -2668,8 +2662,7 @@ crição</td>
     </tr>
     <tr>
         <td>12.1</td>
-        <td rowspan="2">Conta AgênCor cia
-rente</td>
+        <td rowspan="2">Conta Agência Corrente</td>
         <td>Código</td>
         <td>Agência Mantenedora da Conta</td>
         <td>53</td>
@@ -2961,8 +2954,8 @@ Empresa</td>
     </tr>
     <tr>
         <td>06.3J</td>
-        <td>Movi Tipo
-mento</td>
+        <td>Tipo Movimento
+</td>
         <td>Tipo de Movimento</td>
         <td>15</td>
         <td>15</td>
@@ -2986,15 +2979,7 @@ mento</td>
     </tr>
     <tr>
         <td>08.3J</td>
-        <td rowspan="10">P
-a
-g
-a
-m
-e
-n
-t
-o</td>
+        <td rowspan="10">Pagamento</td>
         <td>Código Barras</td>
         <td>Código de Barras</td>
         <td>18</td>
@@ -3334,10 +3319,7 @@ Pagador</td>
     </tr>
     <tr>
         <td>12.4.J52</td>
-        <td colspan="2" rowspan="3">Dados 
-do 
-Beneficiá
-rio</td>
+        <td colspan="2" rowspan="3">Dados do Beneficiário</td>
         <td rowspan="2">Inscrição</td>
         <td>Tipo</td>
         <td>Tipo de Inscrição</td>
@@ -7269,8 +7251,7 @@ Cobrança</td>
     </tr>
     <tr>
         <td>10.3P</td>
-        <td>Cont Número
-a</td>
+        <td>Conta Número</td>
         <td>Número da Conta Corrente</td>
         <td>24</td>
         <td>35</td>
@@ -8278,9 +8259,7 @@ Aval.</td>
     </tr>
     <tr>
         <td>22.3R</td>
-        <td colspan="2" rowspan="6">Dados
-para
-Débito</td>
+        <td colspan="2" rowspan="6">Dados para Débito</td>
         <td>Banco</td>
         <td>Cód. do Banco na Conta do Débito</td>
         <td>208</td>
@@ -8789,8 +8768,7 @@ Controle - Banco origem ou destino do arquivo (Banco Beneficiário)
     </tr>
     <tr>
         <td>09.3Y</td>
-        <td colspan="2" rowspan="9">Pagador
-r</td>
+        <td colspan="2" rowspan="9">Pagador</td>
         <td>Tipo Inscrição</td>
         <td>Tipo de Inscriçao</td>
         <td>20</td>
@@ -9475,8 +9453,7 @@ O segmento Y-05 pode ocorrer várias vezes. O número máximo de ocorrências de
     <tr>
         <td>09.3Y</td>
         <td colspan="2" rowspan="5">C/C</td>
-        <td>Agên Código
-cia</td>
+        <td>Código Agência</td>
         <td>Agência Mantenedora da Conta</td>
         <td>20</td>
         <td>24</td>
@@ -9611,8 +9588,7 @@ cia</td>
     <tr>
         <td>19.3Y</td>
         <td colspan="2" rowspan="5">C/C</td>
-        <td>Agên Código
-cia</td>
+        <td>Código Agência</td>
         <td>Código Agência p/ Cred. Benef.</td>
         <td>80</td>
         <td>84</td>
@@ -10726,8 +10702,7 @@ O Segmento Y-52 pode ocorrer várias vezes. O número de máximo de ocorrências
     <tr>
         <td>08.3T</td>
         <td colspan="2" rowspan="5">C/C</td>
-        <td>Agên Código
-cia</td>
+        <td>Código Agência</td>
         <td>Agência Mantenedora da Conta</td>
         <td>18</td>
         <td>22</td>
@@ -16081,13 +16056,7 @@ mento</td>
     </tr>
     <tr>
         <td>09.3A</td>
-        <td rowspan="7">P
-a
-g
-a
-d
-o
-r</td>
+        <td rowspan="7">Pagador</td>
         <td>Banco</td>
         <td>Código do Banco do Pagador</td>
         <td>21</td>
@@ -16444,33 +16413,8 @@ to</td>
     </tr>
     <tr>
         <td>07.3B</td>
-        <td colspan="2" rowspan="17">D
-a
-d
-o
-s
-<br/>
-C
-o
-m
-p
-l
-e
-m
-e
-n
-t
-a
-r
-e
-s</td>
-        <td rowspan="10">P
-a
-g
-a
-d
-0
-r</td>
+        <td colspan="2" rowspan="17">Dados Complementares</td>
+        <td rowspan="10">Pagador</td>
         <td>Tipo Inscrição</td>
         <td>Tipo de Inscrição do Pagador</td>
         <td>18</td>
@@ -16591,12 +16535,7 @@ r</td>
     </tr>
     <tr>
         <td>17.3B</td>
-        <td rowspan="6">D
-é
-b
-i
-t
-o</td>
+        <td rowspan="6">Débito</td>
         <td>Vencimento</td>
         <td>Data do Vencimento (Nominal)</td>
         <td>128</td>
@@ -17503,8 +17442,7 @@ O Vendedor agrupa as vendas de um determinado dia ou período, em lotes e efetua
     <tr>
         <td>12.1</td>
         <td rowspan="5">C/C</td>
-        <td>Agên Código
-cia</td>
+        <td>Código Agência</td>
         <td>Agência Mantenedora da Conta</td>
         <td>53</td>
         <td>57</td>
@@ -17733,17 +17671,9 @@ Vendor</td>
     </tr>
     <tr>
         <td>08.3K</td>
-        <td rowspan="10">C
-O
-M
-P
-R
-A
-D
-O
-R</td>
-        <td>Inscriçã Tipo
-o</td>
+        <td rowspan="10">Comprador</td>
+        <td>Tipo Inscrição
+</td>
         <td>Tipo de Inscrição</td>
         <td>20</td>
         <td>20</td>
@@ -18318,8 +18248,7 @@ O Comprador não precisa ser correntista.
     </tr>
     <tr>
         <td>25.3L</td>
-        <td colspan="2" rowspan="3">Repactu
-ação</td>
+        <td colspan="2" rowspan="3">Repactuação</td>
         <td>Data</td>
         <td>Data da Primeira Repactuação</td>
         <td>118</td>
@@ -18430,8 +18359,7 @@ ação</td>
     </tr>
     <tr>
         <td>34.3L</td>
-        <td colspan="2" rowspan="3">Prorroga
-ção</td>
+        <td colspan="2" rowspan="3">Prorrogação</td>
         <td>Vencimento</td>
         <td>Nova Data de Vencimento</td>
         <td>184</td>
@@ -19772,8 +19700,7 @@ Para um serviço de Custódia de Cheques é necessário firmar um convênio espe
     </tr>
     <tr>
         <td>12.1</td>
-        <td rowspan="5">Agência
-C/C</td>
+        <td rowspan="5">Agência C/C</td>
         <td>Código</td>
         <td>Agência Mantenedora da Conta</td>
         <td>53</td>
@@ -20136,9 +20063,7 @@ tente</td>
     </tr>
     <tr>
         <td>19.3D</td>
-        <td rowspan="2">Verso 
-do 
-Cheque</td>
+        <td rowspan="2">Verso do Cheque</td>
         <td>Agência Devolução</td>
         <td>Código da Agência para Devolução</td>
         <td>144</td>
@@ -20721,8 +20646,7 @@ Fica a critério de cada Banco a geração ou não dos registros de Saldo de uma
     <tr>
         <td>12.1</td>
         <td>p</td>
-        <td>Conta Agên Código
-cia</td>
+        <td>Conta Código Agência</td>
         <td>Agência Mantenedora da Conta</td>
         <td>53</td>
         <td>57</td>
@@ -20735,8 +20659,7 @@ cia</td>
     <tr>
         <td rowspan="2">13.1</td>
         <td rowspan="2"></td>
-        <td>r
-e</td>
+        <td>re</td>
         <td rowspan="2">Corrente</td>
         <td rowspan="2">DV</td>
         <td rowspan="2">Dígito Verificador da Agência</td>
@@ -22024,8 +21947,7 @@ Iniciais</td>
     </tr>
     <tr>
         <td>12.5</td>
-        <td rowspan="3">Conta Agên Código
-cia</td>
+        <td rowspan="3">Conta Código Agência</td>
         <td>Agência Mantenedora da Conta</td>
         <td>53</td>
         <td>57</td>
@@ -23891,8 +23813,7 @@ graph TD
     </tr>
     <tr>
         <td>12.1</td>
-        <td rowspan="2">Agên Código
-cia</td>
+        <td rowspan="2">Código Agência</td>
         <td>Agência Mantenedora da Conta</td>
         <td>53</td>
         <td>57</td>
@@ -23990,12 +23911,7 @@ cia</td>
     </tr>
     <tr>
         <td>19.1</td>
-        <td rowspan="7">Endereço
-<br/>
-da
-<br/>
-Empres
-a</td>
+        <td rowspan="7">Endereço<br/>da<br/>Empresa</td>
         <td>Logradouro</td>
         <td>Nome da Rua, Av, Pça, Etc</td>
         <td>143</td>
@@ -29326,8 +29242,7 @@ Os códigos de movimento ‘06’, ‘09’ e ‘17’ estão relacionados com a
   <thead>
     <tr>
       <th>Z001</th>
-      <th>Autenticação para atender a legislação
-Autenticação gerada para atender a legislação</th>
+      <th>Autenticação para atender a legislação Autenticação gerada para atender a legislação</th>
       <th>Z001</th>
     </tr>
   </thead>
