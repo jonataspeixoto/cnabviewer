@@ -21,7 +21,7 @@ class DocService {
         
         // 1. Remoção de Ruído (Headers/Footers/Logos/Slogans/Páginas)
         // Remove o bloco completo de rodapé/cabeçalho do PDF original
-        const noiseRegex = /\n+\d*\s*\n*(?:[“\""']?Um sistema financeiro saudável.*?sustentável do País[”\""']?)?\s*\n*!\[FEBRABAN logo\]\(.*?\)\s*\n*Layout Padrão Febraban 240 posições V10\.9 http:\/\/www\.febraban\.org\.br\s*\n*\d*/gi;
+        const noiseRegex = /\n+\d*\s*\n*(?:[“"']?Um sistema financeiro saudável[\s\S]*?sustentável do País[”"']?)?\s*\n*!\[FEBRABAN logo\][\s\S]*?http:\/\/www\.febraban\.org\.br\s*\n*\d*/gi;
         text = text.replace(noiseRegex, '\n\n');
         
         // Remove ocorrências soltas da frase institucional que possam ter sobrado
