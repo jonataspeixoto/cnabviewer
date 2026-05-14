@@ -15,7 +15,7 @@ class DocService {
 
     this.loadingPromise = (async () => {
       try {
-        const response = await fetch('/docs/febraban-v109.md');
+        const response = await fetch('docs/febraban-v109.md');
         if (!response.ok) throw new Error('Falha ao carregar o manual');
         let text = await response.text();
         
