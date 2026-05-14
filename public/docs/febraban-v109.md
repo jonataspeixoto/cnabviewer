@@ -1,6 +1,3 @@
-![FEBRABAN logo](page_1_image_1_v2.jpg)
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
 # Intercâmbio de Informações entre Bancos e Empresas
 
 ## Padrão FEBRABAN 240 Posições
@@ -8,13 +5,6 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
 Versão 10.9
 
 14/10/2021
-
-1
-“Um sistema financeiro saudável, ético e eficiente é condição essencial para o desenvolvimento econômico, social e sustentável do País”
-
-![FEBRABAN logo](page_2_image_1_v2.jpg)
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
 
 # Índice
 
@@ -46,17 +36,7 @@ em Cobrança) ..................................................................
 3.4.1 Descrição do Processo.....................................................87
 3.4.2 Débito em Conta Corrente................................................90
 3.5 Vendor ........................................................................................95
-
-“Um sistema financeiro saudável, ético e eficiente
-é condição essencial para o desenvolvimento
-econômico, social e sustentável do País”
-2
-
-![FEBRABAN logo](page_3_image_1_v2.jpg)
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-3.5.1 Descrição do Processo.....................................................96
+.5.1 Descrição do Processo.....................................................96
 3.5.2 Vendor..............................................................................102
 3.6 Custódia de Cheques..................................................................108
 3.6.1 Descrição do Processo.....................................................109
@@ -86,43 +66,14 @@ K - Custódia de Cheques .......................................................
 L - Pagamento de Títulos em Cobrança .............................................197
 N - Pagamento de Tributos e Impostos ..............................................198
 P - Pagamento Através de Crédito em Conta, Cheque, OP, DOC, TED ou Pagamento com Autenticação .........................................202
-
-3
-“Um sistema financeiro saudável, ético e eficiente é condição essencial para o desenvolvimento econômico, social e sustentável do País”
-
-![FEBRABAN logo](page_4_image_1_v2.jpg)
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-V - Vendor 205
-Z – Autenticação do Pagamento 215
+V - Vendor ................................................205
+Z – Autenticação do Pagamento ................................................215
 
 ## 5.0 Alteração do Manual 216
 5.1 Objetivo 217
 5.2 Manutenção do Manual 218
 
-“Um sistema financeiro saudável, ético e eficiente
-é condição essencial para o desenvolvimento
-econômico, social e sustentável do País”
-4
-
-![FEBRABAN logo](page_5_image_2_v2.jpg)
-Layout Padrão Febraban 240 posições V10.9
-http://www.febraban.org.br
-
 # 1.0 - Introdução
-
-5
-“Um sistema financeiro saudável, ético e eficiente
-é condição essencial para o desenvolvimento
-econômico, social e sustentável do País”
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_6_image_1_v2.jpg)
-
-
-
 # 1.1 - Apresentação do Documento
 
 Este manual apresenta um padrão para a troca de informações entre Empresas e Bancos, definido e elaborado pela FEBRABAN, a ser adotado na prestação de serviços bancários que possibilitem esse intercâmbio. Baseado nas informações necessárias para a implementação de cada tipo de serviço / produto, o padrão define um conjunto de registros/campos que devem compor o arquivo de troca de informações.
@@ -158,16 +109,6 @@ Apresenta uma visão geral dos tipos de serviços / produtos disponíveis e o co
 
 **2.0 - Estrutura do Arquivo**
 Define a composição do arquivo (header, lotes de serviço / produto e trailer), conceituando cada tipo de registro existente e especificando a forma de utilização de cada um deles por tipo de serviço / produto, e apresenta o layout do header e do trailer de arquivo.
-
-“Um sistema financeiro saudável, ético e eficiente é condição essencial para o desenvolvimento econômico, social e sustentável do País”
-6
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_7_image_1_v2.jpg)
-
-
-
 # 3.0 - Serviço / Produto
 
 Apresenta detalhadamente cada serviço / produto disponível e o contexto em que ocorrem, identificando as entidades origem e destino de cada fluxo de troca de informações.
@@ -205,16 +146,6 @@ Conceitua o serviço / produto Extrato para Gestão de Caixa através da defini�
 Conceitua o serviço / produto Empréstimo por Consignação através da definição de objetivo, das entidades envolvidas e do fluxo de informações, e apresenta o layout dos registros/segmentos a serem utilizados em sua implementação. Este tipo de serviço / produto aos funcionários / beneficiários de empresas e órgãos públicos realizarem empréstimos, através de consignação em folha de pagamento / benefício.
 
 ## 3.9 – Compror
-
-7
-“Um sistema financeiro saudável, ético e eficiente é condição essencial para o desenvolvimento econômico, social e sustentável do País”
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_8_image_1_v2.jpg)
-
-
-
 Conceitua o serviço / produto Compror através da definição de objetivo, das entidades envolvidas e do fluxo de informações, e apresenta o layout dos registros/segmentos a serem utilizados em sua implementação.
 
 # 4.0 - Descrição dos Campos
@@ -226,7 +157,6 @@ X = Sigla atribuída para cada tipo de serviço / produto.
 nnn = Número seqüencial, a partir de 001, dentro de uma sigla
 
 # Siglas atribuídas na descrição dos campos, de acordo com o serviço / produto.
-
 
 <table>
   <thead>
@@ -302,19 +232,11 @@ nnn = Número seqüencial, a partir de 001, dentro de uma sigla
   </tbody>
 </table>
 
-
 Em cada layout de registro apresentado, é especificado o código da descrição de cada campo. Através deste código, deve-se acessar o tópico “Descrição dos Campos” e buscar a descrição do campo que se deseja consultar. As descrições de campos assinaladas com \* antes do código, merecem uma atenção especial.
 
 # 5.0 - Alteração do Manual
 
 O tratamento de um novo tipo de serviço / produto ou a alteração de qualquer uma das especificações constantes neste manual deverá ser previamente aprovada pela FEBRABAN.
-
-8
-“Um sistema financeiro saudável, ético e eficiente é condição essencial para o desenvolvimento econômico, social e sustentável do País”
-
-![FEBRABAN logo](page_9_image_2_v2.jpg)
-Layout Padrão Febraban 240 posições V10.9
-http://www.febraban.org.br
 
 # Manutenção das Versões do Manual
 
@@ -340,35 +262,13 @@ Será alterado quando ocorrer inclusão/exclusão de serviços / produtos (lotes
 
 Sugestões para alteração deste manual devem ser encaminhas à FEBRABAN, via Bancos.
 
-9
-“Um sistema financeiro saudável, ético e eficiente
-é condição essencial para o desenvolvimento
-econômico, social e sustentável do País”
-
-Layout Padrão Febraban 240 posições V10.9
-http://www.febraban.org.br
-
-![FEBRABAN logo](page_10_image_2_v2.jpg)
-
-
-
 # 1.2 - Fluxo Geral de Informações
 
 O fluxo de informações abaixo mostra uma visão geral dos tipos de serviços / produtos disponíveis e das entidades participantes em cada um deles:
 
 ![Diagram showing the general flow of information between Pagador, Beneficiário, and Banks for various financial services like payments, collections, and bank reconciliation.](page_10_image_1_v2.jpg)
 
-10
-“Um sistema financeiro saudável, ético e eficiente é condição essencial para o desenvolvimento econômico, social e sustentável do País”
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_11_image_2_v2.jpg)
-
-
-
 # Entidades Participantes
-
 
 <table>
   <thead>
@@ -397,24 +297,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
   </tbody>
 </table>
 
-11
-“Um sistema financeiro saudável, ético e eficiente é condição essencial para o desenvolvimento econômico, social e sustentável do País”
-
-![FEBRABAN logo](page_12_image_2_v2.jpg)
-Layout Padrão Febraban 240 posições V10.9
-http://www.febraban.org.br
-
 # 2.0 - Estrutura do Arquivo
-
-12
-“Um sistema financeiro saudável, ético e eficiente é condição essencial para o desenvolvimento econômico, social e sustentável do País”
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_13_image_1_v2.jpg)
-
-
-
 # 2.1 - Composição do Arquivo
 
 O Arquivo de troca de informações entre Bancos e Empresas é composto de um registro header de arquivo, um ou mais lotes de Serviço / Produto e um registro trailer de arquivo, conforme ilustra a figura abaixo:
@@ -439,14 +322,6 @@ graph TD
 ```
 
 Com a estrutura apresentada, um único arquivo pode conter vários lotes de Serviços / Produtos distintos. Este procedimento, que permite com que Empresas e Bancos consolidem em um só arquivo todas as informações que desejam trocar entre si, deve ser previamente acordado entre cada Banco e Empresa Cliente.
-
-13
-“Um sistema financeiro saudável, ético e eficiente é condição essencial para o desenvolvimento econômico, social e sustentável do País”
-
-![FEBRABAN logo](page_14_image_1_v2.jpg)
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
 # Lote de Serviço / Produto
 
 Um lote de Serviço / Produto típico é composto de um registro header de lote, um ou mais registros detalhe, e um registro trailer de lote. Alguns Serviços / Produtos usam registros adicionais de tipo 2 e 4 contendo informações sobre posições iniciais e finais do lote, como no caso de Extrato para Gestão de Caixa que disponibiliza Saldos iniciais e finais de diferentes Naturezas de uma Conta Corrente.
@@ -460,7 +335,6 @@ Os registros header (1) e trailer (5) de lote e os de detalhe (3) são compostos
 Um registro de detalhe é composto de um ou mais segmentos, dependendo do tipo de Serviço / Produto associado ao lote de Serviço / Produto.
 
 Existem vários tipos de segmentos diferentes e cada um deles pode ser utilizado em um ou mais lotes de Serviço / Produto, tanto nos fluxos de <u>**Remessa**</u> (Cliente enviando informações para o Banco) como nos fluxos de <u>**Retorno**</u> (Banco enviando informações para o Cliente), conforme discriminados a seguir:
-
 
 <table>
   <thead>
@@ -514,20 +388,8 @@ Existem vários tipos de segmentos diferentes e cada um deles pode ser utilizado
   </tbody>
 </table>
 
-
-
-
 <page_footer>
-“Um sistema financeiro saudável, ético e eficiente é condição essencial para o desenvolvimento econômico, social e sustentável do País”
 </page_footer>
-
-14
-
-![FEBRABAN logo](page_15_image_1_v2.jpg)
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-
 <table>
   <tbody>
     <tr>
@@ -593,16 +455,6 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
     </tr>
   </tbody>
 </table>
-
-“Um sistema financeiro saudável, ético e eficiente é condição essencial para o desenvolvimento econômico, social e sustentável do País”
-15
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_16_image_1_v2.jpg)
-
-
-
 # Observações
 
 ## Tamanho do Registro
@@ -615,20 +467,9 @@ O Tamanho do Registro é de **240** bytes.
 
 * Campos Alfanuméricos (Alfa) = Sempre à esquerda e preenchidos com brancos à direita.
 
-16
-“Um sistema financeiro saudável, ético e eficiente é condição essencial para o desenvolvimento econômico, social e sustentável do País”
-
-Layout Padrão Febraban 240 posições V10.9
-http://www.febraban.org.br
-
-![FEBRABAN logo](page_17_image_1_v2.jpg)
-
-
-
 # 2.2 - Header e Trailer do Arquivo
 
 ## Registro Header de Arquivo
-
 
 <table>
     <thead>
@@ -640,7 +481,7 @@ http://www.febraban.org.br
         <th>Nº</th>
         <th>Formato</th>
         <th>Default</th>
-        <th>Des</th>
+        <th>Descrição</th>
     </tr>
     </thead>
     <tr>
@@ -653,7 +494,7 @@ http://www.febraban.org.br
         <td>Dec</td>
         <td></td>
         <td></td>
-        <td>crição</td>
+        <td></td>
     </tr>
     <tr>
         <td>01.0</td>
@@ -706,15 +547,8 @@ http://www.febraban.org.br
     </tr>
     <tr>
         <td>05.0</td>
-        <td rowspan="9">E
-m
-p
-r
-e
-s
-a</td>
-        <td>Inscri Tipo
-ção</td>
+        <td rowspan="9">Empresa</td>
+        <td>Tipo Inscrição</td>
         <td>Tipo de Inscrição da Empresa</td>
         <td>18</td>
         <td>18</td>
@@ -750,10 +584,7 @@ a</td>
     </tr>
     <tr>
         <td>08.0</td>
-        <td rowspan="5">Conta Agên
-cia
-Cor
-rente</td>
+        <td rowspan="5">Conta Corrente Agência</td>
         <td>Código</td>
         <td>Agência Mantenedora da Conta</td>
         <td>53</td>
@@ -965,24 +796,12 @@ o</td>
     </tr>
 </table>
 
-
 **Controle** - Banco origem ou destino do arquivo
 
 **Empresa** - Empresa que firmou o convênio de prestação de serviços com o Banco
 
 **Conta Corrente (Empresa)** - Número da conta do corrente do convênio firmado entre Banco e Empresa para a prestação de um tipo de serviço. Quando o arquivo contiver mais que um tipo de serviço diferente, os dados da conta corrente a serem colocados aqui devem ser acordados entre o Banco e a Empresa.
-
-17
-“Um sistema financeiro saudável, ético e eficiente é condição essencial para o desenvolvimento econômico, social e sustentável do País”
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_18_image_1_v2.jpg)
-
-
-
 # Registro Trailer de Arquivo
-
 
 <table>
   <thead>
@@ -994,7 +813,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <th rowspan="2">Nº Dec</th>
         <th rowspan="2">Formato</th>
         <th rowspan="2">Default</th>
-        <th rowspan="2">Des-crição</th>
+        <th rowspan="2">Descrição</th>
     </tr>
     <tr>
         <th> </th>
@@ -1108,36 +927,13 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
   </tbody>
 </table>
 
-
 **Controle** - Banco origem ou destino do arquivo
 
 **Totais** - Totais de controle para checagem do arquivo
 
-“Um sistema financeiro saudável, ético e eficiente é condição essencial para o desenvolvimento econômico, social e sustentável do País” 18
-
-![FEBRABAN logo](page_19_image_2_v2.jpg)
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
 # 3.0 - Serviços / Produtos
 
-19
-“Um sistema financeiro saudável, ético e eficiente é condição essencial para o desenvolvimento econômico, social e sustentável do País”
-
-![FEBRABAN logo](page_20_image_2_v2.jpg)
-Layout Padrão Febraban 240 posições V10.9
-http://www.febraban.org.br
-
 # 3.1 - Pagamentos
-
-20
-“Um sistema financeiro saudável, ético e eficiente é condição essencial para o desenvolvimento econômico, social e sustentável do País”
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_21_image_1_v2.jpg)
-
-
-
 # 3.1.1 - Descrição do Processo
 
 ## Objetivo
@@ -1147,7 +943,6 @@ O produto Pagamentos tem por objetivo fornecer, aos Clientes (Pagadores) dos Ban
 Este processo envolve pagamentos de compromissos que podem ser efetuados através de crédito em conta, cheque administrativo, DOC, TED, ordem de pagamento (OP), pagamento com autenticação, títulos em cobrança, tranaferências via Pix ou pagamentos de QRCode Pix.
 
 ## Entidades Participantes
-
 
 <table>
   <thead>
@@ -1176,7 +971,6 @@ Este processo envolve pagamentos de compromissos que podem ser efetuados atravé
   </tbody>
 </table>
 
-
 ## Fluxo de Informações
 
 O Pagador agenda, junto ao Banco Pagador, os Pagamentos a serem efetuados pelo Banco. Caso seja agendado um pagamento bloqueado é necessário enviar uma informação para liberar a execução do pagamento posteriormente e, nos casos em contrário, se foi agendado um pagamento liberado é possível fazer o bloqueio do mesmo. Também é possível o Pagador efetuar alterações em alguns dados dos pagamentos, antes que o mesmo seja efetuado.
@@ -1190,13 +984,6 @@ Através de cheque administrativo ou ordem de pagamento (OP).
 *   Ao Banco do Favorecido
 
 Através de crédito em conta, quando o Banco do Pagador é o mesmo Banco do Favorecido, ou através de DOC, TED e títulos em cobrança, via compensação, ou Pix.
-
-21
-“Um sistema financeiro saudável, ético e eficiente é condição essencial para o desenvolvimento econômico, social e sustentável do País”
-
-![FEBRABAN logo](page_22_image_1_v2.jpg)
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
 
 # Diagrama
 
@@ -1220,7 +1007,6 @@ PAGAMENTO — — — FLUXO FORA DO ESCOPO DO TRABALHO
 # Eventos
 
 ## PAGAMENTOS e PAGAMENTO TÍTULO - REMESSA
-
 
 <table>
   <thead>
@@ -1257,16 +1043,7 @@ PAGAMENTO — — — FLUXO FORA DO ESCOPO DO TRABALHO
     </tr>
   </tbody>
 </table>
-
-“Um sistema financeiro saudável, ético e eficiente é condição essencial para o desenvolvimento econômico, social e sustentável do País”
-22
-
-![FEBRABAN logo](page_23_image_1_v2.jpg)
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
 # PAGAMENTOS e PAGAMENTO TÍTULO - RETORNO
-
 
 <table>
   <thead>
@@ -1313,17 +1090,9 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
   </tbody>
 </table>
 
-23
-“Um sistema financeiro saudável, ético e eficiente é condição essencial para o desenvolvimento econômico, social e sustentável do País”
-
-![FEBRABAN logo](page_24_image_1_v2.jpg)
-Layout Padrão Febraban 240 posições V10.9
-http://www.febraban.org.br
-
 # 3.1.2 - Pagamento Através de Crédito em Conta, Cheque, OP, DOC, TED ou Pagamento com Autenticação
 
 ## Registro Header de Lote
-
 
 <table>
     <thead>
@@ -1335,7 +1104,7 @@ http://www.febraban.org.br
         <th>Nº</th>
         <th>Formato</th>
         <th>Default</th>
-        <th>Des</th>
+        <th>Descrição</th>
     </tr>
     </thead>
     <tr>
@@ -1348,7 +1117,7 @@ http://www.febraban.org.br
         <td>Dec</td>
         <td></td>
         <td></td>
-        <td>crição</td>
+        <td></td>
     </tr>
     <tr>
         <td>01.1</td>
@@ -1450,15 +1219,8 @@ http://www.febraban.org.br
     </tr>
     <tr>
         <td>09.1</td>
-        <td rowspan="9">E
-m
-p
-r
-e
-s
-a</td>
-        <td>Inscri Tipo
-ção</td>
+        <td rowspan="9">Empresa</td>
+        <td>Tipo Inscrição</td>
         <td>Tipo de Inscrição da Empresa</td>
         <td>18</td>
         <td>18</td>
@@ -1494,10 +1256,7 @@ a</td>
     </tr>
     <tr>
         <td>12.1</td>
-        <td rowspan="2">Conta Agên
-cia
-Cor
-rente</td>
+        <td rowspan="2">Conta Corrente Agência</td>
         <td>Código</td>
         <td>Agência Mantenedora da Conta</td>
         <td>53</td>
@@ -1582,8 +1341,7 @@ rente</td>
     </tr>
     <tr>
         <td>19.1</td>
-        <td rowspan="7">Endere
-ço
+        <td rowspan="7">Endereço
 <br/>
 da
 <br/>
@@ -1709,20 +1467,11 @@ Serviço</td>
     </tr>
 </table>
 
-
 **Controle** - Banco origem ou destino do arquivo (Banco Pagador)
 
 **Empresa** - Cliente (Pagador) que firmou o convênio de prestação de serviços com o banco
 
-24
-“Um sistema financeiro saudável, ético e eficiente é condição essencial para o desenvolvimento econômico, social e sustentável do País”
-
-![FEBRABAN logo](page_25_image_1_v2.jpg)
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
 # Registro Detalhe - Segmento A (Obrigatório - Remessa / Retorno)
-
 
 <table>
     <thead>
@@ -1734,7 +1483,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <th>Nº</th>
         <th>Formato</th>
         <th>Default</th>
-        <th>Des</th>
+        <th>Descrição</th>
     </tr>
     </thead>
     <tr>
@@ -1747,7 +1496,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <td>Dec</td>
         <td></td>
         <td></td>
-        <td>crição</td>
+        <td></td>
     </tr>
     <tr>
         <td>01.3A</td>
@@ -1813,8 +1562,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
     </tr>
     <tr>
         <td>06.3A</td>
-        <td>Movi Tipo
-mento</td>
+        <td>Movimento Tipo</td>
         <td>Tipo de Movimento</td>
         <td>15</td>
         <td>15</td>
@@ -1838,16 +1586,7 @@ mento</td>
     </tr>
     <tr>
         <td>08.3A</td>
-        <td rowspan="8">F
-a
-v
-o
-r
-e
-c
-i
-d
-o</td>
+        <td rowspan="8">Favorecido</td>
         <td>Câmara</td>
         <td>Código da Câmara Centralizadora</td>
         <td>18</td>
@@ -1872,10 +1611,7 @@ o</td>
     </tr>
     <tr>
         <td>10.3A</td>
-        <td rowspan="5">Agên
-Conta cia
-Cor
-rente</td>
+        <td rowspan="5">Agência Conta Corrente</td>
         <td>Código</td>
         <td>Ag. Mantenedora da Cta do Favor.</td>
         <td>24</td>
@@ -2136,27 +1872,12 @@ servidores pelo SIAPE, ou PIX.</td>
     </tr>
 </table>
 
-
 **Controle** - Banco origem ou destino do arquivo (Banco Pagador)
 
 **Favorecido** - Beneficiário, recebedor do pagamento
 
 **Crédito** - Dados sobre o pagamento a ser efetuado
-
-25
-
-“Um sistema financeiro saudável, ético e eficiente
-é condição essencial para o desenvolvimento
-econômico, social e sustentável do País”
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_26_image_1_v2.jpg)
-
-
-
 # Registro Detalhe - Segmento B (Obrigatório - Remessa / Retorno)
-
 
 <table>
   <thead>
@@ -2170,7 +1891,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <th rowspan="2">Nº Dec</th>
         <th rowspan="2">Formato</th>
         <th rowspan="2">Default</th>
-        <th rowspan="2">Des-crição</th>
+        <th rowspan="2">Descrição</th>
     </tr>
     <tr>
         <th> </th>
@@ -2344,26 +2065,13 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
   </tbody>
 </table>
 
-
 **Controle** - Banco origem ou destino do arquivo (Banco Pagador)
 
 **Favorecido** - Beneficiário, recebedor do pagamento
 
 **Pagto** - Dados sobre o pagamento a ser efetuado
 
-26
-“Um sistema financeiro saudável, ético e eficiente
-é condição essencial para o desenvolvimento
-econômico, social e sustentável do País”
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_27_image_1_v2.jpg)
-
-
-
 # Registro Detalhe - Segmento C (Opcional - Remessa / Retorno)
-
 
 <table>
     <thead>
@@ -2375,7 +2083,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <th>Nº</th>
         <th>Formato</th>
         <th>Default</th>
-        <th>Des</th>
+        <th>Descrição</th>
     </tr>
     </thead>
     <tr>
@@ -2388,7 +2096,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <td>Dec</td>
         <td></td>
         <td></td>
-        <td>crição</td>
+        <td></td>
     </tr>
     <tr>
         <td>01.3C</td>
@@ -2466,15 +2174,8 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
     </tr>
     <tr>
         <td>07.3C</td>
-        <td colspan="2">Dados
-Comple
-men
-tares</td>
-        <td>Valor IR
-Pa
-ga
-men
-to</td>
+        <td colspan="2">Dados Complementares</td>
+        <td>Valor IR Pagamento</td>
         <td>Valor do IR</td>
         <td>18</td>
         <td>32</td>
@@ -2534,8 +2235,7 @@ to</td>
     </tr>
     <tr>
         <td>12.3C</td>
-        <td colspan="2" rowspan="5">Substi
-tuta</td>
+        <td colspan="2" rowspan="5">Substituta</td>
         <td>Agência</td>
         <td>Agência do Favorecido</td>
         <td>93</td>
@@ -2633,23 +2333,11 @@ Creditada</td>
     </tr>
 </table>
 
-
 **Controle** - Banco origem ou destino do arquivo (Banco Pagador)
 
 **Substituta** - Dados sobre a agência/conta corrente utilizada no pagamento, em substituição à agência/conta corrente original. Esta substituição ocorre por fusão ou fechamento da agência originalmente designada para o pagamento.
 
-27
-“Um sistema financeiro saudável, ético e eficiente é condição essencial para o desenvolvimento econômico, social e sustentável do País”
-
-Layout Padrão Febraban 240 posições V10.9
-http://www.febraban.org.br
-
-![FEBRABAN logo](page_28_image_1_v2.jpg)
-
-
-
 # Registro Trailer de Lote
-
 
 <table>
   <thead>
@@ -2661,7 +2349,7 @@ http://www.febraban.org.br
         <th>Nº</th>
         <th>Formato</th>
         <th>Default</th>
-        <th>Des-</th>
+        <th>Descrição</th>
     </tr>
     <tr>
         <th> </th>
@@ -2674,7 +2362,7 @@ http://www.febraban.org.br
         <th>Dec</th>
         <th> </th>
         <th> </th>
-        <th>crição</th>
+        <th></th>
     </tr>
   </thead>
   <tbody>
@@ -2809,25 +2497,13 @@ http://www.febraban.org.br
   </tbody>
 </table>
 
-
 **Controle** - Banco origem ou destino do arquivo (Banco Pagador)
 
 **Totais** - Totais de controle para checagem do lote
 
-28
-“Um sistema financeiro saudável, ético e eficiente é condição essencial para o desenvolvimento econômico, social e sustentável do País”
-
-Layout Padrão Febraban 240 posições V10.9
-http://www.febraban.org.br
-
-![FEBRABAN logo](page_29_image_1_v2.jpg)
-
-
-
 # 3.1.3 - Pagamento de Títulos de Cobrança
 
 ## Registro Header de Lote
-
 
 <table>
     <thead>
@@ -2839,7 +2515,7 @@ http://www.febraban.org.br
         <th>Nº</th>
         <th>Formato</th>
         <th>Default</th>
-        <th>Des</th>
+        <th>Descrição</th>
     </tr>
     </thead>
     <tr>
@@ -2852,7 +2528,7 @@ http://www.febraban.org.br
         <td>Dec</td>
         <td></td>
         <td></td>
-        <td>crição</td>
+        <td></td>
     </tr>
     <tr>
         <td>01.1</td>
@@ -2954,14 +2630,8 @@ http://www.febraban.org.br
     </tr>
     <tr>
         <td>09.1</td>
-        <td rowspan="9">E
-m
-p
-r
-e
-s
-a</td>
-        <td>Ins Tipo
+        <td rowspan="9">Empresa</td>
+        <td>Inscri Tipo
 crição</td>
         <td>Tipo de Inscrição da Empresa</td>
         <td>18</td>
@@ -2998,8 +2668,7 @@ crição</td>
     </tr>
     <tr>
         <td>12.1</td>
-        <td rowspan="2">Conta Agên
-Cor cia
+        <td rowspan="2">Conta AgênCor cia
 rente</td>
         <td>Código</td>
         <td>Agência Mantenedora da Conta</td>
@@ -3085,8 +2754,7 @@ rente</td>
     </tr>
     <tr>
         <td>19.1</td>
-        <td rowspan="7">Endere
-ço
+        <td rowspan="7">Endereço
 <br/>
 da
 <br/>
@@ -3199,22 +2867,10 @@ Empresa</td>
     </tr>
 </table>
 
-
 **Controle** - Banco origem ou destino do arquivo (Banco Pagador)
 
 **Empresa** - Cliente (Pagador) que firmou o convênio de prestação de serviços com o banco
-
-29
-“Um sistema financeiro saudável, ético e eficiente é condição essencial para o desenvolvimento econômico, social e sustentável do País”
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_30_image_1_v2.jpg)
-
-
-
 # Registro Detalhe - Segmento J (Obrigatório - Remessa / Retorno)
-
 
 <table>
     <thead>
@@ -3226,7 +2882,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <th>Nº</th>
         <th>Formato</th>
         <th>Default</th>
-        <th>Des</th>
+        <th>Descrição</th>
     </tr>
     </thead>
     <tr>
@@ -3239,7 +2895,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <td>Dec</td>
         <td></td>
         <td></td>
-        <td>crição</td>
+        <td></td>
     </tr>
     <tr>
         <td>01.3J</td>
@@ -3507,23 +3163,11 @@ o</td>
     </tr>
 </table>
 
-
 **Controle** - Banco origem ou destino do arquivo (Banco Pagador)
 
 **Pagamento** - Dados sobre o pagamento a ser efetuado
 
-30
-“Um sistema financeiro saudável, ético e eficiente é condição essencial para o desenvolvimento econômico, social e sustentável do País”
-
-Layout Padrão Febraban 240 posições V10.9
-http://www.febraban.org.br
-
-![FEBRABAN logo](page_31_image_1_v2.jpg)
-
-
-
 # Registro Detalhe - Segmento J-52 (Obrigatório – Remessa / Retorno)
-
 
 <table>
     <thead>
@@ -3535,7 +3179,7 @@ http://www.febraban.org.br
         <th>Nº</th>
         <th>Formato</th>
         <th>Default</th>
-        <th>Des</th>
+        <th>Descrição</th>
     </tr>
     </thead>
     <tr>
@@ -3548,7 +3192,7 @@ http://www.febraban.org.br
         <td>Dec</td>
         <td></td>
         <td></td>
-        <td>crição</td>
+        <td></td>
     </tr>
     <tr>
         <td>01.4.J52</td>
@@ -3653,9 +3297,7 @@ http://www.febraban.org.br
         <td colspan="2" rowspan="3">Dados 
 do 
 Pagador</td>
-        <td rowspan="2">Insc
-ri
-ção</td>
+        <td rowspan="2">Inscrição</td>
         <td>Tipo</td>
         <td>Tipo de Inscrição</td>
         <td>20</td>
@@ -3696,9 +3338,7 @@ ri
 do 
 Beneficiá
 rio</td>
-        <td rowspan="2">Insc
-ri
-ção</td>
+        <td rowspan="2">Inscrição</td>
         <td>Tipo</td>
         <td>Tipo de Inscrição</td>
         <td>76</td>
@@ -3738,9 +3378,7 @@ ri
         <td colspan="2" rowspan="3">Dados 
 do 
 Pagadorr</td>
-        <td rowspan="2">Insc
-ri
-ção</td>
+        <td rowspan="2">Inscrição</td>
         <td>Tipo</td>
         <td>Tipo de Inscrição</td>
         <td>132</td>
@@ -3789,20 +3427,8 @@ ri
     </tr>
 </table>
 
-
 **Pagadorr** - Dados sobre o Beneficiário responsável pela emissão do título original
-
-31
-“Um sistema financeiro saudável, ético e eficiente
-é condição essencial para o desenvolvimento
-econômico, social e sustentável do País”
-
-![FEBRABAN logo](page_32_image_1_v2.jpg)
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
 # Registro Detalhe - Segmento J-52 Para o PIX (Obrigatório – Remessa / Retorno)
-
 
 <table>
   <thead>
@@ -3813,7 +3439,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <th>Nº</th>
         <th>Formato</th>
         <th>Default</th>
-        <th>Des-</th>
+        <th>Descrição</th>
     </tr>
     <tr>
         <th> </th>
@@ -3828,7 +3454,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <th>Dec</th>
         <th> </th>
         <th> </th>
-        <th>crição</th>
+        <th></th>
     </tr>
   </thead>
   <tbody>
@@ -4067,20 +3693,9 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
   </tbody>
 </table>
 
-
-> “Um sistema financeiro saudável, ético e eficiente é condição essencial para o desenvolvimento econômico, social e sustentável do País”
-
-32
-
-Layout Padrão Febraban 240 posições V10.9
-http://www.febraban.org.br
-
-![FEBRABAN logo](page_33_image_2_v2.jpg)
-
-
+> 
 
 # Registro Trailer de Lote
-
 
 <table>
   <thead>
@@ -4104,7 +3719,7 @@ http://www.febraban.org.br
         <th>Dec</th>
         <th> </th>
         <th> </th>
-        <th>crição</th>
+        <th></th>
     </tr>
   </thead>
   <tbody>
@@ -4237,24 +3852,12 @@ http://www.febraban.org.br
   </tbody>
 </table>
 
-
 **Controle** - Banco origem ou destino do arquivo (Banco Pagador)
 
 **Totais** - Totais de controle para checagem do lote
-
-“Um sistema financeiro saudável, ético e eficiente é condição essencial para o desenvolvimento econômico, social e sustentável do País”
-33
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_34_image_1_v2.jpg)
-
-
-
 # 3.1.4 – Pagamento de Tributos
 
 ## Registro Header de Lote
-
 
 <table>
     <thead>
@@ -4266,7 +3869,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <th>Nº</th>
         <th>Formato</th>
         <th>Default</th>
-        <th>Des</th>
+        <th>Descrição</th>
     </tr>
     </thead>
     <tr>
@@ -4279,7 +3882,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <td>Dec</td>
         <td></td>
         <td></td>
-        <td>crição</td>
+        <td></td>
     </tr>
     <tr>
         <td>01.1</td>
@@ -4381,15 +3984,8 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
     </tr>
     <tr>
         <td>09.1</td>
-        <td rowspan="9">E
-m
-p
-r
-e
-s
-a</td>
-        <td>Ins Tipo
-crição</td>
+        <td rowspan="9">Empresa</td>
+        <td>Tipo Inscrição </td>
         <td>Tipo de Inscrição da Empresa</td>
         <td>18</td>
         <td>18</td>
@@ -4425,9 +4021,7 @@ crição</td>
     </tr>
     <tr>
         <td>12.1</td>
-        <td rowspan="2">Conta Agên
-Cor cia
-rente</td>
+        <td rowspan="2">Conta Agência Corrente</td>
         <td>Código</td>
         <td>Agência Cônvênio</td>
         <td>53</td>
@@ -4512,8 +4106,7 @@ rente</td>
     </tr>
     <tr>
         <td>19.1</td>
-        <td rowspan="7">Endere
-ço
+        <td rowspan="7">Endereço
 <br/>
 da
 <br/>
@@ -4639,23 +4232,11 @@ Compromisso</td>
     </tr>
 </table>
 
-
 Controle - Banco origem ou destino do arquivo (Banco Pagador)
 
 Empresa - Cliente (Pagador) que firmou o convênio de prestação de serviços com o banco
 
-34
-“Um sistema financeiro saudável, ético e eficiente é condição essencial para o desenvolvimento econômico, social e sustentável do País”
-
-Layout Padrão Febraban 240 posições V10.9
-http://www.febraban.org.br
-
-![FEBRABAN logo](page_35_image_1_v2.jpg)
-
-
-
 # Registro Detalhe - Segmento O - Pagamento de Contas e Tributos com Código de Barras (Obrigatório - Remessa / Retorno)
-
 
 <table>
   <thead>
@@ -4669,7 +4250,7 @@ http://www.febraban.org.br
         <th rowspan="2">Nº Dec</th>
         <th rowspan="2">Formato</th>
         <th rowspan="2">Default</th>
-        <th rowspan="2">Des-<br/>Crição</th>
+        <th rowspan="2">Descrição<br/></th>
     </tr>
     <tr>
         <th> </th>
@@ -4893,18 +4474,7 @@ http://www.febraban.org.br
   </tbody>
 </table>
 
-“Um sistema financeiro saudável, ético e eficiente é condição essencial para o desenvolvimento econômico, social e sustentável do País”
-35
-
-Layout Padrão Febraban 240 posições V10.9
-http://www.febraban.org.br
-
-![FEBRABAN logo](page_36_image_1_v2.jpg)
-
-
-
 # Registro Detalhe – Segmento N - Pagamento de Tributos e Impostos sem código de barras (Obrigatório - Remessa / Retorno)
-
 
 <table>
   <thead>
@@ -4916,7 +4486,7 @@ http://www.febraban.org.br
         <th>Nº</th>
         <th>Formato</th>
         <th>Default</th>
-        <th colspan="2">Des-</th>
+        <th colspan="2">Descrição</th>
     </tr>
     <tr>
         <th> </th>
@@ -4927,7 +4497,7 @@ http://www.febraban.org.br
         <th>Dec</th>
         <th> </th>
         <th> </th>
-        <th colspan="2">Crição</th>
+        <th colspan="2"></th>
     </tr>
   </thead>
   <tbody>
@@ -5116,20 +4686,8 @@ http://www.febraban.org.br
   </tbody>
 </table>
 
-
 \* Vide descrição de cada tributo a seguir
-
-“Um sistema financeiro saudável, ético e eficiente é condição essencial para o desenvolvimento econômico, social e sustentável do País”
-36
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_37_image_1_v2.jpg)
-
-
-
 # N1. GPS – Informações complementares para pagamento da GPS
-
 
 <table>
   <thead>
@@ -5140,7 +4698,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <th>Nº</th>
         <th>Formato</th>
         <th>Default</th>
-        <th rowspan="2">Des-<br/>Crição</th>
+        <th rowspan="2">Descrição<br/></th>
     </tr>
     <tr>
         <th> </th>
@@ -5256,24 +4814,12 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
   </tbody>
 </table>
 
-
 Observação: É vedada a utilização da GPS para recolhimento de Receita de valor total inferior ao estipulado pela Resolução INSS/PR vigente.
 
 Eventuais dúvidas no preenchimento da GPS, ou informações relativas a outros códigos de pagamento devem ser obtidas através do "Manual de Preenchimento da GPS", disponível nas agências do INSS ou através site http://www.mpas.gov.br
-
-37
-“Um sistema financeiro saudável, ético e eficiente
-é condição essencial para o desenvolvimento
-econômico, social e sustentável do País”
-
-http://www.febraban.org.br
-
-![FEBRABAN logo](page_38_image_1_v2.jpg)
-
-Layout Padrão Febraban 240 posições V10.9 
+ 
 
 # N2. DARF – Informações complementares para pagamento de DARF
-
 
 <table>
 <thead>
@@ -5284,7 +4830,7 @@ Layout Padrão Febraban 240 posições V10.9
 <th>Nº</th>
 <th>Formato</th>
 <th>Default</th>
-<th>Des-Crição</th>
+<th>Descrição</th>
 </tr>
 <tr>
 <th> </th>
@@ -5430,23 +4976,10 @@ Layout Padrão Febraban 240 posições V10.9
 </tbody>
 </table>
 
-
 Observação: É vedado o recolhimento de tributos e contribuições cujo valor seja inferior ao mínimo estipulado pela Secretaria da Receita Federal.
 
 Eventuais dúvidas no preenchimento do DARF, ou informações relativas a outros códigos de receita devem ser obtidas nas agências da Secretaria da Receita Federal ou através do site http://www.receita.fazenda.gov.br
-
-38
-
-“Um sistema financeiro saudável, ético e eficiente é condição essencial para o desenvolvimento econômico, social e sustentável do País”
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_39_image_1_v2.jpg)
-
-
-
 # N3. DARF Simples – Informações complementares para pagamento de DARF SIMPLES
-
 
 <table>
   <thead>
@@ -5457,7 +4990,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <th>Nº</th>
         <th>Formato</th>
         <th>Default</th>
-        <th rowspan="2">Des-<br/>Crição</th>
+        <th rowspan="2">Descrição<br/></th>
     </tr>
     <tr>
         <th> </th>
@@ -5607,25 +5140,10 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
   </tbody>
 </table>
 
-
 Observação: É vedado o recolhimento de tributos e contribuições cujo valor seja inferior ao mínimo estipulado pela Secretaria da Receita Federal.
 
 Eventuais dúvidas no preenchimento do DARF SIMPLES, ou informações relativas a outros códigos de receita devem ser obtidas nas agências da Secretaria da Receita Federal ou através site http://www.receita.fazenda.gov.br
-
-“Um sistema financeiro saudável, ético e eficiente
-é condição essencial para o desenvolvimento
-econômico, social e sustentável do País”
-
-39
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_40_image_1_v2.jpg)
-
-
-
 # N4. GARE-SP (ICMS/DR/ITCMD) – Informações complementares para pagamento de GARE-SP
-
 
 <table>
   <thead>
@@ -5636,7 +5154,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <th>Nº Dec</th>
         <th>Formato</th>
         <th>Default</th>
-        <th>Des-Crição</th>
+        <th>Descrição</th>
     </tr>
     <tr>
         <th> </th>
@@ -5797,19 +5315,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
   </tbody>
 </table>
 
-“Um sistema financeiro saudável, ético e eficiente é condição essencial para o desenvolvimento econômico, social e sustentável do País”
-
-40
-
-Layout Padrão Febraban 240 posições V10.9
-http://www.febraban.org.br
-
-![FEBRABAN logo](page_41_image_1_v2.jpg)
-
-
-
 # N5. IPVA – Informações complementares para pagamento de IPVA
-
 
 <table>
 <thead>
@@ -5821,7 +5327,7 @@ http://www.febraban.org.br
 <th>Nº</th>
 <th>Formato</th>
 <th>Default</th>
-<th>Des-</th>
+<th>Descrição</th>
 </tr>
 <tr>
 <th> </th>
@@ -5833,7 +5339,7 @@ http://www.febraban.org.br
 <th>Dec</th>
 <th> </th>
 <th> </th>
-<th>Crição</th>
+<th></th>
 </tr>
 </thead>
 <tbody>
@@ -5978,21 +5484,9 @@ http://www.febraban.org.br
 </tbody>
 </table>
 
-
 Observação: Eventuais dúvidas no preenchimento das informações necessárias ao pagamento do IPVA devem ser obtidas junto à Secretaria do Estado da Fazenda, Unidade Federativa onde o veículo estiver cadastrado.
 
-41
-“Um sistema financeiro saudável, ético e eficiente é condição essencial para o desenvolvimento econômico, social e sustentável do País”
-
-Layout Padrão Febraban 240 posições V10.9
-http://www.febraban.org.br
-
-![FEBRABAN logo](page_42_image_1_v2.jpg)
-
-
-
 # N6. DPVAT – Informações complementares para pagamento de DPVAT
-
 
 <table>
   <thead>
@@ -6003,7 +5497,7 @@ http://www.febraban.org.br
         <th>Nº</th>
         <th>Formato</th>
         <th>Default</th>
-        <th rowspan="2">Des-Crição</th>
+        <th rowspan="2">Descrição</th>
     </tr>
     <tr>
         <th> </th>
@@ -6165,21 +5659,9 @@ http://www.febraban.org.br
   </tbody>
 </table>
 
-
 Observação: Eventuais dúvidas no preenchimento das informações necessárias ao pagamento do DPVAT devem ser obtidas junto à Seguradora Líder, ou através do site www.seguradoralider.com.br.
 
-“Um sistema financeiro saudável, ético e eficiente é condição essencial para o desenvolvimento econômico, social e sustentável do País”
-42
-
-Layout Padrão Febraban 240 posições V10.9
-http://www.febraban.org.br
-
-![FEBRABAN logo](page_43_image_1_v2.jpg)
-
-
-
 # N7. LICENCIAMENTO – Informações complementares para pagamento de LICENCIAMENTO
-
 
 <table>
   <thead>
@@ -6190,7 +5672,7 @@ http://www.febraban.org.br
         <th>Nº</th>
         <th>Formato</th>
         <th>Default</th>
-        <th>Des-</th>
+        <th>Descrição</th>
     </tr>
     <tr>
         <th> </th>
@@ -6202,7 +5684,7 @@ http://www.febraban.org.br
         <th>Dec</th>
         <th> </th>
         <th> </th>
-        <th>Crição</th>
+        <th></th>
     </tr>
   </thead>
   <tbody>
@@ -6365,24 +5847,12 @@ http://www.febraban.org.br
   </tbody>
 </table>
 
-
 Observação: Eventuais dúvidas no preenchimento das informações necessárias ao pagamento do LICENCIAMENTO devem ser obtidas junto à Secretaria do Estado da Fazenda, Unidade Federativa onde o veículo estiver cadastrado.
 
 Opção de Retirada 1 = Correio indica que o documento CRVL será enviado pelo órgão arecadador
 
 Para Licenciamento antecipado é obrigatória a opção de retirada 1 = Correio
-
-43
-“Um sistema financeiro saudável, ético e eficiente é condição essencial para o desenvolvimento econômico, social e sustentável do País”
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_44_image_1_v2.jpg)
-
-
-
 # N8. DARJ – Informações complementares para pagamento de DARJ
-
 
 <table>
   <thead>
@@ -6394,7 +5864,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <th>Nº</th>
         <th>Formato</th>
         <th>Default</th>
-        <th colspan="3">Des-</th>
+        <th colspan="3">Descrição</th>
     </tr>
     <tr>
         <th>De</th>
@@ -6403,7 +5873,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <th>Dec</th>
         <th> </th>
         <th> </th>
-        <th>Crição</th>
+        <th></th>
     </tr>
   </thead>
   <tbody>
@@ -6553,20 +6023,8 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
   </tbody>
 </table>
 
-
 Observação: Eventuais dúvidas no preenchimento do DARJ, ou informações relativas a outros códigos de receita, devem ser obtidas nas agências da Secretaria do Estado da Fazenda do Estado do Rio de Janeiro.
-
-44
-“Um sistema financeiro saudável, ético e eficiente é condição essencial para o desenvolvimento econômico, social e sustentável do País”
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_45_image_1_v2.jpg)
-
-
-
 # Registro Detalhe Segmento W - Informações Complementares (Opcional – Remessa/Retorno)
-
 
 <table>
   <thead>
@@ -6577,7 +6035,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <th colspan="2">Nº</th>
         <th>Formato</th>
         <th>Default</th>
-        <th>Des-</th>
+        <th>Descrição</th>
     </tr>
     <tr>
         <th> </th>
@@ -6590,7 +6048,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <th>Dec</th>
         <th> </th>
         <th> </th>
-        <th>Crição</th>
+        <th></th>
     </tr>
   </thead>
   <tbody>
@@ -6762,17 +6220,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
   </tbody>
 </table>
 
-“Um sistema financeiro saudável, ético e eficiente é condição essencial para o desenvolvimento econômico, social e sustentável do País” 45
-
-Layout Padrão Febraban 240 posições V10.9
-http://www.febraban.org.br
-
-![FEBRABAN logo](page_46_image_1_v2.jpg)
-
-
-
 # W1 – Informação Complementar de Tributo / Informações complementares para pagamento de FGTS por código de barras
-
 
 <table>
   <thead>
@@ -6782,7 +6230,7 @@ http://www.febraban.org.br
         <th colspan="2">Nº</th>
         <th>Formato</th>
         <th>Default</th>
-        <th colspan="2">Des-</th>
+        <th colspan="2">Descrição</th>
     </tr>
     <tr>
         <th> </th>
@@ -6793,7 +6241,7 @@ http://www.febraban.org.br
         <th>Dec</th>
         <th> </th>
         <th> </th>
-        <th colspan="2">Crição</th>
+        <th colspan="2"></th>
     </tr>
   </thead>
   <tbody>
@@ -6896,21 +6344,9 @@ http://www.febraban.org.br
   </tbody>
 </table>
 
-
 Observação: Estas informações complementares para pagamento de FGTS são obrigatórias para o Pagamento de FGTS dos convênios 0181 - Caixa – Arrecadação do FGTS – Recolhimento Recursal (418) ou Filantrópico (604) e 0182 – Caixa _ Arrecadação do FGTS – Recolhimento Parcelamento sem Multa (327, 337 e 345), juntamente com o segmeto O.
 
-“Um sistema financeiro saudável, ético e eficiente é condição essencial para o desenvolvimento econômico, social e sustentável do País”
-46
-
-Layout Padrão Febraban 240 posições V10.9
-http://www.febraban.org.br
-
-![FEBRABAN logo](page_47_image_1_v2.jpg)
-
-
-
 # Registro Detalhe Segmento Z - Autenticação do Pagamento (Opcional – Retorno)
-
 
 <table>
   <thead>
@@ -6924,7 +6360,7 @@ http://www.febraban.org.br
         <th rowspan="2">Nº Dec</th>
         <th rowspan="2">Formato</th>
         <th rowspan="2">Default</th>
-        <th rowspan="2">Des-<br/>Crição</th>
+        <th rowspan="2">Descrição<br/></th>
     </tr>
     <tr>
         <th> </th>
@@ -7052,20 +6488,8 @@ http://www.febraban.org.br
   </tbody>
 </table>
 
-
 O segmento Z traz informações complementares sobre a autenticação do pagamento. Poderá ser utilizado para qualquer forma de lançamento e deve ser único por pagamento.
-
-“Um sistema financeiro saudável, ético e eficiente é condição essencial para o desenvolvimento econômico, social e sustentável do País”
-47
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_48_image_2_v2.jpg)
-
-
-
 # Registro Trailer de Lote
-
 
 <table>
   <thead>
@@ -7195,21 +6619,9 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <td>\*G059</td>
     </tr>
   </tbody>
-</table>
-
-“Um sistema financeiro saudável, ético e eficiente é condição essencial para o desenvolvimento econômico, social e sustentável do País” 48
-
-![FEBRABAN logo](page_49_image_2_v2.jpg)
-Layout Padrão Febraban 240 posições V08.6 http://www.febraban.org.br
+</table> 
 
 # 3.2 - Cobrança
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_50_image_1_v2.jpg)
-
-
-
 # 3.2.1 - Descrição do Processo
 
 ## Objetivo
@@ -7219,7 +6631,6 @@ O produto Cobrança Bancária tem por objetivo fornecer aos clientes dos bancos,
 O tratamento do Contas a Receber pelos Bancos abrange todo o controle dos Títulos em Carteira, desde a comunicação da dívida ao Pagador (notificação através de vários meios, dependendo da informatização do Pagador), o recebimento da dívida, o crédito do numerário na conta corrente do Cliente, até a disponibilização de informações para o conta corrente do Cliente.
 
 ## Entidades Participantes
-
 
 <table>
   <thead>
@@ -7252,7 +6663,6 @@ O tratamento do Contas a Receber pelos Bancos abrange todo o controle dos Títul
   </tbody>
 </table>
 
-
 ## Fluxo de Informações
 
 O Beneficiário coloca o título em cobrança bancária. Caso este título tenha sido negociado, é fundamental que os dados do Sacador Avalista (Beneficiário original do Título), sejam registrados no Banco Beneficiário para efeito de referência junto ao Pagador. O Beneficiário pode comandar instruções e alterações em Títulos de posse do Banco Beneficiário.
@@ -7260,15 +6670,6 @@ O Beneficiário coloca o título em cobrança bancária. Caso este título tenha
 Caso o Banco Beneficiário não possua agência na praça do título, ele repassa a responsabilidade de efetuar a cobrança do título a um banco correspondente, para que o mesmo realize a cobrança em nome do Banco Beneficiário. O Banco Correspondente não interage com o Beneficiário; somente o Banco Beneficiário.
 
 O Banco Beneficiário, de posse das informações e instruções do título, poderá enviá-las eletronicamente ao Pagador, caso este seja seu cliente, através do convênio de Boleto de Pagamento Eletrônico, ou através do Boleto de Pagamento impresso.
-
-50
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_51_image_1_v2.jpg)
-
-
-
 Caso o Pagador não concorde com o pagamento, poderá enviar ao Banco Beneficiário uma Alegação manual (via agência - em papel), ou eletronicamente caso este seja seu cliente, através do convênio de Alegação do Pagador contestando o pagamento. O Banco Beneficiário repassará estas informações ao Beneficiário, que então comandará ações a serem executadas em função da aceitação ou não da alegação do Pagador.
 
 O Banco Beneficiário recebe a informação do pagamento do Banco Recebedor, e efetua o crédito na conta corrente do Beneficiário.
@@ -7313,16 +6714,9 @@ graph TD
     style L2_STYLE stroke:#ff4500,stroke-dasharray: 5 5
 ```
 
-51
-
-![FEBRABAN logo](page_52_image_1_v2.jpg)
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
 # Eventos
 
 ## COBRANÇA - REMESSA
-
 
 <table>
   <thead>
@@ -7347,11 +6741,9 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
   </tbody>
 </table>
 
-
 Observação: Para Instruções e Alterações o segmento "Q" é opcional.
 
 ## COBRANÇA - RETORNO
-
 
 <table>
   <thead>
@@ -7388,9 +6780,7 @@ Observação: Para Instruções e Alterações o segmento "Q" é opcional.
   </tbody>
 </table>
 
-
 ## BOLETO DE PAGAMENTO ELETRÔNICO - RETORNO
-
 
 <table>
   <thead>
@@ -7407,17 +6797,7 @@ Observação: Para Instruções e Alterações o segmento "Q" é opcional.
   </tbody>
 </table>
 
-52
-
-Layout Padrão Febraban 240 posições V10.9
-http://www.febraban.org.br
-
-![FEBRABAN logo](page_53_image_1_v2.jpg)
-
-
-
 # ALEGAÇÃO DO PAGADOR - REMESSA
-
 
 <table>
   <thead>
@@ -7434,9 +6814,7 @@ http://www.febraban.org.br
   </tbody>
 </table>
 
-
 # INCONSISTÊNCIAS NA ALEGAÇÃO DO PAGADOR - RETORNO
-
 
 <table>
   <thead>
@@ -7453,23 +6831,12 @@ http://www.febraban.org.br
   </tbody>
 </table>
 
-
 # Observações Gerais
 
 Para cada um dos serviços discriminados aqui: Cobrança, Boleto de Pagamento Eletrônico e Alegação do Pagador, é necessário firmar um convênio específico entre o Banco e o Cliente.
-
-53
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_54_image_1_v2.jpg)
-
-
-
 # 3.2.2 - Títulos em Cobrança
 
 ## Registro Header de Lote
-
 
 <table>
     <thead>
@@ -7575,15 +6942,8 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
     </tr>
     <tr>
         <td>09.1</td>
-        <td colspan="2" rowspan="9">E
-m
-p
-r
-e
-s
-a</td>
-        <td>Inscri Tipo
-ção</td>
+        <td colspan="2" rowspan="9">Empresa</td>
+        <td>Tipo Inscrição</td>
         <td>Tipo de Inscrição da Empresa</td>
         <td>18</td>
         <td>18</td>
@@ -7619,9 +6979,7 @@ a</td>
     </tr>
     <tr>
         <td>12.1</td>
-        <td rowspan="5">Agên
-cia
-C/C</td>
+        <td rowspan="5">Agência C/C</td>
         <td>Código</td>
         <td>Agência Mantenedora da Conta</td>
         <td>54</td>
@@ -7767,21 +7125,10 @@ Cobrança</td>
     </tr>
 </table>
 
-
 **Controle** - Banco origem ou destino do arquivo (Banco Beneficiário)
 
 **Empresa** - Cliente (Beneficiário) que firmou o convênio de prestação de serviços com o banco
-
-54
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_55_image_1_v2.jpg)
-
-
-
 # Registro Detalhe - Segmento P (Obrigatório - Remessa)
-
 
 <table>
     <thead>
@@ -7793,7 +7140,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <th>Nº</th>
         <th>Formato</th>
         <th>Default</th>
-        <th>Des</th>
+        <th>Descrição</th>
     </tr>
     </thead>
     <tr>
@@ -7806,7 +7153,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <td>Dec</td>
         <td></td>
         <td></td>
-        <td>crição</td>
+        <td></td>
     </tr>
     <tr>
         <td>01.3P</td>
@@ -7971,11 +7318,9 @@ a</td>
     </tr>
     <tr>
         <td>14.3P</td>
-        <td colspan="2" rowspan="5">Caracte
-rística
+        <td colspan="2" rowspan="5">Característica
 <br/>
-Cobran
-ça</td>
+Cobrança</td>
         <td>Carteira</td>
         <td>Código da Carteira</td>
         <td>58</td>
@@ -8330,7 +7675,6 @@ de pagamento parcial</td>
     </tr>
 </table>
 
-
 **Controle** - Banco origem ou destino do arquivo (Banco Beneficiário)
 
 **Conta Corrente** - Dados sobre a Agência / Conta Corrente do Beneficiário
@@ -8338,14 +7682,7 @@ de pagamento parcial</td>
 ### Observações:
 
 Campos 37.3P e 39.3P → Não poderão conter informações conflitantes, ou seja, o prazo para baixa / devolução não poderá ser menor que o prazo para protesto, quando este existir.
-
-55
-
-![FEBRABAN logo](page_56_image_2_v2.jpg)
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
 # Registro Detalhe - Segmento Q (Obrigatório - Remessa)
-
 
 <table>
     <thead>
@@ -8357,7 +7694,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <th>Nº</th>
         <th>Formato</th>
         <th>Default</th>
-        <th>Des</th>
+        <th>Descrição</th>
     </tr>
     </thead>
     <tr>
@@ -8370,7 +7707,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <td>Dec</td>
         <td></td>
         <td></td>
-        <td>crição</td>
+        <td></td>
     </tr>
     <tr>
         <td>01.3Q</td>
@@ -8466,8 +7803,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
 do
 <br/>
 Pagador</td>
-        <td>Inscri Tipo
-ção</td>
+        <td>Tipo Inscrição</td>
         <td>Tipo de Inscrição</td>
         <td>18</td>
         <td>18</td>
@@ -8577,8 +7913,7 @@ Pagador</td>
         <td>17.3Q</td>
         <td colspan="2" rowspan="3">Sac. /
 Aval.</td>
-        <td>Inscri Tipo
-ção</td>
+        <td>Tipo Inscrição</td>
         <td>Tipo de Inscrição</td>
         <td>154</td>
         <td>154</td>
@@ -8650,7 +7985,6 @@ Aval.</td>
     </tr>
 </table>
 
-
 **Controle** - Banco origem ou destino do arquivo (Banco Beneficiário)
 
 **Sacador Avalista** - Dados sobre o Beneficiário original do título
@@ -8658,17 +7992,7 @@ Aval.</td>
 **Observações:**
 
 17.3Q à 19.3Q → Estes campos deverão estar preenchidos quando não for o Beneficiário original do título.
-
-56
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_57_image_1_v2.jpg)
-
-
-
 # Registro Detalhe - Segmento R (Opcional - Remessa)
-
 
 <table>
     <thead>
@@ -8680,7 +8004,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <th>Nº</th>
         <th>Formato</th>
         <th>Default</th>
-        <th>Des</th>
+        <th>Descrição</th>
     </tr>
     </thead>
     <tr>
@@ -8693,7 +8017,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <td>Dec</td>
         <td></td>
         <td></td>
-        <td>crição</td>
+        <td></td>
     </tr>
     <tr>
         <td>01.3R</td>
@@ -9052,19 +8376,11 @@ DV</td>
     </tr>
 </table>
 
-
 **Controle** - Banco origem ou destino do arquivo (Banco Beneficiário)
 
 **Dados para Débito** - Dados do Pagador para Débito Automático
 
-57
-
-![FEBRABAN logo](page_58_image_2_v2.jpg)
-Layout Padrão Febraban 240 posições V10.9
-http://www.febraban.org.br
-
 # Registro Detalhe - Segmento S (Opcional - Remessa)
-
 
 <table>
   <thead>
@@ -9075,7 +8391,7 @@ http://www.febraban.org.br
         <th>Nº</th>
         <th>Formato</th>
         <th>Default</th>
-        <th colspan="2">Des-</th>
+        <th colspan="2">Descrição</th>
     </tr>
     <tr>
         <th> </th>
@@ -9087,7 +8403,7 @@ http://www.febraban.org.br
         <th>Dec</th>
         <th> </th>
         <th> </th>
-        <th colspan="2">crição</th>
+        <th colspan="2"></th>
     </tr>
   </thead>
   <tbody>
@@ -9184,9 +8500,7 @@ http://www.febraban.org.br
   </tbody>
 </table>
 
-
 Para Tipo de Impressão 1 ou 2:
-
 
 <table>
   <tbody>
@@ -9253,9 +8567,7 @@ Para Tipo de Impressão 1 ou 2:
   </tbody>
 </table>
 
-
 Para Tipo de Impressão 3:
-
 
 <table>
   <tbody>
@@ -9346,18 +8658,10 @@ Para Tipo de Impressão 3:
   </tbody>
 </table>
 
-
 Controle - Banco origem ou destino do arquivo (Banco Beneficiário)
-
-58
-
-![FEBRABAN logo](page_59_image_2_v2.jpg)
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
 # Registro Detalhe - Segmento Y-01 (Opcional – Remessa/Retorno)
 
 **Registro Opcional para Informação de Dados do Sacador Avalista**
-
 
 <table>
     <thead>
@@ -9369,7 +8673,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <th>Nº</th>
         <th>Formato</th>
         <th>Default</th>
-        <th>Des</th>
+        <th>Descrição</th>
     </tr>
     </thead>
     <tr>
@@ -9382,7 +8686,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <td>Dec</td>
         <td></td>
         <td></td>
-        <td>crição</td>
+        <td></td>
     </tr>
     <tr>
         <td>01.3Y</td>
@@ -9487,8 +8791,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <td>09.3Y</td>
         <td colspan="2" rowspan="9">Pagador
 r</td>
-        <td>Inscri Tipo
-ção</td>
+        <td>Tipo Inscrição</td>
         <td>Tipo de Inscriçao</td>
         <td>20</td>
         <td>20</td>
@@ -9608,25 +8911,14 @@ r</td>
     </tr>
 </table>
 
-
 **Controle** - Banco origem ou destino do arquivo (Banco Beneficiário)
 
 **Pagadorr** - Dados sobre o Beneficiário original do título de cobrança
-
-59
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_60_image_1_v2.jpg)
-
-
-
 # Registro Detalhe - Segmento Y-04 (Opcional – Remessa/Retorno)
 
 Registro Opcional para Informação de Dados de Envio de Documento por Meio Alternativo
 
 Pode ser utilizado em todos os produtos que for necessário.
-
 
 <table>
   <thead>
@@ -9850,19 +9142,11 @@ Pode ser utilizado em todos os produtos que for necessário.
   </tbody>
 </table>
 
-
 **Observação:** A partir da URL retornada no segmento Y-04, o beneficiário deverá formatar o QRCode Dinâmico conforme manuais de Padrões para Iniciação do Pix e do BR Code, disponíveis no sítio do Banco Central do Brasil.
-
-60
-
-![FEBRABAN logo](page_61_image_2_v2.jpg)
-Layout Padrão Febraban 240 posições V10.9
-http://www.febraban.org.br
 
 # Registro Detalhe - Segmento Y-05 (Opcional – Retorno)
 
 **Registro Opcional para Informação de Dados de cheques utilizados para pagamento**
-
 
 <table>
   <thead>
@@ -9873,7 +9157,7 @@ http://www.febraban.org.br
         <th>Nº</th>
         <th>Formato</th>
         <th>Default</th>
-        <th>Des-</th>
+        <th>Descrição</th>
     </tr>
     <tr>
         <th> </th>
@@ -9886,7 +9170,7 @@ http://www.febraban.org.br
         <th>Dec</th>
         <th> </th>
         <th> </th>
-        <th>crição</th>
+        <th></th>
     </tr>
   </thead>
   <tbody>
@@ -10078,24 +9362,13 @@ http://www.febraban.org.br
   </tbody>
 </table>
 
-
 **Observações:**
 
 O segmento Y-05 pode ocorrer várias vezes. O número máximo de ocorrências depende de acordo entre o Banco e a Empresa Cliente.
 
-61
-
-Layout Padrão Febraban 240 posições V10.9
-http://www.febraban.org.br
-
-![FEBRABAN logo](page_62_image_1_v2.jpg)
-
-
-
 # Registro Detalhe - Segmento Y-50 (Opcional - Remessa/Retorno)
 
 **Registro Opcional para Informação de Rateio de Crédito**
-
 
 <table>
     <thead>
@@ -10410,16 +9683,6 @@ cia</td>
         <td>G013</td>
     </tr>
 </table>
-
-62
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_63_image_1_v2.jpg)
-
-
-
-
 <table>
   <tbody>
     <tr>
@@ -10485,7 +9748,6 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
   </tbody>
 </table>
 
-
 **Controle** - Banco origem ou destino do arquivo (Banco Beneficiário)
 
 **Conta Corrente** - Dados sobre a Agência / Conta Corrente do Beneficiário
@@ -10498,7 +9760,6 @@ O segmento Y-50 pode ocorrer várias vezes. O número máximo de ocorrências de
 
 ## Registro Opcional para Informação de Dados de Nota Fiscal
 
-
 <table>
     <thead>
     <tr>
@@ -10509,7 +9770,7 @@ O segmento Y-50 pode ocorrer várias vezes. O número máximo de ocorrências de
         <th>Nº</th>
         <th>Formato</th>
         <th>Default</th>
-        <th>Des</th>
+        <th>Descrição</th>
     </tr>
     </thead>
     <tr>
@@ -10522,7 +9783,7 @@ O segmento Y-50 pode ocorrer várias vezes. O número máximo de ocorrências de
         <td>Dec</td>
         <td></td>
         <td></td>
-        <td>crição</td>
+        <td></td>
     </tr>
     <tr>
         <td>01.3Y</td>
@@ -10819,35 +10080,15 @@ Fiscais</td>
     </tr>
 </table>
 
-
 **Controle** - Banco origem ou destino do arquivo (Banco Beneficiário)
-
-63
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_64_image_1_v2.jpg)
-
-
-
 **Notas Fiscais** - Dados sobre a(s) Nota Fiscal(is) que originaram a cobrança
 
 Observações:
 
 O segmento Y-51 pode ocorrer várias vezes. O número máximo de ocorrências depende de acordo entre o Banco e a Empresa Cliente.
-
-64
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_65_image_2_v2.jpg)
-
-
-
 # Registro Detalhe - Segmento Y-52 (Opcional - Remessa/Retorno)
 
 ## Registro Opcional para Informações Adicionais de Dados de Nota Fiscal
-
 
 <table>
   <thead>
@@ -10859,7 +10100,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <th colspan="2">Nº</th>
         <th>Formato</th>
         <th>Default</th>
-        <th>Des-</th>
+        <th>Descrição</th>
     </tr>
     <tr>
         <th> </th>
@@ -10872,7 +10113,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <th>Dec</th>
         <th> </th>
         <th> </th>
-        <th>crição</th>
+        <th></th>
     </tr>
   </thead>
   <tbody>
@@ -11091,7 +10332,6 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
   </tbody>
 </table>
 
-
 **Controle** - Banco origem do arquivo (Banco Cedente)
 
 **Notas Fiscais** - Dados sobre a(s) Nota(s) Fiscal(is) que originaram a cobrança
@@ -11099,16 +10339,9 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
 ### Observações:
 
 O Segmento Y-52 pode ocorrer várias vezes. O número de máximo de ocorrências depende de acordo entre o Banco e a Empresa Cliente.
-
-65
-
-![FEBRABAN logo](page_66_image_2_v2.jpg)
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
 # Registro Detalhe - Segmento Y-53 (Opcional – Remessa/Retorno)
 
 **Registro Opcional para Identificação de Tipo de Pagamento**
-
 
 <table>
   <thead>
@@ -11376,14 +10609,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
     </tr>
   </tbody>
 </table>
-
-66
-
-![FEBRABAN logo](page_67_image_2_v2.jpg)
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
 # Registro Detalhe - Segmento T (Obrigatório - Retorno)
-
 
 <table>
     <thead>
@@ -11395,7 +10621,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <th>Nº</th>
         <th>Formato</th>
         <th>Default</th>
-        <th>Des</th>
+        <th>Descrição</th>
     </tr>
     </thead>
     <tr>
@@ -11408,7 +10634,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <td>Dec</td>
         <td></td>
         <td></td>
-        <td>crição</td>
+        <td></td>
     </tr>
     <tr>
         <td>01.3T</td>
@@ -11682,8 +10908,7 @@ cia</td>
     <tr>
         <td>23.3T</td>
         <td colspan="2" rowspan="3">Pagador</td>
-        <td>Inscri Tipo
-ção</td>
+        <td>Tipo Inscrição</td>
         <td>Tipo de Inscrição</td>
         <td>133</td>
         <td>133</td>
@@ -11768,7 +10993,6 @@ Custas, Liquidação e Baixas</td>
     </tr>
 </table>
 
-
 **Controle** - Banco origem ou destino do arquivo (Banco Beneficiário)
 
 **Conta Corrente** - Dados sobre a Agência / Conta Corrente do Beneficiário
@@ -11780,17 +11004,7 @@ Custas, Liquidação e Baixas</td>
 2) Quando um Pagador "Reconhecer" ou "Não reconhecer" um título, o retorno será no segmento T campo "Código de Movimento Retorno" posição 16 a 17, será ‘51”= Título DDA reconhecido pelo Pagador ou ‘52”= Título DDA não reconhecido pelo Pagador, conforme for o caso.
 
 3) Quando um título for recusado pela CIP o retorno ao Beneficiário será no segmento T campo “Código de Movimento Retorno”, posição 16 a 17, código ‘53’= Título DDA recusado pela CIP.
-
-67
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_68_image_2_v2.jpg)
-
-
-
 # Registro Detalhe - Segmento U (Obrigatório - Retorno)
-
 
 <table>
     <thead>
@@ -11802,7 +11016,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <th>Nº</th>
         <th>Formato</th>
         <th>Default</th>
-        <th>Des</th>
+        <th>Descrição</th>
     </tr>
     </thead>
     <tr>
@@ -11815,7 +11029,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <td>Dec</td>
         <td></td>
         <td></td>
-        <td>crição</td>
+        <td></td>
     </tr>
     <tr>
         <td>01.3U</td>
@@ -12116,22 +11330,11 @@ Compens.</td>
     </tr>
 </table>
 
-
 **Controle** - Banco origem ou destino do arquivo (Banco Beneficiário)
 
 **Dados do Título** - Informações adicionais sobre o título de cobrança
 
-68
-
-Layout Padrão Febraban 240 posições V10.9
-http://www.febraban.org.br
-
-![FEBRABAN logo](page_69_image_1_v2.jpg)
-
-
-
 # Registro Trailer de Lote
-
 
 <table>
   <thead>
@@ -12143,7 +11346,7 @@ http://www.febraban.org.br
         <th>Nº</th>
         <th>Formato</th>
         <th>Default</th>
-        <th rowspan="2">Des-<br/>crição</th>
+        <th rowspan="2">Descrição<br/></th>
     </tr>
     <tr>
         <th> </th>
@@ -12352,22 +11555,11 @@ http://www.febraban.org.br
   </tbody>
 </table>
 
-
 **Controle** - Banco origem ou destino do arquivo (Banco Beneficiário)
-
-69
-
-Layout Padrão Febraban 240 posições V10.9
-http://www.febraban.org.br
-
-![FEBRABAN logo](page_70_image_1_v2.jpg)
-
-
 
 # 3.2.3 – Boleto de Pagamento Eletrônico (Captura de Títulos em Cobrança)
 
 ## Registro Header de Lote
-
 
 <table>
     <thead>
@@ -12379,7 +11571,7 @@ http://www.febraban.org.br
         <th>Nº</th>
         <th>Formato</th>
         <th>Default</th>
-        <th>Des</th>
+        <th>Descrição</th>
     </tr>
     </thead>
     <tr>
@@ -12392,7 +11584,7 @@ http://www.febraban.org.br
         <td>Dec</td>
         <td></td>
         <td></td>
-        <td>crição</td>
+        <td></td>
     </tr>
     <tr>
         <td>01.1</td>
@@ -12494,15 +11686,8 @@ http://www.febraban.org.br
     </tr>
     <tr>
         <td>09.1</td>
-        <td rowspan="9">E
-m
-p
-r
-e
-s
-a</td>
-        <td>Inscri Tipo
-ção</td>
+        <td rowspan="9">Empresa</td>
+        <td>Tipo Inscrição</td>
         <td>Tipo de Inscrição da Empresa</td>
         <td>18</td>
         <td>18</td>
@@ -12538,9 +11723,7 @@ a</td>
     </tr>
     <tr>
         <td>12.1</td>
-        <td rowspan="5">Agên
-cia
-C/C</td>
+        <td rowspan="5">Agência C/C</td>
         <td>Código</td>
         <td>Agência Mantenedora da Conta</td>
         <td>54</td>
@@ -12625,18 +11808,10 @@ C/C</td>
     </tr>
 </table>
 
-
 **Controle** - Banco origem do arquivo (Banco Beneficiário)
 
 **Empresa** - Cliente (Beneficiário) que firmou o convênio de prestação de serviços com o banco
-
-70
-
-![FEBRABAN logo](page_71_image_2_v2.jpg)
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
 # Registro Detalhe - Segmento G (Obrigatório - Retorno)
-
 
 <table>
     <thead>
@@ -12648,7 +11823,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <th>Nº</th>
         <th>Formato</th>
         <th>Default</th>
-        <th>Des</th>
+        <th>Descrição</th>
     </tr>
     </thead>
     <tr>
@@ -12661,7 +11836,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <td>Dec</td>
         <td></td>
         <td></td>
-        <td>crição</td>
+        <td></td>
     </tr>
     <tr>
         <td>01.3G</td>
@@ -12765,8 +11940,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <td>09.3G</td>
         <td rowspan="3">Benefici
 ário</td>
-        <td>Inscri Tipo
-ção</td>
+        <td>Tipo Inscrição</td>
         <td>Tipo de Inscrição do Beneficiário</td>
         <td>62</td>
         <td>62</td>
@@ -13031,21 +12205,10 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
     </tr>
 </table>
 
-
 **Controle** - Banco origem do arquivo (Banco Beneficiário)
 
 **Beneficiário** - Dados sobre o Beneficiário do título de cobrança
-
-71
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_72_image_2_v2.jpg)
-
-
-
 # Registro Detalhe - Segmento H (Opcional - Retorno)
-
 
 <table>
     <thead>
@@ -13057,7 +12220,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <th>Nº</th>
         <th>Formato</th>
         <th>Default</th>
-        <th>Des</th>
+        <th>Descrição</th>
     </tr>
     </thead>
     <tr>
@@ -13070,7 +12233,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <td>Dec</td>
         <td></td>
         <td></td>
-        <td>crição</td>
+        <td></td>
     </tr>
     <tr>
         <td>01.3H</td>
@@ -13163,8 +12326,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <td>08.3H</td>
         <td rowspan="3">Sac. / 
 Aval.</td>
-        <td>Inscri Tipo
-ção</td>
+        <td>Tipo Inscrição</td>
         <td>Tipo de Inscrição</td>
         <td>18</td>
         <td>18</td>
@@ -13347,21 +12509,13 @@ Aval.</td>
     </tr>
 </table>
 
-
 **Controle** - Banco origem do arquivo (Banco Beneficiário)
 
 **Sacador Avalista** - Dados sobre o Beneficiário original do título de cobrança
 
-72
-
-![FEBRABAN logo](page_73_image_2_v2.jpg)
-Layout Padrão Febraban 240 posições V10.9
-http://www.febraban.org.br
-
 # Registro Detalhe - Segmento Y-03 (Opcional - Retorno)
 
 **Registro Opcional para Informação de Dados do Pagador**
-
 
 <table>
     <thead>
@@ -13373,7 +12527,7 @@ http://www.febraban.org.br
         <th>Nº</th>
         <th>Formato</th>
         <th>Default</th>
-        <th>Des</th>
+        <th>Descrição</th>
     </tr>
     </thead>
     <tr>
@@ -13386,7 +12540,7 @@ http://www.febraban.org.br
         <td>Dec</td>
         <td></td>
         <td></td>
-        <td>crição</td>
+        <td></td>
     </tr>
     <tr>
         <td>01.3Y</td>
@@ -13490,8 +12644,7 @@ http://www.febraban.org.br
     <tr>
         <td>09.3Y</td>
         <td colspan="2" rowspan="9">Pagador</td>
-        <td>Inscri Tipo
-ção</td>
+        <td>Tipo Inscrição</td>
         <td>Tipo de Inscrição</td>
         <td>20</td>
         <td>20</td>
@@ -13611,23 +12764,12 @@ http://www.febraban.org.br
     </tr>
 </table>
 
-
 **Controle** - Banco origem do arquivo (Banco Beneficiário)
 
 **Pagador** - Dados sobre o Pagador, informados pelo Beneficiário
-
-73
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_74_image_2_v2.jpg)
-
-
-
 # Registro Detalhe - Segmento Y-51 (Opcional - Retorno)
 
 **Registro Opcional para Informação de Dados de Nota Fiscal (Somente Remessa)**
-
 
 <table>
     <thead>
@@ -13639,7 +12781,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <th>Nº</th>
         <th>Formato</th>
         <th>Default</th>
-        <th>Des</th>
+        <th>Descrição</th>
     </tr>
     </thead>
     <tr>
@@ -13652,7 +12794,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <td>Dec</td>
         <td></td>
         <td></td>
-        <td>crição</td>
+        <td></td>
     </tr>
     <tr>
         <td>01.3Y</td>
@@ -13949,25 +13091,13 @@ Fiscais</td>
     </tr>
 </table>
 
-
 **Controle** - Banco origem do arquivo (Banco Beneficiário)
 
 **Notas Fiscais** - Dados sobre a(s) Nota(s) Fiscal(is) que originaram a cobrança
 
-74
-
-http://www.febraban.org.br
-
-![FEBRABAN logo](page_75_image_2_v2.jpg)
-
-
-
-Layout Padrão Febraban 240 posições V10.9
-
 # Registro Detalhe - Segmento Y-52 (Opcional - Remessa/Retorno)
 
 ## Registro Opcional para Informações Adicionais de Dados de Nota Fiscal
-
 
 <table>
   <thead>
@@ -14217,26 +13347,15 @@ Layout Padrão Febraban 240 posições V10.9
   </tbody>
 </table>
 
-
 **Controle** - Banco origem do arquivo (Banco Cedente)
 **Notas Fiscais** - Dados sobre a(s) Nota(s) Fiscal(is) que originaram a cobrança
 
 **Observações:**
 
 O Segmento Y-52 pode ocorrer várias vezes. O número de máximo de ocorrências depende de acordo entre o Banco e a Empresa Cliente.
-
-75
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_76_image_1_v2.jpg)
-
-
-
 # Registro Detalhe - Segmento Y-53 (Opcional – Remessa/Retorno)
 
 ## Registro Opcional para Identificação de Tipo de Pagamento
-
 
 <table>
   <thead>
@@ -14470,18 +13589,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
   </tbody>
 </table>
 
-76
-
-http://www.febraban.org.br
-
-![FEBRABAN logo](page_77_image_2_v2.jpg)
-
-
-
-Layout Padrão Febraban 240 posições V10.9
-
 # Registro Trailer de Lote
-
 
 <table>
   <thead>
@@ -14611,24 +13719,13 @@ Layout Padrão Febraban 240 posições V10.9
   </tbody>
 </table>
 
-
 **Controle** - Banco origem do arquivo (Banco Beneficiário)
 
 **Totais** - Totais de controle para checagem do lote
 
-77
-
-Layout Padrão Febraban 240 posições V10.9
-http://www.febraban.org.br
-
-![FEBRABAN logo](page_78_image_1_v2.jpg)
-
-
-
 # 3.2.4 - Alegação do Pagador
 
 ## Registro Header de Lote
-
 
 <table>
     <thead>
@@ -14640,7 +13737,7 @@ http://www.febraban.org.br
         <th>Nº</th>
         <th>Formato</th>
         <th>Default</th>
-        <th>Des</th>
+        <th>Descrição</th>
     </tr>
     </thead>
     <tr>
@@ -14653,7 +13750,7 @@ http://www.febraban.org.br
         <td>Dec</td>
         <td></td>
         <td></td>
-        <td>crição</td>
+        <td></td>
     </tr>
     <tr>
         <td>01.1</td>
@@ -14755,15 +13852,8 @@ http://www.febraban.org.br
     </tr>
     <tr>
         <td>09.1</td>
-        <td rowspan="9">E
-m
-p
-r
-e
-s
-a</td>
-        <td>Inscri Tipo
-ção</td>
+        <td rowspan="9">Empresa</td>
+        <td>Tipo Inscrição</td>
         <td>Tipo de Inscrição da Empresa</td>
         <td>18</td>
         <td>18</td>
@@ -14799,8 +13889,7 @@ a</td>
     </tr>
     <tr>
         <td>12.1</td>
-        <td rowspan="5">Agên
-C/C cia</td>
+        <td rowspan="5">Agência C/C</td>
         <td>Código</td>
         <td>Agência Mantenedora da Conta</td>
         <td>54</td>
@@ -14885,18 +13974,10 @@ C/C cia</td>
     </tr>
 </table>
 
-
 **Controle** - Banco origem ou destino do arquivo (Banco Beneficiário)
 
 **Empresa** - Cliente (Beneficiário) que firmou o convênio de prestação de serviços com o banco
-
-78
-
-![FEBRABAN logo](page_79_image_2_v2.jpg)
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
 # Registro Detalhe - Segmento Y-02 (Obrigatório - Remessa / Retorno)
-
 
 <table>
   <thead>
@@ -15104,21 +14185,9 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
   </tbody>
 </table>
 
-
 **Controle** - Banco origem ou destino do arquivo (Banco Beneficiário)
 
-79
-
-http://www.febraban.org.br
-
-![FEBRABAN logo](page_80_image_2_v2.jpg)
-
-
-
-Layout Padrão Febraban 240 posições V10.9
-
 # Registro Trailer de Lote
-
 
 <table>
   <thead>
@@ -15220,25 +14289,9 @@ Layout Padrão Febraban 240 posições V10.9
   </tbody>
 </table>
 
-
 **Controle** - Banco origem ou destino do arquivo (Banco Beneficiário)
 
-80
-
-![FEBRABAN logo](page_81_image_2_v2.jpg)
-Layout Padrão Febraban 240 posições V10.9
-http://www.febraban.org.br
-
 # 3.3 - Extrato de Conta Corrente para Conciliação Bancária
-
-81
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_82_image_2_v2.jpg)
-
-
-
 # 3.3.1 - Descrição do Processo
 
 ## Objetivo
@@ -15246,7 +14299,6 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
 O produto Extrato de Conta Corrente para Conciliação Bancária tem por objetivo fornecer aos Clientes do Banco informações para que estes realizem a conciliação bancária de suas contas correntes de forma automatizada e com maior segurança, através do recebimento eletrônico do extrato de conta corrente, enviado pelo Banco.
 
 ## Entidades Participantes do Processo
-
 
 <table>
   <thead>
@@ -15267,7 +14319,6 @@ O produto Extrato de Conta Corrente para Conciliação Bancária tem por objetiv
   </tbody>
 </table>
 
-
 ## Fluxo de Informações
 
 O Banco, de acordo com a periodicidade previamente definida, envia ao Cliente um extrato de suas contas correntes, identificando o saldo inicial, os lançamentos e o saldo final.
@@ -15282,18 +14333,9 @@ graph LR
 ```
 ![Diagram showing information flow from Banco to Cliente for Conciliação Bancária](page_82_image_1_v2.jpg)
 
-82
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_83_image_1_v2.jpg)
-
-
-
 # Eventos
 
 **CONCILIAÇÃO BANCÁRIA - RETORNO**
-
 
 <table>
   <thead>
@@ -15310,7 +14352,6 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
   </tbody>
 </table>
 
-
 # Observações Gerais
 
 **Freqüência do Extrato**
@@ -15319,19 +14360,9 @@ O convênio firmado entre o Banco e o Cliente define a freqüência com que as i
 
 No caso de **extrato de freqüência diária** disponibilizado em D+1, o saldo inicial e final do dia mostram sempre uma **posição parcial**, pois neste momento ainda não estão disponíveis todas as informações da compensação e possíveis estornos.
 
-83
-
-Layout Padrão Febraban 240 posições V10.9
-http://www.febraban.org.br
-
-![FEBRABAN logo](page_84_image_1_v2.jpg)
-
-
-
 # 3.3.2 - Extrato de Conta Corrente para Conciliação Bancária
 
 ## Registro Header de Lote
-
 
 <table>
     <thead>
@@ -15343,7 +14374,7 @@ http://www.febraban.org.br
         <th>Nº</th>
         <th>Formato</th>
         <th>Default</th>
-        <th>Des</th>
+        <th>Descrição</th>
     </tr>
     </thead>
     <tr>
@@ -15356,7 +14387,7 @@ http://www.febraban.org.br
         <td>Dec</td>
         <td></td>
         <td></td>
-        <td>crição</td>
+        <td></td>
     </tr>
     <tr>
         <td>01.1</td>
@@ -15459,15 +14490,8 @@ http://www.febraban.org.br
     </tr>
     <tr>
         <td>09.1</td>
-        <td rowspan="9">E
-m
-p
-r
-e
-s
-a</td>
-        <td>Inscri Tipo
-ção</td>
+        <td rowspan="9">Empresa</td>
+        <td>Tipo Inscrição</td>
         <td>Tipo de Inscrição da Empresa</td>
         <td>18</td>
         <td>18</td>
@@ -15503,9 +14527,8 @@ a</td>
     </tr>
     <tr>
         <td>12.1</td>
-        <td rowspan="5">Conta Agên
-Cor cia
-rente</td>
+        <td rowspan="5">Conta Corrente Agência 
+</td>
         <td>Código</td>
         <td>Agência Mantenedora da Conta</td>
         <td>53</td>
@@ -15677,23 +14700,12 @@ Inicial</td>
     </tr>
 </table>
 
-
 **Controle** - Banco origem do arquivo
 
 **Empresa** - Cliente que firmou o convênio de prestação de serviços
 
 **Saldo Inicial** - Dados sobre o saldo contábil inicial da conta corrente do cliente
-
-84
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_85_image_1_v2.jpg)
-
-
-
 # Registro Detalhe - Segmento E (Obrigatório - Retorno)
-
 
 <table>
     <thead>
@@ -15705,7 +14717,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <th>Nº</th>
         <th>Formato</th>
         <th>Default</th>
-        <th>Des</th>
+        <th>Descrição</th>
     </tr>
     </thead>
     <tr>
@@ -15718,7 +14730,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <td>Dec</td>
         <td></td>
         <td></td>
-        <td>crição</td>
+        <td></td>
     </tr>
     <tr>
         <td>01.3E</td>
@@ -15797,8 +14809,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
     <tr>
         <td>07.3E</td>
         <td rowspan="3">E</td>
-        <td>Inscri Tipo
-ção</td>
+        <td>Tipo Inscrição</td>
         <td>Tipo de Inscrição da Empresa</td>
         <td>18</td>
         <td>18</td>
@@ -15847,10 +14858,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
     <tr>
         <td rowspan="2">10.3E</td>
         <td>p</td>
-        <td rowspan="7">Conta Agên
-cia
-Cor
-rente</td>
+        <td rowspan="7">Conta Corrente Agência</td>
         <td rowspan="2">Código</td>
         <td rowspan="2">Agência Mantenedora da Conta</td>
         <td rowspan="2">53</td>
@@ -16002,8 +15010,7 @@ rente</td>
     </tr>
     <tr>
         <td>22.3E</td>
-        <td rowspan="7">Lança
-mento</td>
+        <td rowspan="7">Lançamento</td>
         <td>Data</td>
         <td>Data do Lançamento</td>
         <td>143</td>
@@ -16088,25 +15095,13 @@ mento</td>
     </tr>
 </table>
 
-
 **Controle** - Banco origem do arquivo
 
 **Empresa** - Cliente que firmou o convênio de prestação de serviços
 
 **Lançamento** - Dados sobre lançamentos efetuados na conta corrente do cliente
 
-85
-
-http://www.febraban.org.br
-
-![FEBRABAN logo](page_86_image_2_v2.jpg)
-
-
-
-Layout Padrão Febraban 240 posições V10.9
-
 # Registro Trailer de Lote
-
 
 <table>
   <thead>
@@ -16471,7 +15466,6 @@ Layout Padrão Febraban 240 posições V10.9
   </tbody>
 </table>
 
-
 **Controle** - Banco origem do arquivo
 
 **Empresa** - Cliente que firmou o convênio de prestação de serviços
@@ -16480,22 +15474,7 @@ Layout Padrão Febraban 240 posições V10.9
 
 **Saldo Final** - Dados sobre o saldo final da conta corrente
 
-86
-
-![FEBRABAN logo](page_87_image_2_v2.jpg)
-Layout Padrão Febraban 240 posições V10.9
-http://www.febraban.org.br
-
 # 3.4 - Débito em Conta Corrente
-
-87
-
-Layout Padrão Febraban 240 posições V10.9
-http://www.febraban.org.br
-
-![FEBRABAN logo](page_88_image_1_v2.jpg)
-
-
 
 # 3.4.1 - Descrição do Processo
 
@@ -16504,7 +15483,6 @@ http://www.febraban.org.br
 O produto Débito em Conta Corrente tem por objetivo fornecer aos clientes (Recebedores) dos Bancos uma facilidade na cobrança de um determinado compromisso financeiro, tendo como única forma de pagamento o débito em conta corrente do Pagador, desde que este tenha conta no mesmo Banco do Recebedor.
 
 **Entidades Participantes do Processo**
-
 
 <table>
   <thead>
@@ -16529,7 +15507,6 @@ O produto Débito em Conta Corrente tem por objetivo fornecer aos clientes (Rece
   </tbody>
 </table>
 
-
 **Fluxo de Informações**
 
 O Recebedor agenda, junto ao Banco, os Débitos a serem efetuados em conta corrente do Pagador. É possível o Recebedor cancelar um Débito previamente agendado ou efetuar alterações em alguns dados do Débito, antes que o mesmo seja executado.
@@ -16537,15 +15514,6 @@ O Recebedor agenda, junto ao Banco, os Débitos a serem efetuados em conta corre
 O Banco, na data prevista, efetua o débito na conta corrente do Pagador, executa a instrução de crédito em conta corrente para o Recebedor e envia informações ao Recebedor sobre a efetivação do Débito.
 
 Caso ocorra algum impedimento para a realização do débito na conta corrente do Pagador, o Banco envia informações ao Recebedor sobre a não efetivação do Débito.
-
-88
-
-Layout Padrão Febraban 240 posições V10.9
-http://www.febraban.org.br
-
-![FEBRABAN logo](page_89_image_1_v2.jpg)
-
-
 
 # Diagrama
 
@@ -16566,7 +15534,6 @@ graph TD
 # Eventos
 
 **DÉBITO - REMESSA**
-
 
 <table>
   <thead>
@@ -16590,17 +15557,7 @@ graph TD
     </tr>
   </tbody>
 </table>
-
-89
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_90_image_1_v2.jpg)
-
-
-
 # DÉBITO - RETORNO
-
 
 <table>
   <thead>
@@ -16628,19 +15585,9 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
     </tr>
   </tbody>
 </table>
-
-90
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_91_image_1_v2.jpg)
-
-
-
 # 3.4.2 - Débito em Conta Corrente
 
 ## Registro Header de Lote
-
 
 <table>
     <thead>
@@ -16652,7 +15599,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <th>Nº</th>
         <th>Formato</th>
         <th>Default</th>
-        <th>Des</th>
+        <th>Descrição</th>
     </tr>
     </thead>
     <tr>
@@ -16665,7 +15612,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <td>Dec</td>
         <td></td>
         <td></td>
-        <td>crição</td>
+        <td></td>
     </tr>
     <tr>
         <td>01.1</td>
@@ -16767,15 +15714,8 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
     </tr>
     <tr>
         <td>09.1</td>
-        <td rowspan="9">E
-m
-p
-r
-e
-s
-a</td>
-        <td>Inscri Tipo
-ção</td>
+        <td rowspan="9">Empresa</td>
+        <td>Tipo Inscrição</td>
         <td>Tipo de Inscrição da Empresa</td>
         <td>18</td>
         <td>18</td>
@@ -16811,10 +15751,7 @@ a</td>
     </tr>
     <tr>
         <td>12.1</td>
-        <td rowspan="2">Conta Agên
-cia
-Cor
-rente</td>
+        <td rowspan="2">Conta Corrente Agência</td>
         <td>Código</td>
         <td>Agência Mantenedora da Conta</td>
         <td>53</td>
@@ -16899,8 +15836,7 @@ rente</td>
     </tr>
     <tr>
         <td>19.1</td>
-        <td rowspan="7">Endere
-ço
+        <td rowspan="7">Endereço
 <br/>
 da
 <br/>
@@ -17014,21 +15950,10 @@ a</td>
     </tr>
 </table>
 
-
 **Controle** - Banco origem ou destino do arquivo (Banco Recebedor)
 
 **Empresa** - Cliente (Recebedor) que firmou o convênio de prestação de serviços com o banco
-
-91
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_92_image_1_v2.jpg)
-
-
-
 # Registro Detalhe - Segmento A (Obrigatório - Remessa / Retorno)
-
 
 <table>
     <thead>
@@ -17040,7 +15965,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <th>Nº</th>
         <th>Formato</th>
         <th>Default</th>
-        <th>Des</th>
+        <th>Descrição</th>
     </tr>
     </thead>
     <tr>
@@ -17053,7 +15978,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <td>Dec</td>
         <td></td>
         <td></td>
-        <td>crição</td>
+        <td></td>
     </tr>
     <tr>
         <td>01.3A</td>
@@ -17175,10 +16100,8 @@ r</td>
     </tr>
     <tr>
         <td>10.3A</td>
-        <td rowspan="5">Agên
-Conta cia
-Cor
-rente</td>
+        <td rowspan="5">AgênConta cia
+Corrente</td>
         <td>Código</td>
         <td>Ag. Mantenedora da Cta do Pagador</td>
         <td>24</td>
@@ -17412,23 +16335,12 @@ to</td>
     </tr>
 </table>
 
-
 **Controle** - Banco origem ou destino do arquivo (Banco Recebedor)
 
 **Pagador** - Dados sobre a conta corrente do pagador (c/c a ser debitada)
 
 **Débito** - Dados sobre o débito a ser efetuado
-
-92
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_93_image_1_v2.jpg)
-
-
-
 # Registro Detalhe - Segmento B (Obrigatório - Remessa / Retorno)
-
 
 <table>
     <thead>
@@ -17440,7 +16352,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <th>Nº</th>
         <th>Formato</th>
         <th>Default</th>
-        <th>Des</th>
+        <th>Descrição</th>
     </tr>
     </thead>
     <tr>
@@ -17453,7 +16365,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <td>Dec</td>
         <td></td>
         <td></td>
-        <td>crição</td>
+        <td></td>
     </tr>
     <tr>
         <td>01.3B</td>
@@ -17559,8 +16471,7 @@ a
 d
 0
 r</td>
-        <td>Inscri Tipo
-ção</td>
+        <td>Tipo Inscrição</td>
         <td>Tipo de Inscrição do Pagador</td>
         <td>18</td>
         <td>18</td>
@@ -17782,23 +16693,12 @@ o</td>
     </tr>
 </table>
 
-
 **Controle** - Banco origem ou destino do arquivo (Banco Recebedor)
 
 **Pagador** - Dados sobre o pagador (detentor da c/c a ser debitada)
 
 **Débito** - Dados sobre o débito a ser efetuado
-
-93
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_94_image_1_v2.jpg)
-
-
-
 # Registro Detalhe - Segmento C (Opcional - Remessa / Retorno)
-
 
 <table>
     <thead>
@@ -17810,7 +16710,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <th>Nº</th>
         <th>Formato</th>
         <th>Default</th>
-        <th>Des</th>
+        <th>Descrição</th>
     </tr>
     </thead>
     <tr>
@@ -17823,7 +16723,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <td>Dec</td>
         <td></td>
         <td></td>
-        <td>crição</td>
+        <td></td>
     </tr>
     <tr>
         <td>01.3C</td>
@@ -17902,14 +16802,8 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
     </tr>
     <tr>
         <td>07.3C</td>
-        <td colspan="2">Dados
-Comple
-men
-tares</td>
-        <td>Valor IR
-Dé
-bi
-to</td>
+        <td colspan="2">Dados Complementares</td>
+        <td>Valor IR Débito</td>
         <td>Valor do IR</td>
         <td>18</td>
         <td>32</td>
@@ -17970,8 +16864,7 @@ Acréscimos</td>
     </tr>
     <tr>
         <td>12.3C</td>
-        <td colspan="2" rowspan="5">Substi
-tuta</td>
+        <td colspan="2" rowspan="5">Substituta</td>
         <td>Agência</td>
         <td>Agência do Pagador</td>
         <td>93</td>
@@ -18056,18 +16949,10 @@ tuta</td>
     </tr>
 </table>
 
-
 **Controle** - Banco origem ou destino do arquivo (Banco Recebedor)
 
 **Substituta** - Dados sobre a agência/conta corrente utilizada no lançamento, em substituição à agência/conta corrente original. Esta substituição ocorre por fusão ou fechamento da agência originalmente designada para o débito.
-
-94
-
-![FEBRABAN logo](page_95_image_2_v2.jpg)
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
 # Registro Trailer de Lote
-
 
 <table>
   <thead>
@@ -18078,7 +16963,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <th>Nº</th>
         <th>Formato</th>
         <th>Default</th>
-        <th>Des-</th>
+        <th>Descrição</th>
     </tr>
     <tr>
         <th> </th>
@@ -18091,7 +16976,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <th>Dec</th>
         <th> </th>
         <th> </th>
-        <th>crição</th>
+        <th></th>
     </tr>
   </thead>
   <tbody>
@@ -18225,26 +17110,10 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
   </tbody>
 </table>
 
-
 **Controle** - Banco origem ou destino do arquivo (Banco Recebedor)
 
 **Totais** - Totais de controle para checagem do lote
-
-95
-
-![FEBRABAN logo](page_96_image_1_v2.jpg)
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
 # 3.5 - Vendor
-
-96
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_97_image_1_v2.jpg)
-
-
-
 # 3.5.1 - Descrição do Processo
 
 ## Objetivo
@@ -18252,7 +17121,6 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
 O produto Vendor tem por objetivo disponibilizar, aos clientes (Vendedores) do Banco, os meios de viabilizar o processo de financiamento de suas vendas, podendo receber do Banco o pagamento à vista.
 
 ## Entidades Participantes do Processo
-
 
 <table>
   <thead>
@@ -18277,20 +17145,11 @@ O produto Vendor tem por objetivo disponibilizar, aos clientes (Vendedores) do B
   </tbody>
 </table>
 
-
 ## Fluxo de Informações
 
 O Vendedor efetua a venda, nas condições (prazo e taxas) requeridas pelo Comprador e solicita a liberação do financiamento, junto ao Banco.
 
 O Banco efetua o pagamento à vista ao Vendedor, na data em que liberou o financiamento ao Comprador, e reconhece as condições (prazo e taxas) do acordo de venda entre o Comprador e o Vendedor.
-
-97
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_98_image_1_v2.jpg)
-
-
 
 # Diagrama
 
@@ -18315,7 +17174,6 @@ graph TD
 
 ## VENDOR - REMESSA
 
-
 <table>
   <thead>
     <tr>
@@ -18338,17 +17196,7 @@ graph TD
     </tr>
   </tbody>
 </table>
-
-98
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_99_image_1_v2.jpg)
-
-
-
 # VENDOR - RETORNO
-
 
 <table>
   <thead>
@@ -18377,7 +17225,6 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
   </tbody>
 </table>
 
-
 # Observações Gerais
 
 ## Vantagens para o VENDEDOR
@@ -18399,15 +17246,6 @@ Como a empresa não está financiando a venda, a base sobre a qual irão incidir
 ### d) Crédito Fácil e Simplificado
 
 Facilidade na concessão de créditos aos compradores, por serem bons clientes do Vendedor. O Vendedor torna-se co-responsável pela concessão do crédito.
-
-99
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_100_image_1_v2.jpg)
-
-
-
 **e) Redução dos Custos Operacionais**
 
 Terceirização da parte operacional através da racionalização de Vendor e faturamento.
@@ -18444,15 +17282,6 @@ O comprador não precisa ser cliente do Banco
 Quando a taxa de juros negociada entre o Vendedor e o Banco (taxa Vendedor) for diferente daquela acertada com o Comprador, o Vendor possibilita a equalização dessas taxas, que resultará num crédito ou num débito em sua conta corrente, no ato ou no vencimento do financiamento.
 
 Algumas empresas utilizam-se desse instrumento, com o objetivo de alavancar vendas e conquistar maior fatia de mercado em determinadas regiões. Através da equalização, é possível estabelecer uma taxa para cobrar o empréstimo do Comprador/Financiado, diferente da taxa pactuada entre o Banco e a Empresa Vendedora.
-
-100
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_101_image_1_v2.jpg)
-
-
-
 # IOF – Imposto Sobre Operações Financeiras
 
 Em todas as operações de crédito, ocorre a incidência do IOF sobre o valor do financiamento que é calculado proporcionalmente ao período do financiamento.
@@ -18495,15 +17324,6 @@ graph LR
 ### a) Convênio para concessão de financiamento entre o Banco e o Vendedor
 
 O Banco abre uma linha de Crédito Rotativo ao Vendedor para financiamento de suas vendas. Ainda por este instrumento, o Vendedor declara-se fiador e principal pagador, solidariamente responsável por todas as obrigações dos Compradores.
-
-101
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_102_image_1_v2.jpg)
-
-
-
 **b) Contrato entre o Vendedor e o Comprador**
 
 É opcional a assinatura do Banco. Através deste instrumento, o Comprador toma conhecimento da operação e autoriza o Vendedor a negociar as condições de cada financiamento, diretamente com o Banco, em seu nome, e assinar as planilhas .
@@ -18514,16 +17334,9 @@ Assinado uma única vez, geralmente tem prazo de validade igual ao do Convênio.
 
 O Vendedor agrupa as vendas de um determinado dia ou período, em lotes e efetua a negociação com o Banco. A formalização do fechamento do financiamento é feita através da planilha, a qual faz parte integrante do Contrato entre o Vendedor e Comprador.
 
-102
-
-![FEBRABAN logo](page_103_image_1_v2.jpg)
-Layout Padrão Febraban 240 posições V10.9
-http://www.febraban.org.br
-
 # 3.5.2 - Vendor
 
 ## Registro Header de Lote
-
 
 <table>
     <thead>
@@ -18535,7 +17348,7 @@ http://www.febraban.org.br
         <th>Nº</th>
         <th>Formato</th>
         <th>Default</th>
-        <th>Des</th>
+        <th>Descrição</th>
     </tr>
     </thead>
     <tr>
@@ -18548,7 +17361,7 @@ http://www.febraban.org.br
         <td>Dec</td>
         <td></td>
         <td></td>
-        <td>crição</td>
+        <td></td>
     </tr>
     <tr>
         <td>01.1</td>
@@ -18651,15 +17464,8 @@ http://www.febraban.org.br
     </tr>
     <tr>
         <td>09.1</td>
-        <td colspan="2" rowspan="9">E
-M
-P
-R
-E
-S
-A</td>
-        <td rowspan="2">Inscri
-Ção</td>
+        <td colspan="2" rowspan="9">Empresa</td>
+        <td rowspan="2">InscriÇão</td>
         <td>Tipo</td>
         <td>Tipo de Inscrição da Empresa</td>
         <td>18</td>
@@ -18808,22 +17614,11 @@ Vendor</td>
     </tr>
 </table>
 
-
 **Controle** - Banco origem ou destino do arquivo (Banco)
 
 **Empresa** - Cliente (Vendedor) que firmou o convênio de prestação de serviços com o banco
 
-103
-
-Layout Padrão Febraban 240 posições V10.9
-http://www.febraban.org.br
-
-![FEBRABAN logo](page_104_image_1_v2.jpg)
-
-
-
 # Registro Detalhe - Segmento K (Obrigatório - Remessa / Retorno)
-
 
 <table>
     <thead>
@@ -18835,7 +17630,7 @@ http://www.febraban.org.br
         <th>Nº</th>
         <th>Formato</th>
         <th>Default</th>
-        <th>Des</th>
+        <th>Descrição</th>
     </tr>
     </thead>
     <tr>
@@ -18848,7 +17643,7 @@ http://www.febraban.org.br
         <td>Dec</td>
         <td></td>
         <td></td>
-        <td>crição</td>
+        <td></td>
     </tr>
     <tr>
         <td>01.3K</td>
@@ -19192,7 +17987,6 @@ DV</td>
     </tr>
 </table>
 
-
 **Controle** - Banco origem ou destino do arquivo (Banco)
 
 **Comprador** - Dados sobre o Comprador
@@ -19204,14 +17998,7 @@ DV</td>
 Na alteração preencher somente os campos a serem alterados com o novo conteúdo.
 
 O Comprador não precisa ser correntista.
-
-104
-
-![FEBRABAN logo](page_105_image_2_v2.jpg)
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
 # Registro Detalhe - Segmento L (Obrigatório - Remessa)
-
 
 <table>
     <thead>
@@ -19223,7 +18010,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <th>Nº</th>
         <th>Formato</th>
         <th>Default</th>
-        <th>Des</th>
+        <th>Descrição</th>
     </tr>
     </thead>
     <tr>
@@ -19236,7 +18023,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <td>Dec</td>
         <td></td>
         <td></td>
-        <td>Crição</td>
+        <td></td>
     </tr>
     <tr>
         <td>01.3L</td>
@@ -19766,23 +18553,12 @@ IOF/Abatimento</td>
     </tr>
 </table>
 
-
 Controle - Banco destino do arquivo (Banco)
 
 Observações:
 
 Na alteração / repactuação preencher somente os campos a serem alterados / repactuados com o novo conteúdo.
-
-105
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_106_image_1_v2.jpg)
-
-
-
 # Registro Detalhe - Segmento M (Obrigatório - Retorno)
-
 
 <table>
     <thead>
@@ -19794,7 +18570,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <th>Nº</th>
         <th>Formato</th>
         <th>Default</th>
-        <th>Des</th>
+        <th>Descrição</th>
     </tr>
     </thead>
     <tr>
@@ -19807,7 +18583,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <td>Dec</td>
         <td></td>
         <td></td>
-        <td>crição</td>
+        <td></td>
     </tr>
     <tr>
         <td>01.3M</td>
@@ -20225,20 +19001,9 @@ Equalização</td>
     </tr>
 </table>
 
-
 **Controle** - Banco origem do arquivo (Banco)
 
-106
-
-Layout Padrão Febraban 240 posições V10.9
-http://www.febraban.org.br
-
-![FEBRABAN logo](page_107_image_1_v2.jpg)
-
-
-
 # Registro Detalhe - Segmento N (Obrigatório - Retorno)
-
 
 <table>
     <thead>
@@ -20250,7 +19015,7 @@ http://www.febraban.org.br
         <th>Nº</th>
         <th>Formato</th>
         <th>Default</th>
-        <th>Des</th>
+        <th>Descrição</th>
     </tr>
     </thead>
     <tr>
@@ -20263,7 +19028,7 @@ http://www.febraban.org.br
         <td>Dec</td>
         <td></td>
         <td></td>
-        <td>crição</td>
+        <td></td>
     </tr>
     <tr>
         <td>01.3N</td>
@@ -20475,8 +19240,7 @@ Permanência</td>
     </tr>
     <tr>
         <td>18.3N</td>
-        <td colspan="2" rowspan="3">Prorro
-gação</td>
+        <td colspan="2" rowspan="3">Prorrogação</td>
         <td>Vencimento</td>
         <td>Nova data de Vencimento</td>
         <td>135</td>
@@ -20636,16 +19400,8 @@ comprador</td>
     </tr>
 </table>
 
-
 **Controle** - Banco origem do arquivo (Banco)
-
-107
-
-![FEBRABAN logo](page_108_image_2_v2.jpg)
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
 # Registro Trailer de Lote
-
 
 <table>
   <thead>
@@ -20657,7 +19413,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <th rowspan="2">Nº Dec</th>
         <th rowspan="2">Formato</th>
         <th rowspan="2">Default</th>
-        <th rowspan="2">Des-crição</th>
+        <th rowspan="2">Descrição</th>
     </tr>
     <tr>
         <th> </th>
@@ -20748,26 +19504,9 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
   </tbody>
 </table>
 
-
 **Controle** - Banco origem ou destino do arquivo (Banco)
 
-108
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_109_image_1_v2.jpg)
-
-
-
 # 3.6 - Custódia de Cheques
-
-109
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_110_image_1_v2.jpg)
-
-
 
 # 3.6.1 - Descrição do Processo
 
@@ -20776,7 +19515,6 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
 O produto Custódia de Cheques tem por objetivo fornecer aos clientes, a guarda dos cheques e a compensação dos mesmos na data determinada (Data para Depósito).
 
 ## Entidades Participantes do Processo
-
 
 <table>
   <thead>
@@ -20801,7 +19539,6 @@ O produto Custódia de Cheques tem por objetivo fornecer aos clientes, a guarda 
   </tbody>
 </table>
 
-
 ## Fluxo de Informações
 
 O Conveniado remete os cheques para depósito à vista e/ou pré-datados a serem custodiados no Banco Conveniado, acompanhado de instruções para as ações (comandos) que o Banco deve tomar.
@@ -20809,14 +19546,6 @@ O Conveniado remete os cheques para depósito à vista e/ou pré-datados a serem
 O Banco Conveniado, de posse das informações e instruções, envia os cheques para compensação na Data para Depósito, e disponibiliza o crédito, conforme contrato de prestação de serviços firmado entre o Banco e o Conveniado.
 
 O Banco fornece informações ao Conveniado sobre os cheques compensados e devolvidos, bem como sobre valores e taxas relativas às operações de empréstimo (desconto), para que o mesmo possa conferir a sua Carteira de Cheques Custodiados no Banco.
-
-110
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_111_image_1_v2.jpg)
-
-
 
 # Diagrama
 
@@ -20840,20 +19569,12 @@ graph TD
 ```
 
 **---** FLUXO FORA DO ESCOPO DO TRABALHO
+
 **.........** CUSTÓDIA DE CHEQUES
-
-111
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_112_image_1_v2.jpg)
-
-
 
 # Eventos
 
 ## CUSTÓDIA - REMESSA
-
 
 <table>
   <thead>
@@ -20874,9 +19595,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
   </tbody>
 </table>
 
-
 ## CUSTÓDIA - RETORNO
-
 
 <table>
   <thead>
@@ -20905,23 +19624,12 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
   </tbody>
 </table>
 
-
 # Observações Gerais
 
 Para um serviço de Custódia de Cheques é necessário firmar um convênio específico entre o Banco e o Cliente.
-
-112
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_113_image_1_v2.jpg)
-
-
-
 # 3.6.2 - Custódia de Cheques
 
 ## Registro Header de Lote
-
 
 <table>
     <thead>
@@ -21027,15 +19735,8 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
     </tr>
     <tr>
         <td>09.1</td>
-        <td colspan="2" rowspan="9">E
-M
-P
-R
-E
-S
-A</td>
-        <td>Inscri Tipo
-ção</td>
+        <td colspan="2" rowspan="9">EMPRESA</td>
+        <td>Tipo Inscrição</td>
         <td>Tipo de Inscrição da Empresa</td>
         <td>18</td>
         <td>18</td>
@@ -21071,8 +19772,7 @@ A</td>
     </tr>
     <tr>
         <td>12.1</td>
-        <td rowspan="5">Agên
-cia
+        <td rowspan="5">Agência
 C/C</td>
         <td>Código</td>
         <td>Agência Mantenedora da Conta</td>
@@ -21182,23 +19882,12 @@ C/C</td>
     </tr>
 </table>
 
-
 Controle - Banco origem ou destino do arquivo.
 
 Empresa - Cliente (Conveniado) que firmou o convênio de prestação de serviços com o Banco.
 
 \* - Campos que merecem uma atenção especial (conceito, domínio, formatação).
-
-113
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_114_image_2_v2.jpg)
-
-
-
 # Registro Detalhe - Segmento D (Obrigatório – Remessa/Retorno)
-
 
 <table>
     <thead>
@@ -21210,7 +19899,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <th>Nº</th>
         <th>Formato</th>
         <th>Default</th>
-        <th>Des</th>
+        <th>Descrição</th>
     </tr>
     </thead>
     <tr>
@@ -21223,7 +19912,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <td>Dec</td>
         <td></td>
         <td></td>
-        <td>crição</td>
+        <td></td>
     </tr>
     <tr>
         <td>01.3D</td>
@@ -21474,7 +20163,7 @@ Cheque</td>
     </tr>
     <tr>
         <td>21.3D</td>
-        <td rowspan="5">Des
+        <td rowspan="5">Descrição
 conto</td>
         <td>Juros</td>
         <td>Valor de Juros Op Empréstimo</td>
@@ -21561,18 +20250,10 @@ Empréstimo</td>
     </tr>
 </table>
 
-
 **Controle** - Banco origem ou destino do arquivo.
 
 \* - Campos que merecem uma atenção especial (conceito, domínio, formatação).
-
-114
-
-![FEBRABAN logo](page_115_image_2_v2.jpg)
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
 # Registro Trailer de Lote
-
 
 <table>
   <thead>
@@ -21595,7 +20276,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <th> </th>
         <th> </th>
         <th> </th>
-        <th colspan="2">crição</th>
+        <th colspan="2"></th>
     </tr>
   </thead>
   <tbody>
@@ -21753,26 +20434,10 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
   </tbody>
 </table>
 
-
 **Controle** - Banco origem ou destino do arquivo.
 
 \* - Campos que merecem uma atenção especial (conceito, domínio, formatação).
-
-115
-
-![FEBRABAN logo](page_116_image_1_v2.jpg)
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
 # 3.7 - Extrato para Gestão de Caixa
-
-116
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_117_image_2_v2.jpg)
-
-
-
 # 3.7.1 - Descrição do Processo
 
 ## Objetivo
@@ -21780,7 +20445,6 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
 O produto Extrato para Gestão de Caixa tem por objetivo fornecer aos Clientes do Banco informações sobre Saldos e Lançamentos de diferentes Naturezas, relativos às suas Contas Correntes, possibilitando que estes implementem a gestão de caixa de forma automatizada e com maior segurança, através do recebimento eletrônico de extratos enviados pelo Banco várias vezes ao dia.
 
 ## Entidades Participantes do Processo
-
 
 <table>
   <thead>
@@ -21801,7 +20465,6 @@ O produto Extrato para Gestão de Caixa tem por objetivo fornecer aos Clientes d
   </tbody>
 </table>
 
-
 ## Fluxo de Informações
 
 O Banco, de acordo com a freqüência previamente acordada, envia ao Cliente um extrato de suas Contas Correntes, informando os saldos iniciais, os lançamentos e os saldos finais de diferentes Naturezas.
@@ -21816,16 +20479,9 @@ graph LR
     style A fill:#fff,stroke:#000,stroke-width:2px,color:#2E8B57
     style B fill:#fff,stroke:#000,stroke-width:2px,color:#2E8B57
 ```
-
-117
-
-![FEBRABAN logo](page_118_image_2_v2.jpg)
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
 # Eventos
 
 **EXTRATO PARA GESTÃO DE CAIXA - RETORNO**
-
 
 <table>
   <thead>
@@ -21842,7 +20498,6 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
   </tbody>
 </table>
 
-
 # Observações Gerais
 
 **Freqüência do Extrato**
@@ -21856,15 +20511,6 @@ Este serviço/produto possibilitará ao Cliente receber informações relativas 
 **Identificação e Detalhamento da Natureza do Lançamento:**
 
 A identificação da Natureza do Lançamento proporcionará maior clareza para a conferência na gestão do Caixa.
-
-118
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_119_image_1_v2.jpg)
-
-
-
 # 3.7.2 - Extrato para Gestão de Caixa
 
 ## Estrutura do Lote
@@ -21898,13 +20544,7 @@ Um Lote de Extrato para Gestão de Caixa é composto por:
 
 Fica a critério de cada Banco a geração ou não dos registros de Saldo de uma determinada Natureza, sem movimentação (com valor = zeros). Existindo um registro de Saldo Inicial de uma determinada Natureza, sempre deverá existir um registro de Saldo Final correspondente, e vice-versa.
 
-119
-
-![FEBRABAN logo](page_120_image_2_v2.jpg)
-Layout Padrão Febraban 240 posições V10.9 [http://www.febraban.org.br](http://www.febraban.org.br)
-
 # Registro Header de Lote
-
 
 <table>
     <thead>
@@ -21916,7 +20556,7 @@ Layout Padrão Febraban 240 posições V10.9 [http://www.febraban.org.br](http:/
         <th>Nº</th>
         <th>Formato</th>
         <th>Default</th>
-        <th>Des</th>
+        <th>Descrição</th>
     </tr>
     </thead>
     <tr>
@@ -21929,7 +20569,7 @@ Layout Padrão Febraban 240 posições V10.9 [http://www.febraban.org.br](http:/
         <td>Dec</td>
         <td></td>
         <td></td>
-        <td>crição</td>
+        <td></td>
     </tr>
     <tr>
         <td>01.1</td>
@@ -22032,8 +20672,7 @@ Layout Padrão Febraban 240 posições V10.9 [http://www.febraban.org.br](http:/
     <tr>
         <td>09.1</td>
         <td rowspan="3">E</td>
-        <td>Inscri Tipo
-ção</td>
+        <td>Tipo Inscrição</td>
         <td>Tipo de Inscrição da Empresa</td>
         <td>18</td>
         <td>18</td>
@@ -22098,8 +20737,7 @@ cia</td>
         <td rowspan="2"></td>
         <td>r
 e</td>
-        <td rowspan="2">Cor
-rente</td>
+        <td rowspan="2">Corrente</td>
         <td rowspan="2">DV</td>
         <td rowspan="2">Dígito Verificador da Agência</td>
         <td rowspan="2">58</td>
@@ -22199,8 +20837,7 @@ rente</td>
     </tr>
     <tr>
         <td>21.1</td>
-        <td rowspan="4">Soma
-tória dos 
+        <td rowspan="4">Somatória dos 
 Saldos 
 Iniciais</td>
         <td>Data</td>
@@ -22287,21 +20924,12 @@ Iniciais</td>
     </tr>
 </table>
 
-
 **Controle** - Banco origem do arquivo
 
 **Empresa** - Cliente que firmou o convênio de prestação de serviços
 
 **Seqüência** - O Número de Seqüência do Extrato segue uma ordenação específica para o Extrato para Gestão de Caixa.
-
-120
-
-![FEBRABAN logo](page_121_image_2_v2.jpg)
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
 # Registro Saldo Inicial
-
 
 <table>
   <thead>
@@ -22315,7 +20943,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <th>Nº</th>
         <th>Formato</th>
         <th>Default</th>
-        <th>Des-</th>
+        <th>Descrição</th>
     </tr>
     <tr>
         <th> </th>
@@ -22328,7 +20956,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <th>Dec</th>
         <th> </th>
         <th> </th>
-        <th>crição</th>
+        <th></th>
     </tr>
   </thead>
   <tbody>
@@ -22538,21 +21166,10 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
   </tbody>
 </table>
 
-
 **Geração dos Saldos:** Fica a critério de cada Banco a geração ou não dos registros de Saldo de uma determinada Natureza, sem movimentação (com valor = zeros).
 
 **Saldo Inicial x Saldo Final:** Existindo um registro de Saldo Inicial de uma determinada Natureza sempre deverá existir um registro de Saldo Final correspondente, e vice-versa.
-
-121
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_122_image_1_v2.jpg)
-
-
-
 # Registro Detalhe - Segmento F (Obrigatório - Retorno)
-
 
 <table>
     <thead>
@@ -22564,7 +21181,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <th>Nº</th>
         <th>Formato</th>
         <th>Default</th>
-        <th>Des</th>
+        <th>Descrição</th>
     </tr>
     </thead>
     <tr>
@@ -22577,7 +21194,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <td>Dec</td>
         <td></td>
         <td></td>
-        <td>crição</td>
+        <td></td>
     </tr>
     <tr>
         <td>01.3F</td>
@@ -22727,8 +21344,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
     </tr>
     <tr>
         <td>13.3F</td>
-        <td rowspan="7">Lança
-mento</td>
+        <td rowspan="7">Lançamento</td>
         <td>Data</td>
         <td>Data do Lançamento</td>
         <td>143</td>
@@ -22813,22 +21429,11 @@ mento</td>
     </tr>
 </table>
 
-
 **Código Histórico Lcto no Banco** - Neste Extrato este campo já foi previsto para comportar 5 caracteres.
 
 **Número Documento/Complemento** - Neste Extrato este campo tem 38 caracteres (1 a menos que no Extrato de Conta Corrente para Conciliação).
 
-122
-
-Layout Padrão Febraban 240 posições V10.9
-http://www.febraban.org.br
-
-![FEBRABAN logo](page_123_image_1_v2.jpg)
-
-
-
 # Registro Detalhe - Segmento I (Opcional - Retorno)
-
 
 <table>
   <thead>
@@ -22992,21 +21597,9 @@ http://www.febraban.org.br
   </tbody>
 </table>
 
-
 **Detalhamento do Valor do Lançamento** - Este registro informa os valores correspondentes aos montantes que afetam cada tipo de Saldo, e que somados compõem o Valor do Lançamento.
 
-123
-
-http://www.febraban.org.br
-
-![FEBRABAN logo](page_124_image_2_v2.jpg)
-
-Layout Padrão Febraban 240 posições V10.9
-
-
-
 # Registro Saldo Final
-
 
 <table>
   <thead>
@@ -23251,23 +21844,11 @@ Layout Padrão Febraban 240 posições V10.9
   </tbody>
 </table>
 
-
 **Geração dos Saldos:** Fica a critério de cada Banco a geração ou não dos registros de Saldo de uma determinada Natureza, sem movimentação (com valor = zeros).
 
 **Saldo Inicial x Saldo Final:** Existindo um registro de Saldo Inicial de uma determinada Natureza sempre deverá existir um registro de Saldo Final correspondente, e vice-versa.
 
-124
-
-http://www.febraban.org.br
-
-![FEBRABAN logo](page_125_image_2_v2.jpg)
-
-
-
-Layout Padrão Febraban 240 posições V10.9
-
 # Registro Trailer de Lote
-
 
 <table>
     <thead>
@@ -23279,7 +21860,7 @@ Layout Padrão Febraban 240 posições V10.9
         <th>Nº</th>
         <th>Formato</th>
         <th>Default</th>
-        <th>Des</th>
+        <th>Descrição</th>
     </tr>
     </thead>
     <tr>
@@ -23292,7 +21873,7 @@ Layout Padrão Febraban 240 posições V10.9
         <td>Dec</td>
         <td></td>
         <td></td>
-        <td>crição</td>
+        <td></td>
     </tr>
     <tr>
         <td>01.5</td>
@@ -23395,8 +21976,7 @@ Layout Padrão Febraban 240 posições V10.9
     <tr>
         <td>09.5</td>
         <td rowspan="3">E</td>
-        <td>Inscri Tipo
-ção</td>
+        <td>Tipo Inscrição</td>
         <td>Tipo de Inscrição da Empresa</td>
         <td>18</td>
         <td>18</td>
@@ -23595,8 +22175,7 @@ e</td>
     </tr>
     <tr>
         <td>22.5</td>
-        <td rowspan="4">Soma
-tória dos 
+        <td rowspan="4">Somatória dos 
 saldos 
 finais</td>
         <td>Data</td>
@@ -23694,22 +22273,7 @@ finais</td>
         <td>G004</td>
     </tr>
 </table>
-
-125
-
-![FEBRABAN logo](page_126_image_1_v2.jpg)
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
 # 3.8 – Empréstimo por Consignação/Retenção
-
-126
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_127_image_1_v2.jpg)
-
-
-
 # 3.8.1 - Descrição do Processo
 
 ## Objetivo
@@ -23719,7 +22283,6 @@ O produto Empréstimo por Consignação/Retenção tem por objetivo fornecer aos
 Este processo envolve a retenção por parte da empresa/órgão público das parcelas de pagamentos do Financiamento realizado junto ao Banco pelo Funcionário/Beneficiário
 
 ## Entidades Participantes
-
 
 <table>
   <thead>
@@ -23744,7 +22307,6 @@ Este processo envolve a retenção por parte da empresa/órgão público das par
   </tbody>
 </table>
 
-
 ## Fluxo de Informações
 
 * Banco Consulta Margem do Mutuário na Empresa/Órgão e esta retorna a informação de Margem.
@@ -23754,14 +22316,6 @@ Este processo envolve a retenção por parte da empresa/órgão público das par
 * Banco Executa manutenções na consignação e a Empresa/Órgão confirma a consignação
 
 * Banco recebe informação de Glosas do INSS
-
-127
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_128_image_2_v2.jpg)
-
-
 
 # Diagrama
 
@@ -23813,16 +22367,9 @@ graph LR
 
 EMPRÉSTIMO POR CONSIGNAÇÃO ■ ■ ■ FLUXO FORA DO ESCOPO DO TRABALHO
 
-128
-
-![FEBRABAN logo](page_129_image_1_v2.jpg)
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
 # Eventos
 
 ## EMPRÉSTIMO POR CONSIGNAÇÃO – RETORNO (BANCO => EMPRESA/ÓRGÃO)
-
 
 <table>
   <thead>
@@ -23851,9 +22398,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
   </tbody>
 </table>
 
-
 ## EMPRÉSTIMO POR CONSIGNAÇÃO – REMESSA (EMPRESA/ÓRGÃO => BANCO)
-
 
 <table>
   <thead>
@@ -23886,19 +22431,9 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
   </tbody>
 </table>
 
-129
-
-Layout Padrão Febraban 240 posições V10.9
-http://www.febraban.org.br
-
-![FEBRABAN logo](page_130_image_1_v2.jpg)
-
-
-
 # 3.8.2 – Empréstimo por Consignação/Retenção
 
 ## Registro Header de Lote
-
 
 <table>
   <thead>
@@ -24233,19 +22768,10 @@ http://www.febraban.org.br
   </tbody>
 </table>
 
-
 **Controle** - Banco origem ou destino do arquivo (Banco Pagador)
 
 **Empresa/Órgão Público** - Cliente que firmou o convênio de prestação de serviços com o banco
-
-130
-
-![FEBRABAN logo](page_131_image_1_v2.jpg)
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
 # Registro Detalhe - Segmento H (Obrigatório - Remessa / Retorno)
-
 
 <table>
   <thead>
@@ -24256,7 +22782,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <th>Nº</th>
         <th>Formato</th>
         <th>Default</th>
-        <th colspan="2">Des-</th>
+        <th colspan="2">Descrição</th>
     </tr>
     <tr>
         <th> </th>
@@ -24269,7 +22795,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <th>Dec</th>
         <th> </th>
         <th> </th>
-        <th colspan="2">Crição</th>
+        <th colspan="2"></th>
     </tr>
   </thead>
   <tbody>
@@ -24822,14 +23348,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
   </tbody>
 </table>
 
-131
-
-![FEBRABAN logo](page_132_image_2_v2.jpg)
-Layout Padrão Febraban 240 posições V10.9
-http://www.febraban.org.br
-
 # Registro Trailer de Lote
-
 
 <table>
   <thead>
@@ -24841,7 +23360,7 @@ http://www.febraban.org.br
 <th rowspan="2">Nº Dec</th>
 <th rowspan="2">Formato</th>
 <th rowspan="2">Default</th>
-<th colspan="2" rowspan="2">Des-crição</th>
+<th colspan="2" rowspan="2">Descrição</th>
     </tr>
     <tr>
 <th> </th>
@@ -25063,7 +23582,6 @@ http://www.febraban.org.br
   </tbody>
 </table>
 
-
 **Totais** - Totais de controle para checagem do lote
 
 **Glosa** – G057 e H033 (remessa e retorno)
@@ -25071,25 +23589,7 @@ http://www.febraban.org.br
 **Averbação / Manutenção** – G057, H032 e H033 (remessa e retorno).
 
 **Manutenção de Consignação (remessa)** – G057, H034, H035, H036 e H037.
-
-132
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_133_image_1_v2.jpg)
-
-
-
 # 3.9 - Compror
-
-133
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_134_image_1_v2.jpg)
-
-
-
 # 3.9.1 - Descrição do Processo
 
 ## Objetivo
@@ -25097,14 +23597,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
 O produto Compror tem por objetivo disponibilizar aos clientes (Compradores) do banco, os meios de viabilizar o processo de financiamento de suas compras junto aos seus fornecedores..
 
 Este processo envolve o serviço de pagamentos a fornecedores que podem ser efetuados através de crédito em conta, cheque administrativo, DOC, TED, ordem de pagamento (OP), pagamento com autenticação ou títulos de cobrança.
-
-134
-
-![FEBRABAN logo](page_135_image_2_v2.jpg)
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
 # Entidades Participantes do Processo
-
 
 <table>
   <thead>
@@ -25133,7 +23626,6 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
   </tbody>
 </table>
 
-
 ## Fluxo de Informações
 
 O Financiado agenda, junto ao seu Banco, os pagamentos a serem efetuados. Caso seja agendado um pagamento bloqueado, é necessário enviar uma informação para liberar a execução do pagamento posteriormente e, nos casos em contrário, se foi agendado um pagamento liberado é possível fazer o bloqueio do mesmo. Também é possível o Financiado efetuar alterações em alguns dados dos pagamentos, antes que o mesmo seja efetuado.
@@ -25145,15 +23637,6 @@ Através de cheque administrativo.
 
 ➢ Ao Banco do Fornecedor
 Através de crédito em conta, quando o Banco do Financiado é o mesmo Banco do Fornecedor, ou através de DOC, TED e títulos em conbrança, via compensação.
-
-135
-
-Layout Padrão Febraban 240 posições V10.9
-http://www.febraban.org.br
-
-![FEBRABAN logo](page_136_image_1_v2.jpg)
-
-
 
 # Diagrama
 
@@ -25187,14 +23670,7 @@ graph TD
 
 # Eventos
 
-136
-
-![FEBRABAN logo](page_137_image_2_v2.jpg)
-Layout Padrão Febraban 240 posições V10.9
-http://www.febraban.org.br
-
 # COMPROR – REMESSA
-
 
 <table>
   <thead>
@@ -25216,9 +23692,7 @@ http://www.febraban.org.br
   </tbody>
 </table>
 
-
 # COMPRO - RETORNO
-
 
 <table>
   <thead>
@@ -25240,16 +23714,8 @@ http://www.febraban.org.br
   </tbody>
 </table>
 
-
 # 3.9.2 – Compror / Compror Rotativo
-
-137
-
-![FEBRABAN logo](page_138_image_2_v2.jpg)
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
 # Registro Header de Lote
-
 
 <table>
     <thead>
@@ -25261,7 +23727,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <th>Nº</th>
         <th>Formato</th>
         <th>Default</th>
-        <th>Des</th>
+        <th>Descrição</th>
     </tr>
     </thead>
     <tr>
@@ -25274,7 +23740,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
         <td>Dec</td>
         <td></td>
         <td></td>
-        <td>crição</td>
+        <td></td>
     </tr>
     <tr>
         <td>01.1</td>
@@ -25377,8 +23843,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
     <tr>
         <td>09.1</td>
         <td rowspan="3">E</td>
-        <td>Inscri Tipo
-ção</td>
+        <td>Tipo Inscrição</td>
         <td>Tipo de Inscrição da Empresa</td>
         <td>18</td>
         <td>18</td>
@@ -25525,8 +23990,7 @@ cia</td>
     </tr>
     <tr>
         <td>19.1</td>
-        <td rowspan="7">Endere
-ço
+        <td rowspan="7">Endereço
 <br/>
 da
 <br/>
@@ -25640,16 +24104,9 @@ a</td>
     </tr>
 </table>
 
-
 **Controle** - Banco origem ou destino do arquivo (Banco Pagador)
 
 **Empresa** - Cliente (Pagador) que firmou o convênio de prestação de serviços com o banco
-
-138
-
-![FEBRABAN logo](page_139_image_1_v2.jpg)
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
 **Os Segmentos Detalhes do serviço Compror serão complementares ao Serviço de Pagamentos, de acordo com o tipo de pagamento, a saber :**
 
 # Pagamento Através de Crédito em Conta, Cheque, OP, DOC, TED ou Pagamento com Autenticação
@@ -25665,19 +24122,9 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
 # Pagamento de Títulos de Cobrança
 
 **Registro Detalhe - Segmento J (Obrigatório - Remessa / Retorno)**
-
-139
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_140_image_1_v2.jpg)
-
-
-
 # Compror / Compror Rotativo
 
 ## Registro Detalhe - Segmento I (Obrigatório - Remessa / Retorno)
-
 
 <table>
   <thead>
@@ -25689,7 +24136,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
 <th colspan="2">Nº</th>
 <th rowspan="2">Formato</th>
 <th rowspan="2">Default</th>
-<th rowspan="2">Des-<br/>Crição</th>
+<th rowspan="2">Descrição<br/></th>
     </tr>
     <tr>
 <th>De</th>
@@ -26064,19 +24511,9 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
     </tr>
   </tbody>
 </table>
-
-140
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_141_image_1_v2.jpg)
-
-
-
 # Registro Detalhe - Segmento I-11 (Opcional - Remessa/Retorno)
 
 Registro Opcional para Informação das Parcelas de Operações de Compror
-
 
 <table>
     <thead>
@@ -26088,7 +24525,7 @@ Registro Opcional para Informação das Parcelas de Operações de Compror
         <th>Nº</th>
         <th>Formato</th>
         <th>Default</th>
-        <th>Des</th>
+        <th>Descrição</th>
     </tr>
     </thead>
     <tr>
@@ -26101,7 +24538,7 @@ Registro Opcional para Informação das Parcelas de Operações de Compror
         <td>Dec</td>
         <td></td>
         <td></td>
-        <td>crição</td>
+        <td></td>
     </tr>
     <tr>
         <td>01.3I</td>
@@ -26411,23 +24848,11 @@ Parcela</td>
     </tr>
 </table>
 
-
 **Observações:**
 
 O segmento I-11 pode ocorrer várias vezes. O número máximo de ocorrências depende do número de parcelas acordadas entre o Banco e a Empresa Cliente.
 
-141
-
-http://www.febraban.org.br
-
-![FEBRABAN logo](page_142_image_2_v2.jpg)
-
-
-
-Layout Padrão Febraban 240 posições V10.9
-
 # Registro Trailer de Lote
-
 
 <table>
   <thead>
@@ -26581,26 +25006,10 @@ Layout Padrão Febraban 240 posições V10.9
   </tbody>
 </table>
 
-
 **Controle** - Banco origem ou destino do arquivo (Banco Pagador)
 
 **Totais** - Totais de controle para checagem do lote
-
-142
-
-![FEBRABAN logo](page_143_image_1_v2.jpg)
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
 # 4.0 - Descrição de Campos
-
-143
-
-Layout Padrão Febraban 240 posições V10.9
-http://www.febraban.org.br
-
-![FEBRABAN logo](page_144_image_1_v2.jpg)
-
-
 
 # A - Alegação do Pagador
 
@@ -26609,7 +25018,6 @@ http://www.febraban.org.br
 Código adotado pela FEBRABAN para identificar o tipo de ocorrência do Pagador.
 
 Domínio:
-
 
 <table>
   <thead>
@@ -26856,13 +25264,6 @@ Domínio:
   </tbody>
 </table>
 
-144
-
-![FEBRABAN logo](page_145_image_1_v2.jpg)
-
-Layout Padrão Febraban 240 posições V10.9 <span style="float: right;">http://www.febraban.org.br</span>
-
-
 <table>
   <tbody>
     <tr>
@@ -27015,7 +25416,6 @@ Layout Padrão Febraban 240 posições V10.9 <span style="float: right;">http://
   </tbody>
 </table>
 
-
 ## A002 Complemento de Ocorrência <span style="float: right;">A002</span>
 
 Texto descritivo para complementar a ocorrência do Pagador.
@@ -27028,17 +25428,7 @@ Para código padrão = '02' - Mesmo formato do campo “Ocorrência” do segmen
 * **Valor Ocorrência**: 13 inteiras e 2 decimais
 * **Complemento**: 30 posições
 
-145
-
-Layout Padrão Febraban 240 posições V10.9
-http://www.febraban.org.br
-
-![FEBRABAN logo](page_146_image_1_v2.jpg)
-
-
-
 # B - Boleto de Pagamento Eletrônico (Captura de Títulos em Cobrança)
-
 
 <table>
   <tbody>
@@ -27060,17 +25450,7 @@ http://www.febraban.org.br
   </tbody>
 </table>
 
-146
-
-Layout Padrão Febraban 240 posições V10.9
-http://www.febraban.org.br
-
-![FEBRABAN logo](page_147_image_1_v2.jpg)
-
-
-
 # C - Títulos em Cobrança
-
 
 <table>
   <thead>
@@ -27098,16 +25478,6 @@ http://www.febraban.org.br
     </tr>
   </tbody>
 </table>
-
-147
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_148_image_1_v2.jpg)
-
-
-
-
 <table>
   <thead>
     <tr>
@@ -27144,16 +25514,6 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
     </tr>
   </tbody>
 </table>
-
-148
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_149_image_1_v2.jpg)
-
-
-
-
 <table>
   <tbody>
     <tr>
@@ -27178,16 +25538,6 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
     </tr>
   </tbody>
 </table>
-
-149
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_150_image_1_v2.jpg)
-
-
-
-
 <table>
   <tbody>
     <tr>
@@ -27247,16 +25597,6 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
     </tr>
   </tbody>
 </table>
-
-150
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_151_image_1_v2.jpg)
-
-
-
-
 <table>
   <tbody>
     <tr>
@@ -27306,16 +25646,6 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
     </tr>
   </tbody>
 </table>
-
-151
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_152_image_1_v2.jpg)
-
-
-
-
 <table>
   <tbody>
     <tr>
@@ -27361,13 +25691,6 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
   </tbody>
 </table>
 
-152
-
-![FEBRABAN logo](page_153_image_1_v2.jpg)
-
-Layout Padrão Febraban 240 posições V10.9 <span style="float: right;">http://www.febraban.org.br</span>
-
-
 <table>
   <tbody>
     <tr>
@@ -27407,16 +25730,6 @@ Layout Padrão Febraban 240 posições V10.9 <span style="float: right;">http://
     </tr>
   </tbody>
 </table>
-
-153
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_154_image_1_v2.jpg)
-
-
-
-
 <table>
   <tbody>
     <tr>
@@ -27436,13 +25749,6 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
     </tr>
   </tbody>
 </table>
-
-154
-
-![FEBRABAN logo](page_155_image_1_v2.jpg)
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
 '13' = Identificação da Emissão do Boleto de Pagamento Inválida
 '14' = Identificação da Distribuição do Boleto de Pagamento Inválida
 '15' = Características da Cobrança Incompatíveis
@@ -27502,15 +25808,6 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
 '69' = Débito Não Agendado - Erro nos Dados da Remessa
 '70' = Débito Não Agendado - Pagador Não Consta do Cadastro de Autorizante
 '71' = Débito Não Agendado - Beneficiário Não Autorizado pelo Pagador
-
-155
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_156_image_1_v2.jpg)
-
-
-
 '72' = Débito Não Agendado - Beneficiário Não Participa da Modalidade Débito Automático
 '73' = Débito Não Agendado - Código de Moeda Diferente de Real (R$)
 '74' = Débito Não Agendado - Data Vencimento Inválida
@@ -27566,15 +25863,6 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
 B - Códigos de tarifas / custas de '01' a '20' associados ao código de movimento '28' (Descrição C044)
 
 '01' = Tarifa de Extrato de Posição
-
-156
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_157_image_1_v2.jpg)
-
-
-
 '02' = Tarifa de Manutenção de Título Vencido
 '03' = Tarifa de Sustação
 '04' = Tarifa de Protesto
@@ -27625,7 +25913,6 @@ Baixa:
 '14' = Protestado
 '15' = Título Excluído
 
-
 <table>
   <tbody>
     <tr>
@@ -27645,16 +25932,6 @@ Baixa:
     </tr>
   </tbody>
 </table>
-
-157
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_158_image_1_v2.jpg)
-
-
-
-
 <table>
   <tbody>
     <tr>
@@ -27709,13 +25986,6 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
     </tr>
   </tbody>
 </table>
-
-158
-
-![FEBRABAN logo](page_159_image_1_v2.jpg)
-
-Layout Padrão Febraban 240 posições V10.9      http://www.febraban.org.br
-
 
 <table>
   <thead>
@@ -27778,16 +26048,6 @@ Layout Padrão Febraban 240 posições V10.9      http://www.febraban.org.br
     </tr>
   </tbody>
 </table>
-
-159
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_160_image_1_v2.jpg)
-
-
-
-
 <table>
   <tbody>
     <tr>
@@ -27842,16 +26102,6 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
     </tr>
   </tbody>
 </table>
-
-160
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_161_image_1_v2.jpg)
-
-
-
-
 <table>
   <tbody>
     <tr>
@@ -27901,17 +26151,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
     </tr>
   </tbody>
 </table>
-
-161
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_162_image_1_v2.jpg)
-
-
-
 # D - Débito em Conta Corrente
-
 
 <table>
   <thead>
@@ -27985,16 +26225,6 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
     </tr>
   </tbody>
 </table>
-
-162
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_163_image_1_v2.jpg)
-
-
-
-
 <table>
   <thead>
     <tr>
@@ -28027,17 +26257,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
   </tbody>
 </table>
 
-163
-
-Layout Padrão Febraban 240 posições V10.9
-http://www.febraban.org.br
-
-![FEBRABAN logo](page_164_image_1_v2.jpg)
-
-
-
 # E - Extrato de Conta Corrente para Conciliação Bancária
-
 
 <table>
   <tbody>
@@ -28074,17 +26294,7 @@ http://www.febraban.org.br
   </tbody>
 </table>
 
-164
-
-Layout Padrão Febraban 240 posições V10.9
-http://www.febraban.org.br
-
-![FEBRABAN logo](page_165_image_1_v2.jpg)
-
-
-
 # F - Extrato para Gestão de Caixa
-
 
 <table>
   <tbody>
@@ -28154,16 +26364,6 @@ http://www.febraban.org.br
     </tr>
   </tbody>
 </table>
-
-165
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_166_image_1_v2.jpg)
-
-
-
-
 <table>
   <tbody>
     <tr>
@@ -28198,16 +26398,6 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
     </tr>
   </tbody>
 </table>
-
-166
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_167_image_1_v2.jpg)
-
-
-
-
 <table>
   <tbody>
     <tr>
@@ -28233,17 +26423,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
   </tbody>
 </table>
 
-167
-
-Layout Padrão Febraban 240 posições V10.9
-http://www.febraban.org.br
-
-![FEBRABAN logo](page_168_image_1_v2.jpg)
-
-
-
 # G - Campos Genéricos
-
 
 <table>
   <tbody>
@@ -28274,16 +26454,6 @@ http://www.febraban.org.br
     </tr>
   </tbody>
 </table>
-
-168
-
-Layout Padrão Febraban 240 posições V10.9
-http://www.febraban.org.br
-
-![FEBRABAN logo](page_169_image_1_v2.jpg)
-
-
-
 
 <table>
   <tbody>
@@ -28339,16 +26509,6 @@ http://www.febraban.org.br
     </tr>
   </tbody>
 </table>
-
-169
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_170_image_1_v2.jpg)
-
-
-
-
 <table>
   <tbody>
     <tr>
@@ -28398,16 +26558,6 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
     </tr>
   </tbody>
 </table>
-
-170
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_171_image_1_v2.jpg)
-
-
-
-
 <table>
   <tbody>
     <tr>
@@ -28435,15 +26585,6 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
     </tr>
   </tbody>
 </table>
-
-171
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_172_image_1_v2.jpg)
-
-
-
 '01' = Crédito em Conta Corrente/Salário
 '02' = Cheque Pagamento / Administrativo
 '03' = DOC/TED (1) (2)
@@ -28483,7 +26624,6 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
 
 (2) A câmara pela qual transitará a transferência também poderá ser identificada a partir do campo P001, “Código da Câmara Centralizadora”, no registro detalhe, segmento “A”, a critério de cada banco, com preenchimento a saber:
 
-
 <table>
   <thead>
     <tr>
@@ -28503,11 +26643,9 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
   </tbody>
 </table>
 
-
 (3) Para a forma de lançamento ‘11’ – Pagamento de Contas e Tributos com código de barras, caso o tributo FGTS a ser pago, pertencer aos convênios 0181 - Caixa – Arrecadação do FGTS – Recolhimento Recursal (418) ou Filantrópico (604) e 0182 – Caixa _ Arrecadação do FGTS – Recolhimento Parcelamento sem Multa (327,337 e 345) é obrigatório preencher as Informações Complementares de Tributo no segmento W.
 
 Este campo não será utilizado pela Cobrança.
-
 
 <table>
   <thead>
@@ -28525,16 +26663,6 @@ Este campo não será utilizado pela Cobrança.
     </tr>
   </tbody>
 </table>
-
-172
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_173_image_1_v2.jpg)
-
-
-
-
 <table>
   <thead>
     <tr>
@@ -28571,16 +26699,6 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
     </tr>
   </tbody>
 </table>
-
-173
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_174_image_1_v2.jpg)
-
-
-
-
 <table>
   <thead>
     <tr>
@@ -28681,16 +26799,6 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
   </tbody>
 </table>
 
-174
-
-Layout Padrão Febraban 240 posições V10.9
-http://www.febraban.org.br
-
-![FEBRABAN logo](page_175_image_1_v2.jpg)
-
-
-
-
 <table>
   <tbody>
     <tr>
@@ -28748,16 +26856,6 @@ http://www.febraban.org.br
     </tr>
   </tbody>
 </table>
-
-175
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_176_image_1_v2.jpg)
-
-
-
-
 <table>
   <tbody>
     <tr>
@@ -28807,16 +26905,6 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
     </tr>
   </tbody>
 </table>
-
-176
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_177_image_1_v2.jpg)
-
-
-
-
 <table>
   <tbody>
     <tr>
@@ -29065,15 +27153,6 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
     </tr>
   </tbody>
 </table>
-
-177
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_178_image_1_v2.jpg)
-
-
-
 `HJ` = Tipo de Registro Inválido
 `HK` = Código Remessa / Retorno Inválido
 `HL` = Versão de layout inválida
@@ -29132,16 +27211,6 @@ Observação: As ocorrências iniciadas com 'ZA' tem caráter informativo para o
 ‘ZD’ = Antecipação parcial de valor
 ‘ZE’ = Título bloqueado na base
 ‘ZF’ = Sistema em contingência – título valor maior que referência
-
-178
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_179_image_1_v2.jpg)
-
-
-
-
 <table>
   <tbody>
     <tr>
@@ -29237,16 +27306,6 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
     </tr>
   </tbody>
 </table>
-
-179
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_180_image_1_v2.jpg)
-
-
-
-
 <table>
   <tbody>
     <tr>
@@ -29306,16 +27365,6 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
     </tr>
   </tbody>
 </table>
-
-180
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_181_image_1_v2.jpg)
-
-
-
-
 <table>
   <tbody>
     <tr>
@@ -29353,16 +27402,6 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
     </tr>
   </tbody>
 </table>
-
-181
-
-Layout Padrão Febraban 240 posições V10.9
-http://www.febraban.org.br
-
-![FEBRABAN logo](page_182_image_1_v2.jpg)
-
-
-
 
 <table>
   <tbody>
@@ -29411,16 +27450,6 @@ http://www.febraban.org.br
     </tr>
   </tbody>
 </table>
-
-182
-
-Layout Padrão Febraban 240 posições V10.9
-http://www.febraban.org.br
-
-![FEBRABAN logo](page_183_image_1_v2.jpg)
-
-
-
 
 <table>
   <thead>
@@ -29483,16 +27512,6 @@ http://www.febraban.org.br
     </tr>
   </tbody>
 </table>
-
-183
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_184_image_1_v2.jpg)
-
-
-
-
 <table>
   <tbody>
     <tr>
@@ -29552,15 +27571,6 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
     </tr>
   </tbody>
 </table>
-
-184
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_185_image_1_v2.jpg)
-
-
-
 '118' = Devolução da Compensação
 '119' = Devolução de Cheque Depositado
 '120' = Transferência Interbancária (DOC, TED, Pix)
@@ -29596,7 +27606,6 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
 '221' = Pagamento de Tributos
 '222' = Cartão de Crédito - Recebíveis de cartão de crédito
 '223' = Crédito Pix via QrCode
-
 
 <table>
   <tbody>
@@ -29642,15 +27651,6 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
     </tr>
   </tbody>
 </table>
-
-185
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_186_image_1_v2.jpg)
-
-
-
 # G097 Data do Saldo Final
 
 Data considerada para o determinar o saldo final.
@@ -29705,14 +27705,7 @@ Logradouro do Favorecido: Nome da Rua, Av, Pça, Etc Posição (33 67) Alfa
 # Informação 11
 
 Para o tipo “forma de lançamento” igual ao PIX, usar campo como:
-
-186
-
-http://www.febraban.org.br
-
-![FEBRABAN logo](page_187_image_1_v2.jpg)
-
-Layout Padrão Febraban 240 posições V10.9 
+ 
 
 Se o campo forma de iniciação (06.3B - G100) for igual a 01, 02 ou 04 - Deve ser preenchido com a:
 
@@ -29723,7 +27716,6 @@ Se o campo forma de iniciação (06.3B - G100) for igual a 05 - Deve ser preench
 O Tipo de Conta do recebedor conforme domínios do campo G031
 
 Para os demais, usar como:
-
 
 <table>
   <tbody>
@@ -29772,7 +27764,6 @@ Para os demais, usar como:
   </tbody>
 </table>
 
-
 # Informação 12
 
 Para o tipo “forma de lançamento” igual ao PIX, usar campo como:
@@ -29780,7 +27771,6 @@ Para o tipo “forma de lançamento” igual ao PIX, usar campo como:
 Identificação do favorecido – chave de endereçamentoPix Email ou Telefone ou Chave Aleatória Posição (128 226) Alfa
 
 Para os demais, usar como:
-
 
 <table>
   <tbody>
@@ -29843,7 +27833,6 @@ Para os demais, usar como:
   </tbody>
 </table>
 
-
 # G102 Chave de Pagamento
 
 * Obrigatório, sendo:
@@ -29855,32 +27844,13 @@ Para os demais, usar como:
 * Opcional
 
 # G103 Tipo de Chave DICT
-
-187
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_188_image_1_v2.jpg)
-
-
-
 Domínio:
 '1' = CPF
 '2' = CNPJ
 ‘3’ = Celular
 ‘4’ = e-mail
 ‘5’ = EVP – chave aleatória
-
-188
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_189_image_1_v2.jpg)
-
-
-
 # H – Empréstimo por Consignação
-
 
 <table>
   <tbody>
@@ -29946,16 +27916,6 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
     </tr>
   </tbody>
 </table>
-
-189
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_190_image_1_v2.jpg)
-
-
-
-
 <table>
   <thead>
     <tr>
@@ -30010,16 +27970,6 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
     </tr>
   </tbody>
 </table>
-
-190
-
-Layout Padrão Febraban 240 posições V10.9
-http://www.febraban.org.br
-
-![FEBRABAN logo](page_191_image_1_v2.jpg)
-
-
-
 
 <table>
   <tbody>
@@ -30100,16 +28050,6 @@ http://www.febraban.org.br
     </tr>
   </tbody>
 </table>
-
-191
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_192_image_1_v2.jpg)
-
-
-
-
 <table>
   <tbody>
     <tr>
@@ -30146,15 +28086,6 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
 </table>
 
 # I - Compror
-192
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_193_image_1_v2.jpg)
-
-
-
-
 <table>
   <tbody>
     <tr>
@@ -30204,16 +28135,6 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
     </tr>
   </tbody>
 </table>
-
-193
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_194_image_1_v2.jpg)
-
-
-
-
 <table>
   <tbody>
     <tr>
@@ -30263,16 +28184,6 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
     </tr>
   </tbody>
 </table>
-
-194
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_195_image_1_v2.jpg)
-
-
-
-
 <table>
   <tbody>
     <tr>
@@ -30309,14 +28220,6 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
 </table>
 
 **K - Custódia de Cheques**
-195
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_196_image_1_v2.jpg)
-
-
-
 # K001 Códigos das Ocorrências – Lote K001
 
 Código adotado pela FEBRABAN para identificar as ocorrências relacionadas com o Header e Trailer de Lote. Pode-se informar até 5 ocorrências simultaneamente, cada uma delas com dois dígitos, conforme relação abaixo.
@@ -30377,15 +28280,6 @@ Código adotado pela FEBRABAN, para identificar a finalidade do movimento de che
 Domínio:
 
 '00' = Cheque a Vista
-
-196
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_197_image_1_v2.jpg)
-
-
-
 '01' = Custódia Simples
 '02' = Carteira Descontada
 '03' = Carteira Caucionada
@@ -30443,16 +28337,6 @@ Código que identifica o tipo de inscrição da Empresa ou Pessoa Física, emite
 
 * ‘1’ = CPF
 * ‘2’ = CNPJ
-
-197
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_198_image_1_v2.jpg)
-
-
-
-
 <table>
   <tbody>
     <tr>
@@ -30492,16 +28376,6 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
     </tr>
   </tbody>
 </table>
-
-198
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_199_image_1_v2.jpg)
-
-
-
-
 <table>
   <tbody>
     <tr>
@@ -30541,16 +28415,6 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
     </tr>
   </tbody>
 </table>
-
-199
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_200_image_1_v2.jpg)
-
-
-
-
 <table>
   <thead>
     <tr>
@@ -30585,17 +28449,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
     </tr>
   </tbody>
 </table>
-
-200
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_201_image_1_v2.jpg)
-
-
-
 # L - Pagamento de Títulos em Cobrança
-
 
 <table>
   <tbody>
@@ -30616,17 +28470,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
     </tr>
   </tbody>
 </table>
-
-201
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_202_image_1_v2.jpg)
-
-
-
 # N – Pagamento de Tributos e Impostos
-
 
 <table>
   <tbody>
@@ -30657,16 +28501,6 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
     </tr>
   </tbody>
 </table>
-
-202
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_203_image_1_v2.jpg)
-
-
-
-
 <table>
   <tbody>
     <tr>
@@ -30775,16 +28609,6 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
     </tr>
   </tbody>
 </table>
-
-203
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_204_image_1_v2.jpg)
-
-
-
-
 <table>
   <tbody>
     <tr>
@@ -30834,16 +28658,6 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
     </tr>
   </tbody>
 </table>
-
-204
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_205_image_1_v2.jpg)
-
-
-
-
 <table>
   <tbody>
     <tr>
@@ -30879,17 +28693,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
   </tbody>
 </table>
 
-205
-
-Layout Padrão Febraban 240 posições V10.9
-http://www.febraban.org.br
-
-![FEBRABAN logo](page_206_image_1_v2.jpg)
-
-
-
 # P - Pagamento Através de Crédito em Conta, Cheque, OP, DOC, TED ou Pagamento com Autenticação
-
 
 <table>
   <tbody>
@@ -30945,16 +28749,6 @@ http://www.febraban.org.br
     </tr>
   </tbody>
 </table>
-
-206
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_207_image_1_v2.jpg)
-
-
-
-
 <table>
   <tbody>
     <tr>
@@ -31009,16 +28803,6 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
     </tr>
   </tbody>
 </table>
-
-207
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_208_image_1_v2.jpg)
-
-
-
-
 <table>
   <tbody>
     <tr>
@@ -31038,15 +28822,6 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
     </tr>
   </tbody>
 </table>
-
-208
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_209_image_1_v2.jpg)
-
-
-
 # V - Vendor
 
 ## V001 Data do Financiamento V001
@@ -31103,16 +28878,6 @@ Os códigos de movimento ‘06’, ‘09’ e ‘17’ estão relacionados com a
 * '27' = Confirmação do Pedido de Alteração de Outros Dados
 * '30' = Alteração de Dados Rejeitada
 * '36' = Concentração (Será informado apenas no arquivo retorno dos dados do Comprador)
-
-209
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_210_image_1_v2.jpg)
-
-
-
-
 <table>
   <thead>
     <tr>
@@ -31157,15 +28922,6 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
     </tr>
   </tbody>
 </table>
-
-210
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_211_image_1_v2.jpg)
-
-
-
 '07' = Agência/Conta/DV Inválido
 '08' = Nosso Número Inválido
 '09' = Nosso Número Duplicado
@@ -31226,16 +28982,6 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
 '64' = Número da Linha Inválido
 '65' = Código do Banco para Débito Inválido
 '66' = Agência/Conta/DV para Débito Inválido
-
-211
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_212_image_1_v2.jpg)
-
-
-
-
 '67' = Dados para Débito incompatível com a Identificação da Emissão do Boleto de Pagamento
 '68' = Débito Automático Agendado
 '69' = Débito Não Agendado - Erro nos Dados da Remessa
@@ -31295,16 +29041,6 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
 '123' = Campo não Númerico
 '124' = CNPJ zerado ou não númerico
 '125' = Data de Gravação Inválida
-
-212
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_213_image_1_v2.jpg)
-
-
-
-
 <table>
   <thead>
     <tr>
@@ -31344,16 +29080,6 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
     </tr>
   </tbody>
 </table>
-
-213
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_214_image_1_v2.jpg)
-
-
-
-
 <table>
   <thead>
     <tr>
@@ -31423,16 +29149,6 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
     </tr>
   </tbody>
 </table>
-
-214
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_215_image_1_v2.jpg)
-
-
-
-
 <table>
   <tbody>
     <tr>
@@ -31487,16 +29203,6 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
     </tr>
   </tbody>
 </table>
-
-215
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_216_image_1_v2.jpg)
-
-
-
-
 <table>
   <tbody>
     <tr>
@@ -31546,16 +29252,6 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
     </tr>
   </tbody>
 </table>
-
-216
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_217_image_1_v2.jpg)
-
-
-
-
 <table>
   <tbody>
     <tr>
@@ -31605,16 +29301,6 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
     </tr>
   </tbody>
 </table>
-
-217
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_218_image_1_v2.jpg)
-
-
-
-
 <table>
   <tbody>
     <tr>
@@ -31634,17 +29320,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
     </tr>
   </tbody>
 </table>
-
-218
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_219_image_1_v2.jpg)
-
-
-
 # Z – Autenticação do Pagamento
-
 
 <table>
   <thead>
@@ -31665,34 +29341,12 @@ Autenticação gerada pelo banco válido como protocolo do pagamento</td>
   </tbody>
 </table>
 
-219
-
-![FEBRABAN logo](page_220_image_1_v2.jpg)
-Layout Padrão Febraban 240 posições V10.9
-http://www.febraban.org.br
-
 # 5.0 - Alteração do Manual
-
-220
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_221_image_1_v2.jpg)
-
-
-
 # 5.1 - Objetivo
 
 A alteração do manual tem por objetivo documentar as manutenções ocorridas, facilitando o entendimento do manual.
 
-221
-
-![FEBRABAN logo](page_222_image_2_v2.jpg)
-Layout Padrão Febraban 240 posições V10.9
-http://www.febraban.org.br
-
 # 5.2 - Manutenção do Manual
-
 
 <table>
   <thead>
@@ -31719,14 +29373,6 @@ http://www.febraban.org.br
     </tr>
   </tbody>
 </table>
-
-222
-
-![FEBRABAN logo](page_223_image_1_v2.jpg)
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-
 <table>
   <thead>
     <tr>
@@ -31793,17 +29439,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
     </tr>
   </tbody>
 </table>
-
-223
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_224_image_1_v2.jpg)
-
-
-
 **Onde Evento = (I) inclusão, (A) alteração e (E) exclusão.**
-
 
 <table>
   <thead>
@@ -31890,12 +29526,6 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
   </tbody>
 </table>
 
-224
-
-![FEBRABAN logo](page_225_image_2_v2.jpg)
-Layout Padrão Febraban 240 posições V10.9
-http://www.febraban.org.br
-
 <table>
   <thead>
     <tr>
@@ -31957,20 +29587,9 @@ http://www.febraban.org.br
   </tbody>
 </table>
 
-
 Onde Evento = (I) inclusão, (A) alteração e (E) exclusão.
 
-225
-
-Layout Padrão Febraban 240 posições V10.9
-http://www.febraban.org.br
-
-![FEBRABAN logo](page_226_image_1_v2.jpg)
-
-
-
 **Onde Evento = (I) inclusão, (A) alteração e (E) exclusão.**
-
 
 <table>
   <thead>
@@ -32056,16 +29675,6 @@ http://www.febraban.org.br
     </tr>
   </tbody>
 </table>
-
-226
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-![FEBRABAN logo](page_227_image_1_v2.jpg)
-
-
-
-
 <table>
   <tbody>
     <tr>
@@ -32083,9 +29692,7 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
   </tbody>
 </table>
 
-
 **Onde Evento = (I) inclusão, (A) alteração e (E) exclusão.**
-
 
 <table>
   <thead>
@@ -32129,11 +29736,3 @@ Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
     </tr>
   </tbody>
 </table>
-
-227
-
-![FEBRABAN logo](page_228_image_1_v2.jpg)
-
-Layout Padrão Febraban 240 posições V10.9 http://www.febraban.org.br
-
-228

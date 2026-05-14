@@ -188,6 +188,24 @@ body {
   font-family: 'JetBrains Mono', monospace;
   min-width: 3ch;
   text-align: right;
+  line-height: 1;
+}
+
+.dotted-leader.is-bold {
+  font-weight: 700;
+  margin-top: 1.25rem;
+  color: #f8fafc;
+  font-size: 1.05rem;
+}
+
+.dotted-leader.is-bold .dots {
+  border-bottom-width: 2px;
+  border-bottom-style: solid;
+  opacity: 0.3;
+}
+
+.dotted-leader.is-bold .page {
+  color: #3b82f6;
 }
 
 .dotted-leader-link {
@@ -205,4 +223,21 @@ body {
 
 .dotted-leader-link:hover .dots {
   border-bottom-color: #60a5fa;
+}
+
+/* Mermaid Diagrams */
+.mermaid {
+  background: rgba(15, 23, 42, 0.5);
+  padding: 1.5rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(51, 65, 85, 0.5);
+  margin: 2rem 0;
+  display: flex;
+  justify-content: center;
+  overflow-x: auto;
+}
+
+.mermaid svg {
+  max-width: 100% !important;
+  height: auto !important;
 }

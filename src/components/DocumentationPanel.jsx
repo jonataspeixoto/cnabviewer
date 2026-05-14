@@ -2,6 +2,15 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { X, Book, Info, ExternalLink, Search, Loader2, BookOpen, ChevronRight, Maximize2, GripVertical } from 'lucide-react';
 import { docService } from '../services/DocService';
 import { marked } from 'marked';
+import mermaid from 'mermaid';
+
+// Configuração global do Mermaid
+mermaid.initialize({
+  startOnLoad: false,
+  theme: 'dark',
+  securityLevel: 'loose',
+  fontFamily: 'Inter, sans-serif',
+});
 
 export const DocumentationPanel = ({ isOpen, onClose, initialRule, initialSection, width, onResizeStart }) => {
   const [loading, setLoading] = useState(false);
@@ -16,16 +25,13 @@ export const DocumentationPanel = ({ isOpen, onClose, initialRule, initialSectio
       console.log(`[DocPanel] Loading documentation: rule=${initialRule}, section=${initialSection}`);
       setLoading(true);
       docService.load().then(() => {
-        setLoading(false);
         if (initialRule) {
           const found = docService.getRule(initialRule);
-          console.log(`[DocPanel] Found rule:`, found);
           setRule(found);
           setSection(null);
           setSearchResults([]);
         } else if (initialSection) {
           const found = docService.getSectionHtml(initialSection);
-          console.log(`[DocPanel] Found section:`, found);
           setSection(found);
           setRule(null);
           setSearchResults([]);
@@ -34,9 +40,33 @@ export const DocumentationPanel = ({ isOpen, onClose, initialRule, initialSectio
           setSection(null);
           setSearchResults([]);
         }
+      })
+      .catch(err => {
+        console.error('[DocPanel] Error loading docs:', err);
+      })
+      .finally(() => {
+        setLoading(false);
       });
     }
   }, [isOpen, initialRule, initialSection]);
+
+  // Efeito para renderizar diagramas Mermaid após o conteúdo carregar
+  useEffect(() => {
+    if ((rule || section) && !loading) {
+      // Pequeno delay para garantir que o DOM foi atualizado pelo React
+      const timer = setTimeout(() => {
+        mermaid.run({
+          nodes: document.querySelectorAll('.mermaid'),
+        }).catch(err => {
+          // Silencia erros de re-renderização se o elemento sumir
+          if (!err.message?.includes('already been rendered')) {
+            console.error('Mermaid render error:', err);
+          }
+        });
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [rule, section, loading]);
 
   const handleSearch = (e) => {
     const query = e.target.value;
@@ -163,7 +193,26 @@ export const DocumentationPanel = ({ isOpen, onClose, initialRule, initialSectio
           ::-webkit-scrollbar-track { background: #0f172a; }
           ::-webkit-scrollbar-thumb { background: #334155; border-radius: 5px; }
           ::-webkit-scrollbar-thumb:hover { background: #475569; }
+
+          /* Mermaid override for better visibility */
+          .mermaid {
+            background: rgba(30, 41, 59, 0.5);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #334155;
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+          }
         </style>
+        <script type="module">
+          import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+          mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'dark',
+            securityLevel: 'loose'
+          });
+        </script>
       </head>
       <body>
         <div class="container">
@@ -297,7 +346,7 @@ export const DocumentationPanel = ({ isOpen, onClose, initialRule, initialSectio
             </h2>
 
             <div 
-              className="prose prose-invert prose-sm max-w-none"
+              className="prose prose-invert prose-sm max-w-none prose-table:rounded-xl prose-th:bg-slate-800 prose-th:px-4 prose-th:py-3"
               dangerouslySetInnerHTML={{ __html: rule ? rule.html : section.html }}
             />
 
