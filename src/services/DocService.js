@@ -19,12 +19,13 @@ class DocService {
         if (!response.ok) throw new Error('Falha ao carregar o manual');
         let text = await response.text();
         
-        // 1. Remoção de Ruído (Headers/Footers repetitivos)
-        // Mais robusto para capturar versões com parênteses, aspas variadas e encoding quebrado
+        // 1. Remoção de Ruído (Headers/Footers/Logos/Slogans/Páginas)
+        // Remove o bloco completo de rodapé/cabeçalho do PDF original
+        const noiseRegex = /\n+\d*\s*\n*(?:[“\""']?Um sistema financeiro saudável.*?sustentável do País[”\""']?)?\s*\n*!\[FEBRABAN logo\]\(.*?\)\s*\n*Layout Padrão Febraban 240 posições V10\.9 http:\/\/www\.febraban\.org\.br\s*\n*\d*/gi;
+        text = text.replace(noiseRegex, '\n\n');
+        
+        // Remove ocorrências soltas da frase institucional que possam ter sobrado
         text = text.replace(/[“\""'\(«\[\s]*[U\?o]*m sistema financeiro saud[áǭ]vel[\s\S]*?sustent[áǭ]vel do Pa[í\?s]*[\s”\""'»\]\)\d\s]*/g, '');
-        text = text.replace(/!\[FEBRABAN logo\].*?\n/g, '');
-        text = text.replace(/FEBRABAN logo/g, '');
-        text = text.replace(/\d*Layout Padrão Febraban 240 posições V10.9 http:\/\/www.febraban.org.br/g, '');
         text = text.replace(/page_\d+_image_\d+_v\d+\.jpg/g, '');
 
         // 2. Correção de Títulos que deveriam ser Itens (Índice)
