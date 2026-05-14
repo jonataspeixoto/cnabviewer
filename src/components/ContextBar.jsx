@@ -24,7 +24,7 @@ export const ContextBar = () => {
   const line = rawLines[selectedLineIndex];
   if (!line) return null;
   
-  const schema = cnabEngine.getSchema(line, rawLines, selectedLineIndex);
+  const schema = cnabEngine.getSchema(line);
   const lote = cnabEngine.getLoteNumber(line);
   const field = schema?.fields?.find(f => f.name === focusedField);
 

@@ -20,6 +20,7 @@ export const cnabEngine = {
       if (codSegmento === "J" && line.substring(17, 19) === "52") {
         const baseSchema = CNAB_SCHEMAS.segmento_j52;
         let subType = null;
+        let subSchemaLabel = "Boleto";
         
         if (rawLines.length > 0 && index >= 0) {
           const currentLote = line.substring(3, 7);
@@ -28,7 +29,10 @@ export const cnabEngine = {
             if (l.substring(3, 7) === currentLote && l.substring(7, 8) === "1") {
               const formaLancamento = l.substring(11, 13);
               // 45, 47 = PIX
-              if (["45", "47"].includes(formaLancamento)) subType = CNAB_SEGMENTO_J52_SUB_TYPES.pix;
+              if (["45", "47"].includes(formaLancamento)) {
+                subType = CNAB_SEGMENTO_J52_SUB_TYPES.pix;
+                subSchemaLabel = "PIX";
+              }
               break;
             }
           }
@@ -42,13 +46,14 @@ export const cnabEngine = {
             const dynamicFields = subType.map(f => ({ ...f, isDynamic: true }));
             fields.splice(startIdx, fields.length - startIdx, ...dynamicFields);
           }
-          return { ...baseSchema, fields };
+          return { ...baseSchema, fields, subSchemaLabel };
         }
-        return baseSchema;
+        return { ...baseSchema, subSchemaLabel };
       }
       
       if (codSegmento === 'N') {
         let subType = null;
+        let subSchemaLabel = "Padrão";
         
         // Se temos as linhas do arquivo, buscamos o Header do Lote atual
         if (rawLines.length > 0 && index >= 0) {
@@ -58,10 +63,10 @@ export const cnabEngine = {
             const l = rawLines[i];
             if (l.substring(3, 7) === currentLote && l.substring(7, 8) === "1") {
               const formaLancamento = l.substring(11, 13);
-              if (formaLancamento === "17") subType = CNAB_SEGMENTO_N_SUB_TYPES.gps;
-              else if (formaLancamento === "16") subType = CNAB_SEGMENTO_N_SUB_TYPES.darf_comum;
-              else if (formaLancamento === "18") subType = CNAB_SEGMENTO_N_SUB_TYPES.darf_simples;
-              else if (["25", "26", "27"].includes(formaLancamento)) subType = CNAB_SEGMENTO_N_SUB_TYPES.veiculos_estaduais;
+              if (formaLancamento === "17") { subType = CNAB_SEGMENTO_N_SUB_TYPES.gps; subSchemaLabel = "GPS"; }
+              else if (formaLancamento === "16") { subType = CNAB_SEGMENTO_N_SUB_TYPES.darf_comum; subSchemaLabel = "DARF Comum"; }
+              else if (formaLancamento === "18") { subType = CNAB_SEGMENTO_N_SUB_TYPES.darf_simples; subSchemaLabel = "DARF Simples"; }
+              else if (["25", "26", "27"].includes(formaLancamento)) { subType = CNAB_SEGMENTO_N_SUB_TYPES.veiculos_estaduais; subSchemaLabel = "Veículos"; }
               break;
             }
           }
@@ -76,10 +81,10 @@ export const cnabEngine = {
             const dynamicFields = subType.map(f => ({ ...f, isDynamic: true }));
             fields.splice(infoIdx, 1, ...dynamicFields);
           }
-          return { ...baseSchema, fields };
+          return { ...baseSchema, fields, subSchemaLabel };
         }
         
-        return baseSchema;
+        return { ...baseSchema, subSchemaLabel };
       }
 
       const segMap = {
@@ -95,31 +100,64 @@ export const cnabEngine = {
       };
 
       if (codSegmento === 'B') {
-        const baseSchema = CNAB_SCHEMAS.segmento_b;
-        let subType = CNAB_SEGMENTO_B_SUB_TYPES.standard; // Default
+        const baseSchema = JSON.parse(JSON.stringify(CNAB_SCHEMAS.segmento_b));
+        let subType = CNAB_SEGMENTO_B_SUB_TYPES.standard;
+        let subSchemaLabel = "Padrão (Crédito)";
+        let isDebito = false;
         
         if (rawLines.length > 0 && index >= 0) {
           const currentLote = line.substring(3, 7);
           for (let i = index; i >= 0; i--) {
             const l = rawLines[i];
             if (l.substring(3, 7) === currentLote && l.substring(7, 8) === "1") {
+              const tipoOperacao = l.substring(8, 9);
               const formaLancamento = l.substring(11, 13);
+              
               if (["45", "47"].includes(formaLancamento)) {
                 subType = [...CNAB_SEGMENTO_B_SUB_TYPES.pix];
-                // Ajuste fino para G100 (Iniciação)
+                subSchemaLabel = "PIX";
                 const g100 = line.substring(14, 17);
                 const chaveIdx = subType.findIndex(f => f.name === "chave_pix");
                 if (chaveIdx !== -1) {
-                  if (g100 === "05") {
-                    subType[chaveIdx] = { ...subType[chaveIdx], label: "Tipo de Conta do Recebedor" };
-                  } else if (["01", "02", "04"].includes(g100)) {
-                    subType[chaveIdx] = { ...subType[chaveIdx], label: "Chave Pix (Email/Telefone/Aleatória)" };
-                  }
+                  if (g100 === "05") subType[chaveIdx] = { ...subType[chaveIdx], label: "Tipo de Conta do Recebedor" };
+                  else if (["01", "02", "04"].includes(g100)) subType[chaveIdx] = { ...subType[chaveIdx], label: "Chave Pix (Email/Telefone/Aleatória)" };
                 }
+              } else if (tipoOperacao === "D") {
+                subType = CNAB_SEGMENTO_B_SUB_TYPES.debito;
+                subSchemaLabel = "Débito em Conta";
+                isDebito = true;
               }
               break;
             }
           }
+        }
+
+        // Ajuste de Labels e Campos Finais baseados no tipo
+        if (isDebito) {
+          const fIdx = baseSchema.fields.findIndex(f => f.name === "forma_iniciacao");
+          const tIdx = baseSchema.fields.findIndex(f => f.name === "tipo_inscricao");
+          const nIdx = baseSchema.fields.findIndex(f => f.name === "numero_inscricao");
+          if (fIdx !== -1) {
+            baseSchema.fields[fIdx].label = "Uso Exclusivo FEBRABAN/CNAB";
+            baseSchema.fields[fIdx].ruleId = "G004";
+          }
+          if (tIdx !== -1) baseSchema.fields[tIdx].label = "Tipo de Inscrição do Pagador";
+          if (nIdx !== -1) baseSchema.fields[nIdx].label = "Nº de Inscrição do Pagador";
+          
+          // Remove campos de UG/ISPB que não existem no Débito (são Brancos)
+          baseSchema.fields = baseSchema.fields.filter(f => !["codigo_ug_centralizadora", "codigo_ispb"].includes(f.name));
+          // Adiciona o campo de Uso FEBRABAN final
+          baseSchema.fields.push({ name: "uso_exclusivo_febraban_b", ruleId: "G004", start: 227, end: 240, type: "A", label: "Uso Exclusivo FEBRABAN", default: " " });
+        } else {
+          const fIdx = baseSchema.fields.findIndex(f => f.name === "forma_iniciacao");
+          const tIdx = baseSchema.fields.findIndex(f => f.name === "tipo_inscricao");
+          const nIdx = baseSchema.fields.findIndex(f => f.name === "numero_inscricao");
+          if (fIdx !== -1) {
+            baseSchema.fields[fIdx].label = "Forma de Iniciação";
+            baseSchema.fields[fIdx].ruleId = "G100";
+          }
+          if (tIdx !== -1) baseSchema.fields[tIdx].label = "Tipo de Inscrição do Favorecido";
+          if (nIdx !== -1) baseSchema.fields[nIdx].label = "Nº de Inscrição do Favorecido";
         }
 
         const fields = [...baseSchema.fields];
@@ -128,7 +166,9 @@ export const cnabEngine = {
           const dynamicFields = subType.map(f => ({ ...f, isDynamic: true }));
           fields.splice(infoIdx, 1, ...dynamicFields);
         }
-        return { ...baseSchema, fields };
+        // Re-ordena os campos por posição de início para garantir integridade
+        fields.sort((a, b) => a.start - b.start);
+        return { ...baseSchema, fields, subSchemaLabel };
       }
 
       return segMap[codSegmento] || null;
@@ -143,7 +183,14 @@ export const cnabEngine = {
     const { activeRules = {}, disabledFields = [] } = context;
     if (!line || typeof line !== "string") return { _metadata: { raw: "", errors: {} } };
     const schema = cnabEngine.getSchema(line, context.rawLines, context.index);
-    const result = { _metadata: { raw: line, errors: {}, lote: cnabEngine.getLoteNumber(line) } };
+    const result = { 
+      _metadata: { 
+        raw: line, 
+        errors: {}, 
+        lote: cnabEngine.getLoteNumber(line),
+        subSchemaLabel: schema?.subSchemaLabel || null
+      } 
+    };
     
     // Validação de Tamanho
     if (line.length !== 240) {

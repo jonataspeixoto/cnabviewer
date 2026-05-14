@@ -215,7 +215,17 @@ export const useCnabStore = create(
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = (fileName || 'arquivo').replace(/\.[^/.]+$/, "") + '.rem';
+        
+        // Melhora o nome do arquivo se for um UUID ou vazio
+        let name = fileName || 'arquivo';
+        const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(name.replace(/\.[^/.]+$/, ""));
+        if (isUUID || !fileName) {
+          name = `CNAB240_REMESSA_${new Date().toISOString().slice(0,10)}`;
+        } else {
+          name = name.replace(/\.[^/.]+$/, "");
+        }
+
+        a.download = `${name}.rem`;
         a.click();
         URL.revokeObjectURL(url);
       },
@@ -236,7 +246,17 @@ export const useCnabStore = create(
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = (fileName || 'arquivo').replace(/\.[^/.]+$/, "") + '.json';
+
+        // Melhora o nome do arquivo
+        let name = fileName || 'arquivo';
+        const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(name.replace(/\.[^/.]+$/, ""));
+        if (isUUID || !fileName) {
+          name = `CNAB240_DATA_${new Date().toISOString().slice(0,10)}`;
+        } else {
+          name = name.replace(/\.[^/.]+$/, "");
+        }
+
+        a.download = `${name}.json`;
         a.click();
         URL.revokeObjectURL(url);
       },

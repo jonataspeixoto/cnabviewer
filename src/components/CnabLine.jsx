@@ -4,7 +4,7 @@ import { useCnabStore } from '../store/useCnabStore';
 import { CNAB_RULES } from '../utils/cnab/rules';
 import { cnabEngine } from '../utils/cnab/engine';
 
-const CnabLineComponent = ({ index, raw, isSelected, focusedField, cursorOffset, onSelect }) => {
+const CnabLineComponent = ({ index, raw, isSelected, focusedField, cursorOffset, onSelect, showLimitLine }) => {
   const activeRules = useCnabStore(state => state.activeRules);
   const showWhitespace = useCnabStore(state => state.visualSettings.showWhitespace);
   const isContinuous = useCnabStore(state => state.visualSettings.isContinuous);
@@ -12,12 +12,12 @@ const CnabLineComponent = ({ index, raw, isSelected, focusedField, cursorOffset,
   const undo = useCnabStore(state => state.undo);
   const redo = useCnabStore(state => state.redo);
   const focusFieldAction = useCnabStore(state => state.focusField);
-  
+
   // console.log(`[RENDER] CnabLine index=${index} isSelected=${isSelected} focusedField=${focusedField}`);
   const [localVal, setLocalVal] = useState(null);
   const inputRef = useRef(null);
   const rawRef = useRef(raw);
-  
+
   // Atualiza o ref sempre que raw mudar, sem disparar o useEffect do cursor
   useEffect(() => {
     rawRef.current = raw;
@@ -45,7 +45,7 @@ const CnabLineComponent = ({ index, raw, isSelected, focusedField, cursorOffset,
       return () => clearTimeout(timer);
     }
   }, [focusedField, isSelected, cursorOffset]);
-  
+
   const parsed = useMemo(() => {
     const lines = useCnabStore.getState().rawLines;
     return cnabEngine.parseLine(raw, { activeRules, rawLines: lines, index });
@@ -71,10 +71,10 @@ const CnabLineComponent = ({ index, raw, isSelected, focusedField, cursorOffset,
   const commitChange = useCallback((valueToCommit) => {
     const val = valueToCommit !== undefined ? valueToCommit : localVal;
     if (val === null) return;
-    
+
     const fields = schema.fields;
     const field = fields.find(f => f.name === focusedField);
-    
+
     if (!field && focusedField !== '_extra') return;
 
     let fullLine = raw;
@@ -89,7 +89,7 @@ const CnabLineComponent = ({ index, raw, isSelected, focusedField, cursorOffset,
       fullLine = raw.substring(0, field.start - 1) + paddedVal + raw.substring(field.end);
       lastCommittedValue.current = paddedVal;
     }
-    
+
     if (fullLine !== raw) {
       updateLine(index, fullLine);
     }
@@ -139,16 +139,16 @@ const CnabLineComponent = ({ index, raw, isSelected, focusedField, cursorOffset,
 
   const handleFieldClick = useCallback((e, fieldName, currentVal) => {
     e.stopPropagation();
-    
+
     // Se já estivermos editando ESTE campo, não fazemos nada (deixamos o handleCursorMove agir)
     if (isSelected && focusedField === fieldName && localVal !== null) {
       return;
     }
 
     onSelect(index);
-    
+
     let charElement = e.target.closest('.cnab-char');
-    
+
     // Fallback: se não clicou diretamente no caractere (ex: clicou no padding do campo), 
     // procura qual filho está sob a coordenada X do mouse
     if (!charElement) {
@@ -163,26 +163,26 @@ const CnabLineComponent = ({ index, raw, isSelected, focusedField, cursorOffset,
 
     const allChars = Array.from(e.currentTarget.querySelectorAll('.cnab-char'));
     const clickOffset = allChars.indexOf(charElement);
-    
+
     if (focusedField && localVal !== null) {
       commitChange();
     }
-    
+
     focusFieldAction(index, fieldName, clickOffset);
     setLocalVal(currentVal);
   }, [index, onSelect, focusFieldAction, focusedField, localVal, commitChange]);
 
   const setCursorOffset = useCnabStore(state => state.setCursorOffset);
-  
+
   const handleCursorMove = useCallback((e) => {
     e.stopPropagation(); // Evita que o clique no input suba para o container do campo
     const codeUnitPos = e.target.selectionStart;
     const text = e.target.value;
-    
+
     // Converte code units (browser) para contagem de grafemas (StatusBar/CNAB)
     const segmenter = new Intl.Segmenter('en', { granularity: 'grapheme' });
     const segments = Array.from(segmenter.segment(text));
-    
+
     let graphemeCount = 0;
     let currentCodeUnit = 0;
     for (const segment of segments) {
@@ -190,7 +190,7 @@ const CnabLineComponent = ({ index, raw, isSelected, focusedField, cursorOffset,
       currentCodeUnit += segment.segment.length;
       graphemeCount++;
     }
-    
+
     setCursorOffset(graphemeCount);
   }, [setCursorOffset]);
 
@@ -199,7 +199,7 @@ const CnabLineComponent = ({ index, raw, isSelected, focusedField, cursorOffset,
     const val = e.target.value;
     const start = e.target.selectionStart;
     const end = e.target.selectionEnd;
-    
+
     cursorRef.current = { start, end };
     setLocalVal(val);
     handleCursorMove(e);
@@ -226,7 +226,7 @@ const CnabLineComponent = ({ index, raw, isSelected, focusedField, cursorOffset,
     if (e.key === 'Tab') {
       e.preventDefault();
       commitChange();
-      
+
       const isShift = e.shiftKey;
       let nextFieldName = null;
       let nextVal = "";
@@ -270,22 +270,16 @@ const CnabLineComponent = ({ index, raw, isSelected, focusedField, cursorOffset,
 
   const renderTextWithHighlights = (text) => {
     if (!text) return null;
-    
+
     // Usa Intl.Segmenter para lidar corretamente com emojis complexos (corações, bandeiras, etc)
     const segmenter = new Intl.Segmenter('en', { granularity: 'grapheme' });
     const segments = Array.from(segmenter.segment(text)).map(s => s.segment);
 
-    return segments.map((char, i) => {
-      const isCursor = isSelected && fieldName === focusedField && i === cursorOffset;
-      return (
-        <span 
-          key={i} 
-          className={`cnab-char ${char === ' ' ? 'opacity-20' : ''} ${isCursor ? 'bg-blue-500 text-white ring-1 ring-blue-400 z-10' : ''}`}
-        >
-          {char === ' ' && showWhitespace ? '·' : (char === ' ' ? '\u00A0' : char)}
-        </span>
-      );
-    });
+    return segments.map((char, i) => (
+      <span key={i} className={`cnab-char ${char === ' ' ? 'opacity-20' : ''}`}>
+        {char === ' ' && showWhitespace ? '·' : (char === ' ' ? '\u00A0' : char)}
+      </span>
+    ));
   };
 
   const getBgColor = (type) => {
@@ -298,53 +292,89 @@ const CnabLineComponent = ({ index, raw, isSelected, focusedField, cursorOffset,
 
   const renderFields = () => {
     const fields = schema.fields;
-    
+
     const renderedFields = fields.map((field, idx) => {
       const isFocused = isSelected && focusedField === field.name;
       const val = raw.substring(field.start - 1, field.end);
       const isReserved = field.name.includes('uso_exclusivo') || field.name === 'filler';
       const hasError = errors[field.name];
       const charCount = field.end - field.start + 1;
-      
+
       const rule = CNAB_RULES[field.rule || field.ruleId];
       const options = field.options || rule?.options;
       const optionsText = options ? `\n\nValores Válidos:\n${options.map(o => `• ${o.value}: ${o.label}`).join('\n')}` : '';
 
       const isDynamic = field.isDynamic;
+      const groupId = field.groupId;
+      const hasGroup = isDynamic || groupId;
+
+      const isGroupStart = hasGroup && (!fields[idx - 1] || (fields[idx - 1].groupId !== groupId || fields[idx - 1].isDynamic !== isDynamic));
+      const isGroupEnd = hasGroup && (!fields[idx + 1] || (fields[idx + 1].groupId !== groupId || fields[idx + 1].isDynamic !== isDynamic));
+
+      const getGroupInfo = () => {
+        if (!hasGroup) return null;
+        
+        let colorClass = 'bg-slate-500/10 border-slate-500/40';
+        if (groupId === '09') colorClass = 'bg-indigo-500/10 border-indigo-500/40';
+        else if (groupId === '10') colorClass = 'bg-amber-500/10 border-amber-500/40';
+        else if (groupId === '11') colorClass = 'bg-teal-500/10 border-teal-500/40';
+        else if (groupId === '12') colorClass = 'bg-rose-500/10 border-rose-500/40';
+        else if (groupId === '13') colorClass = 'bg-fuchsia-500/10 border-fuchsia-500/40';
+
+        return {
+          colorClass,
+          isStart: isGroupStart,
+          isEnd: isGroupEnd
+        };
+      };
+
+      const groupInfo = getGroupInfo();
 
       return (
         <div
           key={`${field.name}-${idx}`}
           onClick={(e) => handleFieldClick(e, field.name, val)}
-          style={{ 
-            width: `${charCount}ch`, 
+          style={{
+            width: `${charCount}ch`,
             fontSize: '14px',
             boxShadow: isContinuous ? 'none' : 'inset -1px 0 0 0 rgba(100, 116, 139, 0.3)'
           }}
           className={`
-            relative flex-shrink-0 font-cnab transition-all h-7 flex items-center overflow-hidden cursor-text
+            relative flex-shrink-0 font-cnab transition-all h-7 flex items-center overflow-visible cursor-text
             ${isFocused ? 'bg-blue-600/40 z-20 ring-2 ring-blue-400 shadow-xl' : 'hover:bg-slate-700/30'}
             ${isReserved ? 'bg-slate-800/20' : ''}
-            ${hasError && !isFocused ? 'bg-red-500/20 ring-1 ring-red-500/50 animate-pulse' : ''}
-            ${isDynamic ? 'bg-indigo-500/10 border-x border-dashed border-indigo-500/30' : ''}
+            ${hasError && !isFocused ? 'bg-red-500/20' : ''}
           `}
-          title={`${isDynamic ? '[CAMPO DINÂMICO] ' : ''}${field.label} (${field.start}-${field.end})${rule?.desc ? '\n' + rule.desc : ''}${optionsText}${hasError ? '\n\nERRO: ' + hasError : ''}`}
+          title={`${hasGroup ? '[CAMPO DINÂMICO/ESPECIAL] ' : ''}${field.label} (${field.start}-${field.end})${rule?.desc ? '\n' + rule.desc : ''}${optionsText}${hasError ? '\n\nERRO: ' + hasError : ''}`}
         >
-          {isFocused ? (
+          {/* Highlight Overlay: Fornece o visual de bordas e "espaço" sem mover o texto */}
+          {groupInfo && (
+            <div 
+              className={`
+                absolute inset-y-0 pointer-events-none border-y border-dashed z-0
+                ${groupInfo.colorClass}
+                ${groupInfo.isStart ? 'border-l left-[-2px] rounded-l-[4px]' : 'left-0'}
+                ${groupInfo.isEnd ? 'border-r right-[-2px] rounded-r-[4px]' : 'right-0'}
+              `}
+            />
+          )}
+
+          <div className="relative z-10 w-full h-full flex items-center">
+            {isFocused ? (
             <div className="relative w-full h-full overflow-hidden">
               {/* Mirror Div: Mostra o texto com espaços visíveis por baixo do input */}
-              <div 
+              <div
                 className="absolute inset-0 flex items-center justify-start whitespace-pre leading-none pointer-events-none select-none"
                 style={{ fontSize: '14px', letterSpacing: '0px' }}
               >
-                {renderTextWithHighlights((localVal !== null ? localVal : val).padEnd(charCount, ' '))}
+                {renderTextWithHighlights(localVal !== null ? localVal : val)}
               </div>
-              
+
               <input
                 ref={inputRef}
                 className="absolute inset-0 w-full h-full bg-transparent border-none outline-none text-left font-cnab p-0 m-0 z-30"
-                style={{ 
-                  fontSize: '14px', 
+                style={{
+                  fontSize: '14px',
                   letterSpacing: '0px',
                   color: 'transparent',
                   caretColor: 'white',
@@ -372,7 +402,7 @@ const CnabLineComponent = ({ index, raw, isSelected, focusedField, cursorOffset,
                 <div className="absolute top-full left-0 mt-1 min-w-[200px] max-h-48 bg-slate-900/95 backdrop-blur-xl border border-slate-700 rounded-lg shadow-2xl z-50 overflow-y-auto custom-scrollbar p-1 animate-in fade-in slide-in-from-top-1 duration-200">
                   <div className="px-2 py-1.5 border-b border-slate-800 mb-1 flex items-center justify-between">
                     <span className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Sugestões de Valores</span>
-                    <button 
+                    <button
                       onMouseDown={(e) => {
                         e.preventDefault();
                         useCnabStore.getState().openDoc(field.rule || field.ruleId);
@@ -415,6 +445,7 @@ const CnabLineComponent = ({ index, raw, isSelected, focusedField, cursorOffset,
               {hasError && <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full shadow-sm"></span>}
             </>
           )}
+          </div>
         </div>
       );
     });
@@ -422,13 +453,13 @@ const CnabLineComponent = ({ index, raw, isSelected, focusedField, cursorOffset,
     const extraVal = raw.substring(lastFieldEnd);
     const isFocused = isSelected && focusedField === '_extra';
     const hasExcess = raw.length > 240;
-    
+
     renderedFields.push(
       <div
         key="extra-territory"
         onClick={(e) => handleFieldClick(e, '_extra', extraVal)}
-        style={{ 
-          width: isFocused ? '40ch' : `${Math.max(extraVal.length, 6)}ch`, 
+        style={{
+          width: isFocused ? '40ch' : `${Math.max(extraVal.length, 6)}ch`,
           fontSize: '14px',
           boxShadow: isContinuous ? 'none' : 'inset 1px 0 0 0 rgba(100, 116, 139, 0.3)'
         }}
@@ -442,7 +473,7 @@ const CnabLineComponent = ({ index, raw, isSelected, focusedField, cursorOffset,
         {isFocused ? (
           <div className="relative w-full h-full overflow-hidden">
             {/* Mirror Div: Extra Zone */}
-            <div 
+            <div
               className="absolute inset-0 flex items-center justify-start whitespace-pre leading-none pointer-events-none select-none text-[14px]"
               style={{ letterSpacing: '0px' }}
             >
@@ -452,8 +483,8 @@ const CnabLineComponent = ({ index, raw, isSelected, focusedField, cursorOffset,
             <input
               ref={inputRef}
               className="absolute inset-0 w-full h-full bg-transparent border-none outline-none text-left font-cnab p-0 m-0 z-30"
-              style={{ 
-                fontSize: '14px', 
+              style={{
+                fontSize: '14px',
                 letterSpacing: '0px',
                 color: 'transparent',
                 caretColor: 'white'
@@ -487,7 +518,7 @@ const CnabLineComponent = ({ index, raw, isSelected, focusedField, cursorOffset,
   const isWrongLength = raw.length !== 240;
 
   return (
-    <div 
+    <div
       className={`group flex items-center h-8 transition-colors border-b border-slate-800/30 ${isSelected ? 'bg-blue-500/10' : 'hover:bg-slate-800/30'}`}
       onClick={() => onSelect(index)}
     >
@@ -495,9 +526,9 @@ const CnabLineComponent = ({ index, raw, isSelected, focusedField, cursorOffset,
         {String(index + 1).padStart(5, '0')}
       </span>
       <div className="flex items-center gap-0 overflow-x-visible h-full flex-1">
-        <div className="flex items-center gap-0 h-full">
-          {renderFields()}
-        </div>
+          <div className="flex items-center gap-0 h-full">
+            {renderFields()}
+          </div>
         {isWrongLength && (
           <div className="flex-shrink-0 ml-auto mr-4 px-2 py-0.5 bg-red-500/30 text-red-300 text-[9px] font-bold rounded border border-red-500/50 whitespace-nowrap">
             {raw.length} posições

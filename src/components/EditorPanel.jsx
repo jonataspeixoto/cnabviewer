@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useCnabStore } from '../store/useCnabStore';
 import { cnabEngine } from '../utils/cnab/engine';
-import { Save, X, Info, AlertCircle, Minimize2 } from 'lucide-react';
+import { Save, X, Info, AlertCircle, Minimize2, BookOpen } from 'lucide-react';
 import { CNAB_RULES } from '../utils/cnab/rules';
+import { SuggestionField } from './SuggestionField';
 
 export const EditorPanel = ({ onMinimize }) => {
   const rawLines = useCnabStore(state => state.rawLines);
@@ -182,34 +183,54 @@ export const EditorPanel = ({ onMinimize }) => {
                 const options = field.options || rule?.options;
 
                 return (
-                  <div key={field.name} className={`space-y-1 ${isReserved ? 'opacity-60' : ''}`}>
-                    <label className={`text-[10px] font-bold uppercase flex items-center justify-between transition-colors ${isFocused ? 'text-blue-400' : 'text-slate-500'}`}>
-                      <span>{field.label}</span>
-                      <span className="text-slate-600 font-mono text-[9px]">{field.start}-{field.end}</span>
-                    </label>
-                    {rule?.desc && (
-                      <p className="text-[9px] text-slate-500 italic leading-tight mb-1">{rule.desc}</p>
+                  <div key={field.name} className={`group space-y-1.5 p-2 rounded-lg transition-all ${isFocused ? 'bg-blue-500/5' : 'hover:bg-slate-800/30'} ${isReserved ? 'opacity-60' : ''}`}>
+                    <div className="flex items-center justify-between">
+                      <label className={`text-[10px] font-bold uppercase flex items-center gap-1.5 transition-colors ${isFocused ? 'text-blue-400' : 'text-slate-500 group-hover:text-slate-400'}`}>
+                        {field.label}
+                        {rule?.id && (
+                          <span className="bg-slate-800 text-slate-500 px-1 rounded-[2px] font-mono text-[8px]">{rule.id}</span>
+                        )}
+                      </label>
+                      <div className="flex items-center gap-2">
+                        <span className="text-slate-600 font-mono text-[9px]">{field.start}-{field.end}</span>
+                        {field.ruleId && (
+                          <button 
+                            onClick={() => useCnabStore.getState().openDoc(field.ruleId)}
+                            className="text-slate-600 hover:text-blue-400 transition-colors"
+                            title="Ver documentação"
+                          >
+                            <BookOpen className="w-3 h-3" />
+                          </button>
+                        )}
+                      </div>
+                    </div>
+
+                    {isFocused && rule?.desc && (
+                      <div className="bg-blue-500/10 border-l-2 border-blue-500/50 p-2 rounded-r animate-in fade-in slide-in-from-left-1 duration-200">
+                        <p className="text-[10px] text-blue-200/80 leading-snug">{rule.desc}</p>
+                      </div>
                     )}
-                    {options ? (
-                      <select
-                        ref={el => inputRefs.current[field.name] = el}
+
+                    {options && options.length > 0 ? (
+                      <SuggestionField
+                        options={options}
                         value={formData[field.name] || ''}
-                        onFocus={() => setFocusedField(field.name)}
+                        onChange={(val) => handleChange(field.name, val)}
+                        onFocus={() => {
+                          setFocusedField(field.name);
+                        }}
                         onBlur={handleSave}
-                        onChange={(e) => handleChange(field.name, e.target.value)}
-                        className={`w-full bg-slate-900 border ${isFocused ? 'border-blue-500 ring-1 ring-blue-500/20' : hasError ? 'border-red-500/50 focus:border-red-500' : 'border-slate-700 focus:border-blue-500'} rounded px-3 py-1.5 text-xs text-slate-200 outline-none transition-all font-mono appearance-none cursor-pointer`}
-                      >
-                        <option value="">Selecione...</option>
-                        {options.map(opt => (
-                          <option key={opt.value} value={opt.value}>{opt.label}</option>
-                        ))}
-                      </select>
+                        error={hasError}
+                        isFocused={isFocused}
+                      />
                     ) : (
                       <input 
                         ref={el => inputRefs.current[field.name] = el}
                         type="text"
                         value={formData[field.name] || ''}
-                        onFocus={() => setFocusedField(field.name)}
+                        onFocus={() => {
+                          setFocusedField(field.name);
+                        }}
                         onBlur={handleSave}
                         onChange={(e) => {
                           handleChange(field.name, e.target.value);

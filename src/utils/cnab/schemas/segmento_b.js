@@ -1,28 +1,47 @@
 export const CNAB_SEGMENTO_B_SUB_TYPES = {
-  // Layout Padrão: Endereço e Vencimento
+  // Layout Padrão: Endereço e Vencimento (Pagamentos/Crédito)
   standard: [
-    { name: "logradouro", ruleId: "G101", start: 33, end: 67, type: "A", label: "Logradouro (Rua, Av, etc)" },
-    { name: "numero_local", ruleId: "G101", start: 68, end: 72, type: "N", label: "Número" },
-    { name: "complemento", ruleId: "G101", start: 73, end: 87, type: "A", label: "Complemento" },
-    { name: "bairro", ruleId: "G101", start: 88, end: 102, type: "A", label: "Bairro" },
-    { name: "cidade", ruleId: "G101", start: 103, end: 117, type: "A", label: "Cidade" },
-    { name: "cep", ruleId: "G101", start: 118, end: 122, type: "N", label: "CEP" },
-    { name: "cep_complemento", ruleId: "G101", start: 123, end: 125, type: "A", label: "Complemento CEP" },
-    { name: "estado", ruleId: "G036", start: 126, end: 127, type: "A", label: "Estado (UF)" },
-    { name: "data_vencimento", ruleId: "G044", start: 128, end: 135, type: "N", label: "Data do Vencimento (Nominal)" },
-    { name: "valor_documento", ruleId: "G042", start: 136, end: 150, type: "N", label: "Valor do Documento (Nominal)" },
-    { name: "valor_abatimento", ruleId: "L002", start: 151, end: 165, type: "N", label: "Valor do Abatimento" },
-    { name: "valor_desconto", ruleId: "L002", start: 166, end: 180, type: "N", label: "Valor do Desconto" },
-    { name: "valor_mora", ruleId: "L003", start: 181, end: 195, type: "N", label: "Valor da Mora" },
-    { name: "valor_multa", ruleId: "L003", start: 196, end: 210, type: "N", label: "Valor da Multa" },
-    { name: "codigo_documento_favorecido", ruleId: "G064", start: 211, end: 225, type: "A", label: "Cód./Docum. do Favorecido" },
-    { name: "aviso_favorecido", ruleId: "P006", start: 226, end: 226, type: "N", label: "Aviso ao Favorecido" }
+    { name: "logradouro", ruleId: "G101", start: 33, end: 67, type: "A", label: "Logradouro (Rua, Av, etc)", groupId: "09" },
+    { name: "numero_local", ruleId: "G101", start: 68, end: 72, type: "N", label: "Número", groupId: "10" },
+    { name: "complemento", ruleId: "G101", start: 73, end: 87, type: "A", label: "Complemento", groupId: "10" },
+    { name: "bairro", ruleId: "G101", start: 88, end: 102, type: "A", label: "Bairro", groupId: "10" },
+    { name: "cidade", ruleId: "G101", start: 103, end: 117, type: "A", label: "Cidade", groupId: "10" },
+    { name: "cep", ruleId: "G101", start: 118, end: 122, type: "N", label: "CEP", groupId: "10" },
+    { name: "cep_complemento", ruleId: "G101", start: 123, end: 125, type: "A", label: "Complemento CEP", groupId: "10" },
+    { name: "estado", ruleId: "G036", start: 126, end: 127, type: "A", label: "Estado (UF)", groupId: "10" },
+    { name: "data_vencimento", ruleId: "G044", start: 128, end: 135, type: "N", label: "Data do Vencimento (Nominal)", groupId: "11" },
+    { name: "valor_documento", ruleId: "G042", start: 136, end: 150, type: "N", label: "Valor do Documento (Nominal)", groupId: "11" },
+    { name: "valor_abatimento", ruleId: "L002", start: 151, end: 165, type: "N", label: "Valor do Abatimento", groupId: "11" },
+    { name: "valor_desconto", ruleId: "L002", start: 166, end: 180, type: "N", label: "Valor do Desconto", groupId: "11" },
+    { name: "valor_mora", ruleId: "L003", start: 181, end: 195, type: "N", label: "Valor da Mora", groupId: "11" },
+    { name: "valor_multa", ruleId: "L003", start: 196, end: 210, type: "N", label: "Valor da Multa", groupId: "11" },
+    { name: "codigo_documento_favorecido", ruleId: "G064", start: 211, end: 225, type: "A", label: "Cód./Docum. do Favorecido", groupId: "11" },
+    { name: "aviso_favorecido", ruleId: "P006", start: 226, end: 226, type: "N", label: "Aviso ao Favorecido", groupId: "11" }
+  ],
+  // Layout Débito: Endereço e Vencimento (Débito em Conta)
+  debito: [
+    { name: "logradouro", ruleId: "G032", start: 33, end: 62, type: "A", label: "Logradouro (Rua, Av, etc)", groupId: "09" },
+    { name: "numero_local", ruleId: "G032", start: 63, end: 67, type: "N", label: "Número", groupId: "10" },
+    { name: "complemento", ruleId: "G032", start: 68, end: 82, type: "A", label: "Complemento", groupId: "10" },
+    { name: "bairro", ruleId: "G032", start: 83, end: 97, type: "A", label: "Bairro", groupId: "10" },
+    { name: "cidade", ruleId: "G033", start: 98, end: 117, type: "A", label: "Cidade", groupId: "10" },
+    { name: "cep", ruleId: "G034", start: 118, end: 122, type: "N", label: "CEP", groupId: "10" },
+    { name: "cep_complemento", ruleId: "G035", start: 123, end: 125, type: "A", label: "Complemento CEP", groupId: "10" },
+    { name: "estado", ruleId: "G036", start: 126, end: 127, type: "A", label: "Estado (UF)", groupId: "10" },
+    { name: "data_vencimento", ruleId: "G044", start: 128, end: 135, type: "N", label: "Data do Vencimento (Nominal)", groupId: "11" },
+    { name: "valor_documento", ruleId: "G042", start: 136, end: 150, type: "N", label: "Valor do Documento (Nominal)", groupId: "11" },
+    { name: "valor_abatimento", ruleId: "G045", start: 151, end: 165, type: "N", label: "Valor do Abatimento", groupId: "11" },
+    { name: "valor_desconto", ruleId: "G046", start: 166, end: 180, type: "N", label: "Valor do Desconto", groupId: "11" },
+    { name: "valor_mora", ruleId: "G047", start: 181, end: 195, type: "N", label: "Valor da Mora", groupId: "11" },
+    { name: "valor_multa", ruleId: "G048", start: 196, end: 210, type: "N", label: "Valor da Multa", groupId: "11" },
+    { name: "codigo_documento_pagador", ruleId: "D009", start: 211, end: 225, type: "A", label: "Cód./Docum. do Pagador", groupId: "11" },
+    { name: "uso_exclusivo_febraban_debito", ruleId: "G004", start: 226, end: 226, type: "A", label: "Uso Exclusivo FEBRABAN", default: " ", groupId: "11" }
   ],
   // Layout PIX: TXID e Chaves
   pix: [
-    { name: "txid", ruleId: "G102", start: 33, end: 67, type: "A", label: "TX ID (Opcional)" },
-    { name: "uso_exclusivo_febraban_pix", ruleId: "G004", start: 68, end: 127, type: "A", label: "Uso Exclusivo FEBRABAN", default: " " },
-    { name: "chave_pix", ruleId: "G102", start: 128, end: 226, type: "A", label: "Identificação/Chave Pix" }
+    { name: "txid", ruleId: "G102", start: 33, end: 67, type: "A", label: "TX ID (Opcional)", groupId: "09" },
+    { name: "uso_exclusivo_febraban_pix", ruleId: "G004", start: 68, end: 127, type: "A", label: "Uso Exclusivo FEBRABAN", default: " ", groupId: "10" },
+    { name: "chave_pix", ruleId: "G102", start: 128, end: 226, type: "A", label: "Identificação/Chave Pix", groupId: "11" }
   ]
 };
 
@@ -36,13 +55,13 @@ export const CNAB_SCHEMA_SEGMENTO_B = {
       { name: "tipo_registro", ruleId: "G003", start: 8, end: 8, type: "N", label: "Tipo de Registro", default: "3" },
       { name: "numero_sequencial", ruleId: "G038", start: 9, end: 13, type: "N", label: "Nº Sequencial no Lote" },
       { name: "codigo_segmento", ruleId: "G039", start: 14, end: 14, type: "A", label: "Código Segmento", default: "B" },
-      { name: "forma_iniciacao", ruleId: "G100", start: 15, end: 17, type: "A", label: "Forma de Iniciação", default: " " },
-      { name: "tipo_inscricao_favorecido", ruleId: "G005", start: 18, end: 18, type: "N", label: "Tipo de Inscrição do Favorecido" },
-      { name: "numero_inscricao_favorecido", ruleId: "G006", start: 19, end: 32, type: "N", label: "Nº de Inscrição do Favorecido" },
+      { name: "forma_iniciacao", ruleId: "G100", start: 15, end: 17, type: "A", label: "Forma de Iniciação / CNAB", default: " " },
+      { name: "tipo_inscricao", ruleId: "G005", start: 18, end: 18, type: "N", label: "Tipo de Inscrição (Favorecido/Pagador)" },
+      { name: "numero_inscricao", ruleId: "G006", start: 19, end: 32, type: "N", label: "Nº de Inscrição (Favorecido/Pagador)" },
       // Os campos abaixo serão substituídos dinamicamente pelo engine.js
       { name: "informacoes_complementares_b", ruleId: "G101", start: 33, end: 226, type: "A", label: "Informações Complementares G101" },
-      { name: "codigo_ug_centralizadora", ruleId: "P012", start: 227, end: 232, type: "N", label: "Código UG Centralizadora (SIAPE)" },
-      { name: "codigo_ispb", ruleId: "P015", start: 233, end: 240, type: "N", label: "Código ISPB (Banco Destino)" }
+      { name: "codigo_ug_centralizadora", ruleId: "P012", start: 227, end: 232, type: "N", label: "Código UG Centralizadora (SIAPE)", groupId: "12" },
+      { name: "codigo_ispb", ruleId: "P015", start: 233, end: 240, type: "N", label: "Código ISPB (Banco Destino)", groupId: "13" }
     ]
   }
 };

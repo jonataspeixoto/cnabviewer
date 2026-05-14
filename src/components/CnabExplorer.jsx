@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { useCnabStore } from '../store/useCnabStore';
 import { CnabLine } from './CnabLine';
-import { Ruler } from './Ruler';
 import { Dropzone } from './Dropzone';
 import { cnabEngine } from '../utils/cnab/engine';
 
@@ -199,29 +198,23 @@ export const CnabExplorer = () => {
       <div 
         ref={containerRef}
         onScroll={handleScroll}
-        className="flex-1 overflow-auto custom-scrollbar relative font-cnab text-[14px]"
+        className="flex-1 overflow-auto custom-scrollbar p-6 relative font-cnab text-[14px]"
       >
-        {/* Sticky Header with Ruler */}
-        <div className="sticky top-0 z-30 bg-cnab-bg/95 backdrop-blur-sm border-b border-slate-800/50 min-w-max">
-          <Ruler className="pr-6" />
-        </div>
+        {/* Espaçador para manter o scrollbar correto */}
+        <div style={{ height: `${rawLines.length * ROW_HEIGHT}px`, width: '100%', position: 'absolute', top: 0, left: 0, pointerEvents: 'none' }} />
 
-        <div className="p-6 pt-2 relative">
-          {/* Espaçador para manter o scrollbar correto */}
-          <div style={{ height: `${rawLines.length * ROW_HEIGHT}px`, width: '100%', position: 'absolute', top: 0, left: 0, pointerEvents: 'none' }} />
-
-          {/* Linha Demarcadora de 240 posições */}
-          {visualSettings.showLimitLine && (
-            <div 
-              className="absolute top-0 bottom-0 border-r border-dashed border-red-500/50 z-0 pointer-events-none"
-              style={{ left: `calc(48px + 240ch)` }} 
-            />
-          )}
-
+        {/* Linha Demarcadora de 240 posições */}
+        {visualSettings.showLimitLine && (
           <div 
-            className="flex flex-col gap-0 min-w-max relative z-10"
-            style={{ transform: `translateY(${translateY}px)` }}
-          >
+            className="absolute top-0 bottom-0 border-r border-dashed border-red-500/50 z-0 pointer-events-none"
+            style={{ left: `calc(24px + 48px + 240ch)` }} 
+          />
+        )}
+
+        <div 
+          className="flex flex-col gap-0 min-w-max relative z-10"
+          style={{ transform: `translateY(${translateY}px)` }}
+        >
           {visibleLines.map((line, i) => (
             <CnabLine 
               key={startIndex + i}
@@ -235,7 +228,6 @@ export const CnabExplorer = () => {
           ))}
         </div>
       </div>
-    </div>
     </div>
   );
 };
