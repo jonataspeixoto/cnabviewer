@@ -57,6 +57,28 @@ describe('cnabEngine', () => {
       expect(parsed.codigo_banco).toBe('ABC');
       expect(parsed._metadata.errors.codigo_banco).toContain('numérico');
     });
+
+    it('should report error for accents in strict Alphanumeric fields', () => {
+      // Nome Favorecido (Segmento A, G013, Pos 44-73) is type A (Strict)
+      const line = '0010001300001A00000000000000000000000000000' + 'JONATÁS' + ' '.repeat(166);
+      const parsed = cnabEngine.parseLine(line);
+      expect(parsed._metadata.errors.nome_favorecido).toContain('não permite acentos');
+    });
+
+    it('should allow symbols in Special Alphanumeric fields (G102)', () => {
+      // Segmento B (PIX): Chave Pix (G102, Pos 128-226) is Special Type A
+      const line = '0010001300001B' + ' '.repeat(113) + 'test@example.com' + ' '.repeat(111);
+      const parsed = cnabEngine.parseLine(line);
+      // Deve ser capturado corretamente e não ter erro de tipo A (embora G102 valide depois)
+      expect(parsed._metadata.errors.chave_pix).toBeUndefined();
+    });
+
+    it('should report error for symbols in strict Alphanumeric fields', () => {
+      // Seu Número (Segmento A, G064, Pos 74-93) is type A (Strict)
+      const line = '0010001300001A00000000000000000000000000000' + ' '.repeat(30) + 'DOC@123' + ' '.repeat(146);
+      const parsed = cnabEngine.parseLine(line);
+      expect(parsed._metadata.errors.seu_numero).toContain('apenas letras, números e espaços');
+    });
   });
 
   describe('getLoteNumber', () => {

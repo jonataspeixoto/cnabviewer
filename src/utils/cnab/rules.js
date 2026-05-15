@@ -90,6 +90,27 @@ const validators = {
     
     return true;
   },
+  pixKey: (val, row) => {
+    const cleanVal = val.trim();
+    if (!cleanVal) return true;
+
+    // G100: 01=Telefone, 02=Email, 03=CPF/CNPJ, 04=Chave Aleatória
+    const g100 = row.forma_iniciacao || row.g100 || "";
+    
+    switch (g100) {
+      case "01": // Telefone
+        return /^\+?[0-9]{10,14}$/.test(cleanVal) || "Formato de Telefone Inválido (Esperado: +55...)";
+      case "02": // Email
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleanVal) || "Formato de E-mail Inválido";
+      case "03": // CPF/CNPJ
+        // Reutiliza o validador dynamicTaxId para o valor da chave
+        return validators.dynamicTaxId(cleanVal);
+      case "04": // Chave Aleatória (UUID)
+        return /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(cleanVal) || "Chave Aleatória deve ser um UUID válido (8-4-4-4-12 caracteres)";
+      default:
+        return true;
+    }
+  },
   filler: () => true
 };
 
@@ -207,7 +228,7 @@ const DATABASE = [
     { value: "80", label: "Pagamento de Tributos Municipais (ISS)", description: "Quitação de imposto sobre serviços." },
     { value: "81", label: "Pagamento de Tributos Estaduais (ICMS)", description: "Quitação de imposto sobre circulação de mercadorias." }
   ]},
-  { id: "G031", name: "Outras Informações", desc: "Informações complementares (PIX/SIAPE/Mensagens)", validation: "alphanumeric" },
+  { id: "G031", name: "Outras Informações", desc: "Informações complementares (PIX/SIAPE/Mensagens)", validation: "pixKey" },
   { id: "G036", name: "Estado/UF", desc: "Sigla da Unidade da Federação", validation: "uf" },
   { id: "G040", name: "Tipo de Moeda (Alfa)", desc: "Identificação da Moeda (Alfa)", validation: "oneOf", values: ["BTN", "BRL", "USD", "PTE", "FRF", "CHF", "JPY", "GBP", "DEM", "TRD", "UPC", "UPF", "UFR", "XEU"] },
   { id: "G041", name: "Quantidade da Moeda", desc: "Quantidade de unidades da moeda", validation: "amount" },
@@ -240,8 +261,8 @@ const DATABASE = [
     { value: "06", label: "QR Code Dinâmico", description: "Iniciação via QR Code gerado para uma transação específica." },
     { value: "07", label: "QR Code Estático", description: "Iniciação via QR Code fixo do recebedor." }
   ]},
-  { id: "G101", name: "Informação Complementar", desc: "Informação 10, 11 ou 12 (Chave PIX)", validation: "alphanumeric" },
-  { id: "G102", name: "Chave Pix / TXID", desc: "URL, Chave de Endereçamento ou Identificador da Transação", validation: "alphanumeric" },
+  { id: "G101", name: "Informação Complementar", desc: "Informação 10, 11 ou 12 (Chave PIX)", validation: "pixKey" },
+  { id: "G102", name: "Chave Pix / TXID", desc: "URL, Chave de Endereçamento ou Identificador da Transação", validation: "pixKey" },
   { id: "G103", name: "Tipo de Chave DICT", desc: "Tipo da chave Pix", validation: "oneOf", values: ["1", "2", "3", "4", "5"], options: [
     { value: "1", label: "CPF / CNPJ", description: "Chave baseada no documento do favorecido." },
     { value: "2", label: "E-mail", description: "Chave baseada no endereço de correio eletrônico." },
