@@ -1,71 +1,98 @@
 # 🚀 CNAB240 Audit Viewer & Editor
 
-O **CNAB Viewer** é um processador de arquivos bancários CNAB240 de ultra performance, projetado para auditoria visual rigorosa e edição de dados com precisão cirúrgica. Construído com **React**, **Zustand** e uma arquitetura de renderização otimizada para lidar com arquivos massivos.
+O **CNAB Viewer** é um processador de arquivos bancários CNAB240 de ultra performance, projetado para auditoria visual rigorosa e edição de dados com precisão cirúrgica. 
+
+Construído com **React 19**, **Zustand** e uma arquitetura de renderização otimizada para lidar com arquivos massivos (100k+ linhas) sem travamentos.
 
 ---
 
-## 💎 Diferenciais Técnicos
+## 💎 Visão Geral e Diferenciais
 
-### 1. Motor de Renderização Localizada
-Diferente de editores comuns, o CNAB Viewer utiliza um sistema de **Prop-Drilling Seletivo** e **Granularidade de Estado**.
-- **Performance O(1)**: O custo de renderização ao editar um campo é constante, independente do tamanho do arquivo (10 ou 100.000 linhas).
-- **Virtualização Inteligente**: Renderiza apenas o que está visível na viewport, mantendo o uso de memória extremamente baixo.
+### ⚙️ Como a Aplicação Funciona
+A aplicação opera em três camadas principais:
+1.  **Interface (UI)**: Utiliza **Virtualização de Lista** para renderizar apenas os caracteres visíveis na tela. Isso permite abrir arquivos de megabytes instantaneamente.
+2.  **Estado Global (Zustand)**: Gerencia o conteúdo do arquivo bruto (`rawLines`), o histórico de alterações (Undo/Redo) e os resultados da auditoria.
+3.  **Motor de Auditoria (Web Worker)**: Um processo em segundo plano que executa 170+ validações sem bloquear a interface. Ele é **contextual**, ou seja, entende que o Segmento A de um lote de "Pagamento de Salários" tem regras diferentes de um Segmento A de "Transferência PIX".
 
-### 2. Precisão Milimétrica (1CH Grid)
-A edição "In-Place" utiliza cálculos dinâmicos baseados na unidade `ch` (largura do caractere 0).
-- **Cálculo de Clique Dinâmico**: O sistema mede a largura real do campo renderizado e calcula a posição do cursor baseada no 1ch exato do navegador.
-- **Espelhamento de Input**: Um sistema de camadas permite editar o texto enquanto vê os caracteres especiais (visual whitespace) por baixo.
-
-### 3. Auditoria Contextual Multi-Threaded
-A validação ocorre em um **Web Worker** e é sensível ao contexto do lote.
-- **Smart PIX Validation**: O motor identifica a "Forma de Iniciação" (G100) e valida chaves PIX de acordo com o tipo (E-mail, CPF/CNPJ, Telefone ou UUID).
-- **Sub-layouts Dinâmicos**: O sistema alterna automaticamente entre layouts de Boleto, PIX ou Tributos (GPS/DARF) baseado nos códigos de movimento do Header de Lote.
-- **Rigor Alfanumérico**: Diferencia campos de texto simples (sem acentos/símbolos) de campos especiais que permitem caracteres como `@`, `.`, `/`, `-` (Chaves PIX e URLs).
-
-### 4. Documentação Técnica Integrada
-Visualizador de manuais FEBRABAN integrado com suporte a:
-- **Mermaid.js**: Renderização de diagramas de fluxo de remessa/retorno.
-- **Navegação via Índice**: Links inteligentes que levam diretamente às seções e regras (Gxxx, Cxxx) do manual.
+### 🚀 Performance O(N)
+Recentemente otimizado, o motor de auditoria processa o arquivo em uma única passagem linear. Ele rastreia o contexto do lote (Header de Lote) dinamicamente, garantindo que arquivos gigantes sejam auditados em milissegundos.
 
 ---
 
-## 📂 Estrutura do Projeto
+## 📂 Estrutura do Projeto (Modular)
 
 ```text
 src/
 ├── components/
-│   ├── CnabExplorer.jsx     # Virtualização e grid principal.
-│   ├── DocumentationPanel.jsx # Renderer de manuais com Mermaid.js.
-│   ├── EditorPanel.jsx      # Painel lateral para edição assistida.
-│   └── AuditPanel.jsx       # Interface de resultados da auditoria.
+│   ├── CnabLine/            # Componente ultra-otimizado para cada linha do CNAB.
+│   │   ├── index.jsx        # Lógica de renderização virtualizada.
+│   │   ├── CnabField.jsx    # Renderizador de campo com visual whitespace.
+│   │   └── useCnabLineLogic.js # Hook de performance para evitar re-renders.
+│   ├── AppHeader.jsx        # Controles globais e upload.
+│   ├── CnabExplorer.jsx     # Grid principal com suporte a redimensionamento.
+│   └── AuditPanel.jsx       # Interface de feedback em tempo real do Worker.
+├── hooks/
+│   └── useResizable.js      # Gerenciador de layout dinâmico (Painéis).
 ├── store/
-│   └── useCnabStore.js      # Estado (Zustand) com History (Undo/Redo).
+│   └── useCnabStore.js      # Estado central com suporte a histórico (Undo/Redo).
 ├── utils/cnab/
-│   ├── engine.js            # Cérebro que gerencia sub-layouts dinâmicos.
-│   ├── rules.js             # Biblioteca de regras inteligentes (CPF, PIX, etc).
-│   └── schemas/             # Definições técnicas de cada segmento.
-└── services/
-    └── DocService.js        # Parser de Markdown com indexação de regras.
+│   ├── engine.js            # Identificador dinâmico de segmentos e sub-layouts.
+│   ├── audit_logic.js       # Core da auditoria linear (Web Worker).
+│   ├── rules/               # Biblioteca de validação FEBRABAN.
+│   │   ├── validators.js    # Funções de validação (CPF, CNPJ, PIX, Datas).
+│   │   └── definitions/     # Regras mapeadas por domínio (Pagamentos, Pix, etc).
+│   └── schemas/             # Definições técnicas de posição (1-240) para cada segmento.
 ```
 
 ---
 
-## 🛠️ Desenvolvimento e Testes
+## 🛠️ Execução Local
 
-O projeto utiliza **Vitest** para garantir a integridade dos cálculos de auditoria e parsing de schemas.
+### Pré-requisitos
+- **Node.js**: Versão 18 ou superior.
+- **npm** ou **yarn**.
 
+### Passo a Passo
 ```bash
-# Instalar dependências
+# 1. Clone o repositório e entre na pasta
+# 2. Instale as dependências
 npm install
 
-# Rodar testes unitários
-npm test
-
-# Rodar em modo dev
+# 3. Inicie o servidor de desenvolvimento
 npm run dev
+
+# 4. (Opcional) Rode a suite de testes (170+ testes)
+npm test
 ```
+
+A aplicação estará disponível em `http://localhost:5173`.
+
+---
+
+## 📦 Dependências Principais
+
+- **React 19**: Base da interface e componentes.
+- **Zustand**: Gerenciamento de estado leve e rápido.
+- **Vite**: Build system de última geração.
+- **Tailwind CSS 4**: Estilização moderna e utilitária.
+- **Mermaid.js**: Renderização de diagramas de fluxo nos manuais técnicos.
+- **Vitest**: Framework de testes ultra-rápido para validação das regras bancárias.
+- **Lucide React**: Biblioteca de ícones premium.
+
+---
+
+## 🛡️ Auditoria e Conformidade
+O sistema valida automaticamente:
+- **Estrutura de Arquivo**: Lotes obrigatórios (`0000` no Header e `9999` no Trailer).
+- **Sequencial de Lote**: Garante que nenhum registro foi pulado ou está fora de ordem.
+- **Campos Específicos**: Validação de chaves PIX, datas futuras, tipos de inscrição e DVs bancários.
+- **Contagem de Registros**: Verifica se o Trailer de Lote/Arquivo condiz com a realidade do arquivo.
+
+---
 
 ---
 
 ## 📜 Licença
-Desenvolvido para auditoria de alta precisão em ambientes bancários.
+Este projeto está licenciado sob a **Licença MIT**. Sinta-se à vontade para usar, modificar e distribuir conforme necessário. Veja o arquivo [LICENSE](./LICENSE) para mais detalhes.
+
+Desenvolvido com foco em auditoria de alta precisão para o ecossistema bancário brasileiro.
