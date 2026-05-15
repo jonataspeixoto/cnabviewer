@@ -91,8 +91,7 @@ export const DocumentationPanel = ({ isOpen, onClose, initialRule, initialSectio
   };
 
   const openFullManual = () => {
-    // Aumentamos para 15000 linhas para dar mais contexto, mas ainda protegendo o browser
-    const contentToParse = docService.rawContent ? docService.rawContent.split('\n').slice(0, 15000).join('\n') : '';
+    const contentToParse = docService.rawContent || '';
     const parsedHtml = marked(contentToParse);
 
     const fullHtml = `
@@ -230,8 +229,7 @@ export const DocumentationPanel = ({ isOpen, onClose, initialRule, initialSectio
           </div>
           
           <div class="footer-note">
-            <p>Fim da visualização parcial (15.000 linhas).</p>
-            <p>Para uma consulta completa e interativa, utilize as ferramentas de busca e auditoria no aplicativo principal.</p>
+            <p>Fim do Manual Técnico Oficial - FEBRABAN CNAB240 v10.9</p>
           </div>
         </div>
       </body>
