@@ -5,7 +5,11 @@ import { bankAlgorithms } from './validators/banks.js';
  */
 const validators = {
   numeric: (val) => /^\d+$/.test(val) || "Deve ser estritamente numérico",
-  alphanumeric: (val) => true,
+  alphanumeric: (val) => {
+    if (!val) return true;
+    // Norma FEBRABAN: Apenas A-Z (sem acento), 0-9 e Espaço
+    return /^[A-Z0-9 ]*$/.test(val) || "Alfanuméricos devem conter apenas letras (A-Z), números (0-9) e espaço (sem acentos ou símbolos)";
+  },
   oneOf: (val, values) => {
     const cleanVal = val.trim();
     return values.includes(cleanVal) || `Valor [${cleanVal}] inválido. Esperado um de: ${values.join(', ')}`;
@@ -94,6 +98,12 @@ const validators = {
     const cleanVal = val.trim();
     if (!cleanVal) return true;
 
+    // Se NÃO for PIX (Forma de Lançamento 45), deve ser Alfanumérico Estrito
+    const formaLancamento = row.forma_lancamento || "";
+    if (formaLancamento !== "45") {
+      return validators.alphanumeric(val);
+    }
+
     // G100: 01=Telefone, 02=Email, 03=CPF/CNPJ, 04=Chave Aleatória
     const g100 = row.forma_iniciacao || row.g100 || "";
     
@@ -103,12 +113,12 @@ const validators = {
       case "02": // Email
         return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleanVal) || "Formato de E-mail Inválido";
       case "03": // CPF/CNPJ
-        // Reutiliza o validador dynamicTaxId para o valor da chave
         return validators.dynamicTaxId(cleanVal);
       case "04": // Chave Aleatória (UUID)
         return /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(cleanVal) || "Chave Aleatória deve ser um UUID válido (8-4-4-4-12 caracteres)";
       default:
-        return true;
+        // Chave genérica Pix permite alguns caracteres especiais (@, ., -, /)
+        return /^[A-Z0-9@.\-/ ]*$/i.test(cleanVal) || "Chave PIX contém caracteres inválidos";
     }
   },
   filler: () => true

@@ -4,6 +4,8 @@ import { useCnabStore } from '../store/useCnabStore';
 import { CNAB_RULES } from '../utils/cnab/rules';
 import { cnabEngine } from '../utils/cnab/engine';
 
+const EMPTY_ARRAY = [];
+
 const CnabLineComponent = ({ index, raw, isSelected, focusedField, cursorOffset, onSelect, showLimitLine }) => {
   const activeRules = useCnabStore(state => state.activeRules);
   const showWhitespace = useCnabStore(state => state.visualSettings.showWhitespace);
@@ -32,6 +34,14 @@ const CnabLineComponent = ({ index, raw, isSelected, focusedField, cursorOffset,
           if (!isFocusInEditor) {
             inputRef.current.focus();
           }
+
+          // BUG FIX: Só força a posição do cursor se NÃO houver uma seleção ativa (range > 0)
+          // Isso permite o "Double Click" para selecionar tudo e o "Click and Drag"
+          const selection = window.getSelection();
+          if (selection && selection.toString().length > 0) {
+            return;
+          }
+
           // Mapeia o offset de grafemas para o offset de code units da string
           const segmenter = new Intl.Segmenter('en', { granularity: 'grapheme' });
           const segments = Array.from(segmenter.segment(rawRef.current || ''));
@@ -288,7 +298,28 @@ const CnabLineComponent = ({ index, raw, isSelected, focusedField, cursorOffset,
     return 'text-slate-300';
   };
 
-  const errors = parsed._metadata?.errors || {};
+  // Mescla erros do motor com erros da auditoria global (worker)
+  // Usamos um seletor específico para que a linha só re-renderize se os SEUS erros mudarem
+  const lineAuditErrors = useCnabStore(state => state.auditErrorsByLine[index] || EMPTY_ARRAY);
+  
+  const errorsMap = useMemo(() => {
+    const map = {};
+    
+    // Erros do motor (default: validation)
+    const engineErrors = parsed._metadata?.errors || {};
+    Object.entries(engineErrors).forEach(([field, msg]) => {
+      map[field] = { message: msg, type: 'validation' };
+    });
+
+    // Erros do worker (podem ser critical) - O(1) pois já vem filtrado por linha
+    lineAuditErrors
+      .filter(err => err.fieldName && err.fieldName !== '_line')
+      .forEach(err => {
+        map[err.fieldName] = { message: err.message, type: err.type || 'validation' };
+      });
+      
+    return map;
+  }, [parsed._metadata?.errors, lineAuditErrors, index]);
 
   const renderFields = () => {
     const fields = schema.fields;
@@ -297,7 +328,7 @@ const CnabLineComponent = ({ index, raw, isSelected, focusedField, cursorOffset,
       const isFocused = isSelected && focusedField === field.name;
       const val = raw.substring(field.start - 1, field.end);
       const isReserved = field.name.includes('uso_exclusivo') || field.name === 'filler';
-      const hasError = errors[field.name];
+      const errorInfo = errorsMap[field.name];
       const charCount = field.end - field.start + 1;
 
       const rule = CNAB_RULES[field.rule || field.ruleId];
@@ -343,9 +374,13 @@ const CnabLineComponent = ({ index, raw, isSelected, focusedField, cursorOffset,
             relative flex-shrink-0 font-cnab transition-all h-7 flex items-center overflow-visible cursor-text
             ${isFocused ? 'bg-blue-600/40 z-20 ring-2 ring-blue-400 shadow-xl' : 'hover:bg-slate-700/30'}
             ${isReserved ? 'bg-slate-800/20' : ''}
-            ${hasError && !isFocused ? 'bg-red-500/20' : ''}
+            ${errorInfo && !isFocused ? (
+              errorInfo.type === 'critical' 
+                ? 'bg-red-600/40 border-x border-red-500 shadow-[inset_0_0_10px_rgba(220,38,38,0.4)]' 
+                : 'bg-orange-500/20 border-x border-orange-500/40'
+            ) : ''}
           `}
-          title={`${hasGroup ? '[CAMPO DINÂMICO/ESPECIAL] ' : ''}${field.label} (${field.start}-${field.end})${rule?.desc ? '\n' + rule.desc : ''}${optionsText}${hasError ? '\n\nERRO: ' + hasError : ''}`}
+          title={`${hasGroup ? '[CAMPO DINÂMICO/ESPECIAL] ' : ''}${field.label} (${field.start}-${field.end})${rule?.desc ? '\n' + rule.desc : ''}${optionsText}${errorInfo ? '\n\nERRO: ' + errorInfo.message : ''}`}
         >
           {/* Highlight Overlay: Fornece o visual de bordas e "espaço" sem mover o texto */}
           {groupInfo && (
@@ -442,7 +477,11 @@ const CnabLineComponent = ({ index, raw, isSelected, focusedField, cursorOffset,
               >
                 {renderTextWithHighlights(val)}
               </div>
-              {hasError && <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full shadow-sm"></span>}
+              {errorInfo && (
+                <span className={`absolute top-1 right-1 w-2 h-2 rounded-full shadow-sm animate-pulse
+                  ${errorInfo.type === 'critical' ? 'bg-red-500 shadow-red-500/50' : 'bg-orange-500 shadow-orange-500/50'}`} 
+                />
+              )}
             </>
           )}
           </div>

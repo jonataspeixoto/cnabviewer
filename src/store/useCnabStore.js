@@ -12,6 +12,8 @@ export const useCnabStore = create(
       focusedField: null,
       cursorOffset: 0,
       lastJump: 0,
+      auditErrors: [], // Lista flat para o painel
+      auditErrorsByLine: {}, // Mapa indexado por linha para performance
       history: [], 
       future: [],
       
@@ -64,6 +66,11 @@ export const useCnabStore = create(
       })),
 
       setCursorOffset: (offset) => set({ cursorOffset: offset }),
+
+      setAuditErrors: (errors, errorsByLine = {}) => set({ 
+        auditErrors: errors,
+        auditErrorsByLine: errorsByLine
+      }),
 
       focusField: (lineIndex, fieldName, offset = 0) => set((state) => {
         const needsExpand = state.visualSettings.autoExpandOnFocus && state.visualSettings.isEditorCollapsed;

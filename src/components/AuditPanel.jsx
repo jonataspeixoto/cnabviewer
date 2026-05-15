@@ -13,13 +13,15 @@ export const AuditPanel = ({ onMinimize }) => {
   const toggleRule = useCnabStore(state => state.toggleRule);
   const jumpToLine = useCnabStore(state => state.jumpToLine);
   const setBulkRules = useCnabStore(state => state.setBulkRules);
+  const auditErrors = useCnabStore(state => state.auditErrors);
+  const setAuditErrors = useCnabStore(state => state.setAuditErrors);
   
   const currentWorker = useRef(null);
-  const [errors, setErrors] = useState([]);
   const [isScanning, setIsScanning] = useState(false);
   const [progress, setProgress] = useState(0);
   const [activeTab, setActiveTab] = useState('diagnostico'); 
   const [ruleSearch, setRuleSearch] = useState('');
+  const [filterType, setFilterType] = useState('all'); // 'all', 'critical', 'validation'
 
   // Filtra as regras baseada na busca
   const filteredRuleIds = useMemo(() => {
@@ -32,9 +34,15 @@ export const AuditPanel = ({ onMinimize }) => {
     });
   }, [ruleSearch]);
 
+  // Filtra os erros baseada no tipo selecionado
+  const filteredErrors = useMemo(() => {
+    if (filterType === 'all') return auditErrors;
+    return auditErrors.filter(e => e.type === filterType);
+  }, [auditErrors, filterType]);
+
   useEffect(() => {
     if (!rawLines || rawLines.length === 0) {
-      setErrors([]);
+      setAuditErrors([]);
       setProgress(0);
       return;
     }
@@ -50,12 +58,12 @@ export const AuditPanel = ({ onMinimize }) => {
       });
 
       worker.onmessage = (e) => {
-        const { type, progress, errors: finalErrors } = e.data;
+        const { type, progress, errors: finalErrors, errorsByLine } = e.data;
         
         if (type === 'PROGRESS') {
           setProgress(progress);
         } else if (type === 'COMPLETE') {
-          setErrors(finalErrors);
+          setAuditErrors(finalErrors, errorsByLine);
           setIsScanning(false);
           worker.terminate();
         }
@@ -68,7 +76,7 @@ export const AuditPanel = ({ onMinimize }) => {
       };
 
       currentWorker.current = worker;
-    }, 500); // Debounce de 500ms para evitar spam de workers durante a digitação
+    }, 500);
 
     return () => {
       clearTimeout(timer);
@@ -78,11 +86,16 @@ export const AuditPanel = ({ onMinimize }) => {
     };
   }, [rawLines, activeRules, disabledFields]);
 
-  const criticalCount = errors.filter(e => e.type === 'critical').length;
-  const validationCount = errors.filter(e => e.type === 'validation').length;
+  const criticalCount = auditErrors.filter(e => e.type === 'critical').length;
+  const validationCount = auditErrors.filter(e => e.type === 'validation').length;
 
   const handleJumpToError = (err) => {
     jumpToLine(err.lineIndex, err.fieldName !== '_line' ? err.fieldName : null);
+  };
+
+  const toggleFilter = (type) => {
+    if (filterType === type) setFilterType('all');
+    else setFilterType(type);
   };
 
   return (
@@ -117,14 +130,29 @@ export const AuditPanel = ({ onMinimize }) => {
         {activeTab === 'diagnostico' ? (
           <>
             <div className="p-4 grid grid-cols-2 gap-2 bg-slate-950/30">
-              <div className="p-3 rounded-lg bg-red-500/5 border border-red-500/20">
-                <div className="text-[10px] text-red-400/70 font-bold uppercase mb-1">Críticos</div>
-                <div className="text-xl font-cnab text-red-400">{criticalCount}</div>
-              </div>
-              <div className="p-3 rounded-lg bg-orange-500/5 border border-orange-500/20">
-                <div className="text-[10px] text-orange-400/70 font-bold uppercase mb-1">Validação</div>
-                <div className="text-xl font-cnab text-orange-400">{validationCount}</div>
-              </div>
+              <button 
+                onClick={() => toggleFilter('critical')}
+                className={`p-3 rounded-lg border transition-all text-left group
+                  ${filterType === 'critical' ? 'bg-red-500/20 border-red-500/50 shadow-lg shadow-red-500/10' : 'bg-red-500/5 border-red-500/20 hover:border-red-500/40'}`}
+              >
+                <div className={`text-[9px] font-bold uppercase mb-1 transition-colors ${filterType === 'critical' ? 'text-red-300' : 'text-red-400/60'}`}>Críticos</div>
+                <div className="flex items-center justify-between">
+                  <div className={`text-xl font-cnab transition-colors ${filterType === 'critical' ? 'text-red-100' : 'text-red-400'}`}>{criticalCount}</div>
+                  {filterType === 'critical' && <div className="w-1.5 h-1.5 rounded-full bg-red-400 animate-pulse" />}
+                </div>
+              </button>
+              
+              <button 
+                onClick={() => toggleFilter('validation')}
+                className={`p-3 rounded-lg border transition-all text-left group
+                  ${filterType === 'validation' ? 'bg-orange-500/20 border-orange-500/50 shadow-lg shadow-orange-500/10' : 'bg-orange-500/5 border-orange-500/20 hover:border-orange-500/40'}`}
+              >
+                <div className={`text-[9px] font-bold uppercase mb-1 transition-colors ${filterType === 'validation' ? 'text-orange-300' : 'text-orange-400/60'}`}>Validação</div>
+                <div className="flex items-center justify-between">
+                  <div className={`text-xl font-cnab transition-colors ${filterType === 'validation' ? 'text-orange-100' : 'text-orange-400'}`}>{validationCount}</div>
+                  {filterType === 'validation' && <div className="w-1.5 h-1.5 rounded-full bg-orange-400 animate-pulse" />}
+                </div>
+              </button>
             </div>
 
             {isScanning && (
@@ -140,17 +168,19 @@ export const AuditPanel = ({ onMinimize }) => {
             )}
 
             <div className="flex-1 overflow-auto custom-scrollbar p-2 space-y-1">
-              {errors.length === 0 && !isScanning ? (
+              {filteredErrors.length === 0 && !isScanning ? (
                 <div className="flex flex-col items-center justify-center py-12 text-slate-600">
                   <CheckCircle2 className="w-8 h-8 mb-2 opacity-20" />
-                  <p className="text-xs font-medium">Arquivo em Conformidade</p>
+                  <p className="text-xs font-medium">
+                    {filterType === 'all' ? 'Arquivo em Conformidade' : `Sem erros de ${filterType === 'critical' ? 'Críticos' : 'Validação'}`}
+                  </p>
                 </div>
               ) : (
-                errors.map((err, i) => (
+                filteredErrors.map((err, i) => (
                   <button
                     key={i}
                     onClick={() => handleJumpToError(err)}
-                    className="w-full text-left p-2 rounded border border-transparent hover:border-slate-700 hover:bg-slate-800/50 group transition-all"
+                    className="w-full text-left p-2 rounded border border-transparent hover:border-slate-700 hover:bg-slate-800/50 group transition-all animate-in fade-in slide-in-from-left-2 duration-200"
                   >
                     <div className="flex items-start gap-2">
                       {err.type === 'critical' ? (
