@@ -13,6 +13,7 @@ export function performAudit({ rawLines, activeRules, disabledFields }) {
   let totalLotesCount = 0;
   let totalRecordsCount = 0;
   let currentLoteNum = null;
+  let currentHeaderLoteLine = null;
 
   for (let i = 0; i < total; i++) {
     const line = rawLines[i];
@@ -24,11 +25,30 @@ export function performAudit({ rawLines, activeRules, disabledFields }) {
     const regOpcional = line.substring(17, 19); 
     const loteNum = parseInt(line.substring(3, 7));
     
+    // --- VALIDAÇÃO DE LOTES FIXOS (0000 e 9999) ---
+    if (tipo === "0" && loteNum !== 0) {
+      errors.push({
+        lineIndex: i,
+        fieldName: "lote_servico",
+        message: `Header de Arquivo deve ter Lote 0000. Encontrado: ${String(loteNum).padStart(4, '0')}`,
+        type: "critical"
+      });
+    }
+    if (tipo === "9" && loteNum !== 9999) {
+      errors.push({
+        lineIndex: i,
+        fieldName: "lote_servico",
+        message: `Trailer de Arquivo deve ter Lote 9999. Encontrado: ${String(loteNum).padStart(4, '0')}`,
+        type: "critical"
+      });
+    }
+    
     // --- VALIDAÇÕES DE LOTE E ESTRUTURA ---
 
     if (tipo === "1") {
       totalLotesCount++;
       currentLoteNum = loteNum;
+      currentHeaderLoteLine = line;
       
       if (!isNaN(loteNum) && loteNum !== totalLotesCount && loteNum !== 0) {
         errors.push({
@@ -145,7 +165,13 @@ export function performAudit({ rawLines, activeRules, disabledFields }) {
 
     // Validações de campo via engine
     try {
-      const parsed = cnabEngine.parseLine(line, { activeRules, disabledFields, rawLines, index: i });
+      const parsed = cnabEngine.parseLine(line, { 
+        activeRules, 
+        disabledFields, 
+        rawLines, 
+        index: i,
+        currentHeaderLote: currentHeaderLoteLine 
+      });
       Object.entries(parsed._metadata?.errors || {}).forEach(([field, message]) => {
         errors.push({ lineIndex: i, fieldName: field, message, type: 'validation' });
       });

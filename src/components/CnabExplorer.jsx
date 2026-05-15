@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { useCnabStore } from '../store/useCnabStore';
-import { CnabLine } from './CnabLine';
+import { CnabLine } from './CnabLine/index';
 import { Dropzone } from './Dropzone';
 import { cnabEngine } from '../utils/cnab/engine';
 

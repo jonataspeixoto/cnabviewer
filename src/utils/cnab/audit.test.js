@@ -3,13 +3,22 @@ import { performAudit } from './audit_logic';
 
 describe('Audit Logic', () => {
   const activeRules = {};
-  const disabledFields = {};
+  const disabledFields = [];
 
   // Função auxiliar para criar linhas com campos em posições exatas
-  const createLine = (tipo, lote = 1, seq = 0, extras = {}) => {
+  const createLine = (tipo, lote = null, seq = 0, extras = {}) => {
     let line = ' '.repeat(240);
+    
+    // Define lote padrão baseado no tipo se não informado
+    let finalLote = lote;
+    if (finalLote === null) {
+      if (tipo === '0') finalLote = 0;
+      else if (tipo === '9') finalLote = 9999;
+      else finalLote = 1;
+    }
+
     // Lote: 4-7 (index 3-7)
-    const loteStr = String(lote).padStart(4, '0');
+    const loteStr = String(finalLote).padStart(4, '0');
     line = line.substring(0, 3) + loteStr + line.substring(7);
     // Tipo: 8 (index 7)
     line = line.substring(0, 7) + tipo + line.substring(8);
@@ -34,11 +43,11 @@ describe('Audit Logic', () => {
 
   it('should validate correct record counts in Trailer de Arquivo', () => {
     const rawLines = [
-      createLine('0'), // 1
-      createLine('1', 1), // 2
-      createLine('3', 1, 1), // 3
-      createLine('5', 1), // 4
-      createLine('9', 0, 0, { qLotes: 1, qRegs: 5 }) // 5
+      createLine('0'), // Lote 0000
+      createLine('1', 1), // Lote 0001
+      createLine('3', 1, 1), // Lote 0001
+      createLine('5', 1), // Lote 0001
+      createLine('9', 9999, 0, { qLotes: 1, qRegs: 5 }) // Lote 9999
     ];
 
     const { errors } = performAudit({ rawLines, activeRules, disabledFields });
@@ -49,7 +58,7 @@ describe('Audit Logic', () => {
   it('should detect wrong record count in Trailer de Arquivo', () => {
     const rawLines = [
       createLine('0'),
-      createLine('9', 0, 0, { qLotes: 1, qRegs: 10 }) // Espera 10, mas tem 2
+      createLine('9', 9999, 0, { qLotes: 1, qRegs: 10 }) // Espera 10, mas tem 2
     ];
 
     const { errors } = performAudit({ rawLines, activeRules, disabledFields });
@@ -62,6 +71,7 @@ describe('Audit Logic', () => {
       createLine('1', 1),
       createLine('3', 1, 1),
       createLine('5', 1),
+      createLine('9')
     ];
 
     const { errors } = performAudit({ rawLines, activeRules, disabledFields });
@@ -78,9 +88,8 @@ describe('Audit Logic', () => {
     ];
 
     const { errors } = performAudit({ rawLines, activeRules, disabledFields });
-    const batchError = errors.find(e => e.fieldName === 'lote_servico' && e.type === 'critical');
+    const batchError = errors.find(e => e.fieldName === 'lote_servico' && e.message.includes('pertence ao lote 0002'));
     expect(batchError).toBeDefined();
-    expect(batchError.message).toContain('pertence ao lote 0002, mas está posicionado fisicamente dentro do lote 0001');
   });
 
   it('should detect sequence errors in batch records', () => {
@@ -95,5 +104,21 @@ describe('Audit Logic', () => {
     const seqError = errors.find(e => e.fieldName === 'numero_sequencial');
     expect(seqError).toBeDefined();
     expect(seqError.message).toContain('Esperado: 2, Encontrado: 3');
+  });
+
+  it('should detect invalid batch for Header Arquivo', () => {
+    const rawLines = [
+      createLine('0', 1), // Header com lote 1 (ERRADO, deve ser 0)
+    ];
+    const { errors } = performAudit({ rawLines, activeRules, disabledFields });
+    expect(errors.some(e => e.message.includes('Header de Arquivo deve ter Lote 0000'))).toBe(true);
+  });
+
+  it('should detect invalid batch for Trailer Arquivo', () => {
+    const rawLines = [
+      createLine('9', 1), // Trailer com lote 1 (ERRADO, deve ser 9999)
+    ];
+    const { errors } = performAudit({ rawLines, activeRules, disabledFields });
+    expect(errors.some(e => e.message.includes('Trailer de Arquivo deve ter Lote 9999'))).toBe(true);
   });
 });
