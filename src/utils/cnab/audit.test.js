@@ -409,6 +409,37 @@ describe('Rule Toggling System', () => {
     const camaraErrors = errors.filter(e => e.fieldName === 'codigo_camara');
     expect(camaraErrors.length).toBe(0);
   });
+
+  it('should trigger warning when batch is out of sequence (G002) by default', () => {
+    let headerLote = createLine('1', 2); // Esperado 1, achou 2
+
+    const rawLines = [
+      createLine('0'),
+      headerLote,
+      createLine('5', 2),
+      createLine('9')
+    ];
+
+    const { errors } = performAudit({ rawLines, activeRules: {}, disabledFields: [] });
+    const sequenceErrors = errors.filter(e => e.fieldName === 'lote_servico' && e.message.includes('Lote fora de sequência'));
+    expect(sequenceErrors.length).toBeGreaterThan(0);
+  });
+
+  it('should NOT trigger warning when G002 is toggled off and batch is out of sequence', () => {
+    let headerLote = createLine('1', 2); // Esperado 1, achou 2
+
+    const rawLines = [
+      createLine('0'),
+      headerLote,
+      createLine('5', 2),
+      createLine('9')
+    ];
+
+    const customRules = { "G002": false };
+    const { errors } = performAudit({ rawLines, activeRules: customRules, disabledFields: [] });
+    const sequenceErrors = errors.filter(e => e.fieldName === 'lote_servico' && e.message.includes('Lote fora de sequência'));
+    expect(sequenceErrors.length).toBe(0);
+  });
 });
 
 

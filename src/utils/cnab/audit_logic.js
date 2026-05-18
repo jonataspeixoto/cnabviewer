@@ -76,21 +76,23 @@ export function performAudit({ rawLines, activeRules, disabledFields }) {
     }
 
     // --- VALIDAÇÃO DE LOTES FIXOS (0000 e 9999) ---
-    if (tipo === "0" && loteNum !== 0) {
-      errors.push({
-        lineIndex: i,
-        fieldName: "lote_servico",
-        message: `Header de Arquivo deve ter Lote 0000. Encontrado: ${String(loteNum).padStart(4, '0')}`,
-        type: "critical"
-      });
-    }
-    if (tipo === "9" && loteNum !== 9999) {
-      errors.push({
-        lineIndex: i,
-        fieldName: "lote_servico",
-        message: `Trailer de Arquivo deve ter Lote 9999. Encontrado: ${String(loteNum).padStart(4, '0')}`,
-        type: "critical"
-      });
+    if (activeRules["G002"] !== false) {
+      if (tipo === "0" && loteNum !== 0) {
+        errors.push({
+          lineIndex: i,
+          fieldName: "lote_servico",
+          message: `Header de Arquivo deve ter Lote 0000. Encontrado: ${String(loteNum).padStart(4, '0')}`,
+          type: "critical"
+        });
+      }
+      if (tipo === "9" && loteNum !== 9999) {
+        errors.push({
+          lineIndex: i,
+          fieldName: "lote_servico",
+          message: `Trailer de Arquivo deve ter Lote 9999. Encontrado: ${String(loteNum).padStart(4, '0')}`,
+          type: "critical"
+        });
+      }
     }
     
     // --- VALIDAÇÕES DE LOTE E ESTRUTURA ---
@@ -100,13 +102,15 @@ export function performAudit({ rawLines, activeRules, disabledFields }) {
       currentLoteNum = loteNum;
       currentHeaderLoteLine = line;
       
-      if (!isNaN(loteNum) && loteNum !== totalLotesCount && loteNum !== 0) {
-        errors.push({
-          lineIndex: i,
-          fieldName: "lote_servico",
-          message: `Lote fora de sequência. Esperado: ${String(totalLotesCount).padStart(4, '0')}, Encontrado: ${String(loteNum).padStart(4, '0')}`,
-          type: "warning"
-        });
+      if (activeRules["G002"] !== false) {
+        if (!isNaN(loteNum) && loteNum !== totalLotesCount && loteNum !== 0) {
+          errors.push({
+            lineIndex: i,
+            fieldName: "lote_servico",
+            message: `Lote fora de sequência. Esperado: ${String(totalLotesCount).padStart(4, '0')}, Encontrado: ${String(loteNum).padStart(4, '0')}`,
+            type: "warning"
+          });
+        }
       }
 
       const tipoServico = line.substring(9, 11);
@@ -125,13 +129,15 @@ export function performAudit({ rawLines, activeRules, disabledFields }) {
     if (tipo === "3") {
       const stats = loteStats.get(loteNum);
       // Validar se o movimento pertence ao lote atual (Comparação numérica segura e ignora NaN)
-      if (!isNaN(loteNum) && currentLoteNum !== null && !isNaN(currentLoteNum) && loteNum !== currentLoteNum) {
-          errors.push({
-          lineIndex: i,
-          fieldName: "lote_servico",
-          message: `Movimento pertence ao lote ${String(loteNum).padStart(4, '0')}, mas está posicionado fisicamente dentro do lote ${String(currentLoteNum).padStart(4, '0')}`,
-          type: "critical"
-        });
+      if (activeRules["G002"] !== false) {
+        if (!isNaN(loteNum) && currentLoteNum !== null && !isNaN(currentLoteNum) && loteNum !== currentLoteNum) {
+            errors.push({
+            lineIndex: i,
+            fieldName: "lote_servico",
+            message: `Movimento pertence ao lote ${String(loteNum).padStart(4, '0')}, mas está posicionado fisicamente dentro do lote ${String(currentLoteNum).padStart(4, '0')}`,
+            type: "critical"
+          });
+        }
       }
 
       if (stats) {
@@ -157,13 +163,15 @@ export function performAudit({ rawLines, activeRules, disabledFields }) {
         // -------------------------------------
 
         if (!isNaN(seqNum)) {
-          if (stats.lastSeq !== 0 && seqNum !== stats.lastSeq + 1) {
-            errors.push({
-              lineIndex: i,
-              fieldName: "numero_sequencial",
-              message: `Sequencial de registro inválido. Esperado: ${stats.lastSeq + 1}, Encontrado: ${seqNum}`,
-              type: "warning"
-            });
+          if (activeRules["G038"] !== false) {
+            if (stats.lastSeq !== 0 && seqNum !== stats.lastSeq + 1) {
+              errors.push({
+                lineIndex: i,
+                fieldName: "numero_sequencial",
+                message: `Sequencial de registro inválido. Esperado: ${stats.lastSeq + 1}, Encontrado: ${seqNum}`,
+                type: "warning"
+              });
+            }
           }
           stats.lastSeq = seqNum;
         }
