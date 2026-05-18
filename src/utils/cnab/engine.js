@@ -199,7 +199,7 @@ export const cnabEngine = {
             result._metadata.errors[field.name] = "Campo numérico contém caracteres inválidos (apenas 0-9 permitidos)";
           }
         } else if (field.type === "A") {
-          const isSpecial = ["G102", "G101", "G031"].includes(field.ruleId);
+          const isSpecial = ["G102", "G101", "G031"].includes(field.ruleId || field.rule);
           // Estrito: Apenas A-Z, a-z, 0-9 e Espaço. Especial: Permite -, @, ., /
           const regex = isSpecial 
             ? /^[A-Za-z0-9\s\-\.\/\@]*$/ 

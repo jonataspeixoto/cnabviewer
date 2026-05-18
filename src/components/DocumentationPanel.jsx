@@ -81,12 +81,19 @@ export const DocumentationPanel = ({ isOpen, onClose, initialRule, initialSectio
     setSearchResults(sections);
   };
 
-  const selectSection = (sectionId) => {
+  const selectItem = (id, type) => {
     setLoading(true);
-    const found = docService.getSectionHtml(sectionId);
-    setSection(found);
-    setRule(null);
+    if (type === 'rule') {
+      const found = docService.getRule(id);
+      setRule(found);
+      setSection(null);
+    } else {
+      const found = docService.getSectionHtml(id);
+      setSection(found);
+      setRule(null);
+    }
     setSearchResults([]);
+    setSearchQuery('');
     setLoading(false);
   };
 
@@ -306,7 +313,7 @@ export const DocumentationPanel = ({ isOpen, onClose, initialRule, initialSectio
             {searchResults.map((res) => (
               <button
                 key={res.id}
-                onClick={() => selectSection(res.id)}
+                onClick={() => selectItem(res.id, res.type)}
                 className="w-full px-4 py-3 text-left hover:bg-blue-500/10 flex items-center justify-between group border-b border-slate-700/50 last:border-0"
               >
                 <span className="text-xs font-medium text-slate-300 group-hover:text-blue-400 truncate pr-4">{res.title}</span>

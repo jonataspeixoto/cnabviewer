@@ -1,5 +1,68 @@
 import { marked } from 'marked';
 
+const CUSTOM_RULES_FALLBACK = {
+  STRUC_B: {
+    id: "STRUC_B",
+    title: "Estrutura do Segmento B",
+    description: "Regra de acoplamento do Segmento B ao Segmento A. Garante que todo Registro do tipo Segmento A seja seguido imediatamente pelo Segmento B contendo os dados complementares obrigatórios do favorecido.",
+    html: "<p>Regra de acoplamento do Segmento B ao Segmento A. Garante que todo Registro do tipo Segmento A seja seguido imediatamente pelo Segmento B contendo os dados complementares obrigatórios do favorecido.</p>"
+  },
+  isNumeric: {
+    id: "isNumeric",
+    title: "Validação Numérica Básica",
+    description: "Garante que o campo contenha estritamente dígitos numéricos (0-9) conforme especificado no leiaute do arquivo CNAB.",
+    html: "<p>Garante que o campo contenha estritamente dígitos numéricos (0-9) conforme especificado no leiaute do arquivo CNAB.</p>"
+  },
+  validateDate: {
+    id: "validateDate",
+    title: "Validação de Formato de Data",
+    description: "Verifica se a data fornecida é uma data válida e está formatada corretamente no padrão FEBRABAN (geralmente DDMMAAAA ou DDMMAA).",
+    html: "<p>Verifica se a data fornecida é uma data válida e está formatada corretamente no padrão FEBRABAN (geralmente DDMMAAAA ou DDMMAA).</p>"
+  },
+  validateCNPJ_CPF: {
+    id: "validateCNPJ_CPF",
+    title: "Validação de CPF / CNPJ",
+    description: "Verifica se o número de inscrição (CPF ou CNPJ) possui a quantidade correta de dígitos e atende aos critérios dos algoritmos de validação de dígitos verificadores oficiais.",
+    html: "<p>Verifica se o número de inscrição (CPF ou CNPJ) possui a quantidade correta de dígitos e atende aos critérios dos algoritmos de validação de dígitos verificadores oficiais.</p>"
+  },
+  validateInscricaoTipo: {
+    id: "validateInscricaoTipo",
+    title: "Validação de Tipo de Inscrição",
+    description: "Garante que o tipo de inscrição do participante do lote (1 = CPF, 2 = CNPJ, etc.) seja compatível com a quantidade de dígitos informada no campo de número de inscrição.",
+    html: "<p>Garante que o tipo de inscrição do participante do lote (1 = CPF, 2 = CNPJ, etc.) seja compatível com a quantidade de dígitos informada no campo de número de inscrição.</p>"
+  },
+  validateUF: {
+    id: "validateUF",
+    title: "Validação de Sigla de Estado (UF)",
+    description: "Verifica se a sigla informada corresponde a uma das 27 Unidades Federativas (estados) válidas do Brasil.",
+    html: "<p>Verifica se a sigla informada corresponde a uma das 27 Unidades Federativas (estados) válidas do Brasil.</p>"
+  },
+  validateCurrency: {
+    id: "validateCurrency",
+    title: "Validação de Formato de Valor/Moeda",
+    description: "Garante que campos de valores monetários estejam formatados com os decimais corretos e sem caracteres especiais inválidos.",
+    html: "<p>Garante que campos de valores monetários estejam formatados com os decimais corretos e sem caracteres especiais inválidos.</p>"
+  },
+  validateDV: {
+    id: "validateDV",
+    title: "Validação de Dígitos Verificadores (DV)",
+    description: "Garante que os dígitos verificadores de Agência, Conta Corrente ou Agência/Conta combinadas estejam corretos segundo as regras matemáticas de módulo 10 ou 11 do respectivo banco.",
+    html: "<p>Garante que os dígitos verificadores de Agência, Conta Corrente ou Agência/Conta combinadas estejam corretos segundo as regras matemáticas de módulo 10 ou 11 do respectivo banco.</p>"
+  },
+  validateExtratoBalance: {
+    id: "validateExtratoBalance",
+    title: "Validação de Conciliação de Saldos",
+    description: "Validação cruzada para garantir que a soma dos saldos iniciais, créditos e débitos seja igual ao saldo final em registros de Extrato de Conta Corrente.",
+    html: "<p>Validação cruzada para garantir que a soma dos saldos iniciais, créditos e débitos seja igual ao saldo final em registros de Extrato de Conta Corrente.</p>"
+  },
+  N000: {
+    id: "N000",
+    title: "Informações Complementares do Tributo",
+    description: "Campo destinado a informações específicas do tributo (inscrição municipal, taxas extras, etc.) de acordo com a prefeitura ou órgão emissor do tributo.",
+    html: "<p>Campo destinado a informações específicas do tributo (inscrição municipal, taxas extras, etc.) de acordo com a prefeitura ou órgão emissor do tributo.</p>"
+  }
+};
+
 class DocService {
   constructor() {
     this.rawContent = '';
@@ -46,10 +109,12 @@ class DocService {
   }
 
   parse() {
-    // Indexa Regras (Gxxx, Axxx, etc)
-    const ruleRegex = /<td>(?:<strong>)?([A-Z]\d{3})(?:<\/strong>)?<\/td>\s*<td>(.*?)<\/td>\s*<td>(?:<strong>)?\1(?:<\/strong>)?<\/td>/gs;
     let match;
-    while ((match = ruleRegex.exec(this.rawContent)) !== null) {
+
+    // 1. Indexa Regras por linhas de tabela <tr> ... </tr> (Gxxx, Cxxx, etc.)
+    // Restringe a busca ao escopo de cada linha de tabela para evitar agrupamentos indevidos (Catastrophic Backtracking)
+    const tableRuleRegex = /<tr>\s*<(?:td|th)>(?:<strong>)?([A-Z]\d{3})(?:<\/strong>)?<\/(?:td|th)>\s*<(?:td|th)>([\s\S]*?)<\/(?:td|th)>\s*<(?:td|th)>(?:<strong>)?\1(?:<\/strong>)?<\/(?:td|th)>\s*<\/tr>/g;
+    while ((match = tableRuleRegex.exec(this.rawContent)) !== null) {
       const [_, id, fullContent] = match;
       
       const titleMatch = fullContent.match(/<strong>(.*?)<\/strong>/);
@@ -64,8 +129,33 @@ class DocService {
       };
     }
 
-    // Indexa Seções (Headers)
+    // 2. Indexa Regras em formato de Header Markdown (# G100 ...)
+    const headerRuleRegex = /^#+\s+([A-Z]\d{3})\b\s*(.*?)$/gm;
+    headerRuleRegex.lastIndex = 0;
+    while ((match = headerRuleRegex.exec(this.rawContent)) !== null) {
+      const [_, id, title] = match;
+      const startPos = match.index;
+      
+      const nextHeaderRegex = /^#+\s+/gm;
+      nextHeaderRegex.lastIndex = startPos + match[0].length;
+      const nextMatch = nextHeaderRegex.exec(this.rawContent);
+      const endPos = nextMatch ? nextMatch.index : this.rawContent.length;
+      
+      const description = this.rawContent.substring(startPos + match[0].length, endPos).trim();
+      
+      if (!this.rulesIndex[id]) {
+        this.rulesIndex[id] = {
+          id,
+          title: title.trim(),
+          description: description,
+          html: this.formatHtml(marked.parse(description))
+        };
+      }
+    }
+
+    // 3. Indexa Seções (Headers de conteúdo)
     const sectionRegex = /^#+ (.*?)$/gm;
+    sectionRegex.lastIndex = 0;
     while ((match = sectionRegex.exec(this.rawContent)) !== null) {
       const [_, title] = match;
       const cleanTitle = title.toLowerCase()
@@ -175,21 +265,58 @@ class DocService {
   }
 
   getRule(ruleId) {
+    if (!ruleId) return null;
     const cleanId = ruleId.replace('*', '').trim();
+    
+    // Fallback para regras customizadas
+    if (CUSTOM_RULES_FALLBACK[cleanId]) {
+      return CUSTOM_RULES_FALLBACK[cleanId];
+    }
+    
     return this.rulesIndex[cleanId] || null;
   }
 
   searchSections(query) {
     if (!query || query.length < 2) return [];
     const q = query.toLowerCase().trim();
+    const results = [];
     
-    return Object.keys(this.sectionsIndex)
-      .filter(k => k.includes(q))
-      .map(k => ({
-        title: k.toUpperCase(),
-        id: k
-      }))
-      .slice(0, 15);
+    // 1. Busca nas Seções do Manual
+    Object.keys(this.sectionsIndex).forEach(k => {
+      if (k.includes(q)) {
+        results.push({
+          title: `Seção: ${k.toUpperCase()}`,
+          id: k,
+          type: 'section'
+        });
+      }
+    });
+    
+    // 2. Busca nas Regras Indexadas (por ID ou Título)
+    Object.keys(this.rulesIndex).forEach(id => {
+      const rule = this.rulesIndex[id];
+      if (id.toLowerCase().includes(q) || rule.title.toLowerCase().includes(q)) {
+        results.push({
+          title: `Regra ${id}: ${rule.title}`,
+          id: id,
+          type: 'rule'
+        });
+      }
+    });
+
+    // 3. Busca nas Regras Customizadas (Fallback)
+    Object.keys(CUSTOM_RULES_FALLBACK).forEach(id => {
+      const rule = CUSTOM_RULES_FALLBACK[id];
+      if (id.toLowerCase().includes(q) || rule.title.toLowerCase().includes(q)) {
+        results.push({
+          title: `Regra ${id}: ${rule.title}`,
+          id: id,
+          type: 'rule'
+        });
+      }
+    });
+    
+    return results.slice(0, 15);
   }
 }
 

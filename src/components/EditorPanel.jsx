@@ -194,9 +194,9 @@ export const EditorPanel = ({ onMinimize }) => {
                       </label>
                       <div className="flex items-center gap-2">
                         <span className="text-slate-600 font-mono text-[9px]">{field.start}-{field.end}</span>
-                        {field.ruleId && (
+                        {(field.ruleId || field.rule) && (
                           <button 
-                            onClick={() => useCnabStore.getState().openDoc(field.ruleId)}
+                            onClick={() => useCnabStore.getState().openDoc(field.ruleId || field.rule)}
                             className="text-slate-600 hover:text-blue-400 transition-colors"
                             title="Ver documentação"
                           >
