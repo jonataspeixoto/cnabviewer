@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import { cnabEngine } from '../utils/cnab/engine';
 import { CNAB_RULES } from '../utils/cnab/rules';
+import { CNAB_SCHEMAS } from '../utils/cnab/schemas';
 
 export const useCnabStore = create(
   persist(
@@ -276,6 +277,21 @@ export const useCnabStore = create(
         cursorOffset: 0,
         history: [],
         future: []
+      }),
+
+      cleanupDisabledFields: () => set((state) => {
+        const validFields = state.disabledFields.filter(fieldId => {
+          const [schemaId, fieldName] = fieldId.split(':');
+          if (!schemaId || !fieldName) return false;
+          const schema = CNAB_SCHEMAS[schemaId];
+          if (!schema) return false;
+          return schema.fields.some(f => f.name === fieldName);
+        });
+        
+        if (validFields.length !== state.disabledFields.length) {
+          return { disabledFields: validFields };
+        }
+        return {};
       })
     }),
     {
@@ -286,6 +302,11 @@ export const useCnabStore = create(
         disabledFields: state.disabledFields,
         visualSettings: state.visualSettings 
       }), // Apenas salva configurações, não os dados do arquivo
+      onRehydrateStorage: () => (state, error) => {
+        if (state && !error && typeof state.cleanupDisabledFields === 'function') {
+          state.cleanupDisabledFields();
+        }
+      }
     }
   )
 );
