@@ -189,22 +189,27 @@ export const cnabEngine = {
       const val = line.substring(field.start - 1, field.end);
       result[field.name] = val;
 
-      // Validação básica de tipo
-      if (field.type === "N") {
-        if (!/^\d+$/.test(val)) {
-          result._metadata.errors[field.name] = "Campo numérico contém caracteres inválidos (apenas 0-9 permitidos)";
-        }
-      } else if (field.type === "A") {
-        const isSpecial = ["G102", "G101", "G031"].includes(field.ruleId);
-        // Estrito: Apenas A-Z, a-z, 0-9 e Espaço. Especial: Permite -, @, ., /
-        const regex = isSpecial 
-          ? /^[A-Za-z0-9\s\-\.\/\@]*$/ 
-          : /^[A-Za-z0-9\s]*$/;
+      const fieldId = `${schema.id}:${field.name}`;
+      const isDisabled = disabledFields.includes(fieldId);
 
-        if (!regex.test(val)) {
-          result._metadata.errors[field.name] = isSpecial
-            ? "Campo contém caracteres especiais não permitidos (permitidos: - . / @)"
-            : "Este campo não permite acentos ou símbolos (apenas letras, números e espaços)";
+      if (!isDisabled) {
+        // Validação básica de tipo
+        if (field.type === "N") {
+          if (!/^\d+$/.test(val)) {
+            result._metadata.errors[field.name] = "Campo numérico contém caracteres inválidos (apenas 0-9 permitidos)";
+          }
+        } else if (field.type === "A") {
+          const isSpecial = ["G102", "G101", "G031"].includes(field.ruleId);
+          // Estrito: Apenas A-Z, a-z, 0-9 e Espaço. Especial: Permite -, @, ., /
+          const regex = isSpecial 
+            ? /^[A-Za-z0-9\s\-\.\/\@]*$/ 
+            : /^[A-Za-z0-9\s]*$/;
+
+          if (!regex.test(val)) {
+            result._metadata.errors[field.name] = isSpecial
+              ? "Campo contém caracteres especiais não permitidos (permitidos: - . / @)"
+              : "Este campo não permite acentos ou símbolos (apenas letras, números e espaços)";
+          }
         }
       }
     });

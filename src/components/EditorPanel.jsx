@@ -11,6 +11,7 @@ export const EditorPanel = ({ onMinimize }) => {
   const selectLine = useCnabStore(state => state.selectLine);
   const updateLine = useCnabStore(state => state.updateLine);
   const activeRules = useCnabStore(state => state.activeRules);
+  const disabledFields = useCnabStore(state => state.disabledFields);
   const focusedField = useCnabStore(state => state.focusedField);
   const setFocusedField = useCnabStore(state => state.setFocusedField);
 
@@ -26,7 +27,7 @@ export const EditorPanel = ({ onMinimize }) => {
       // Só recarrega se for uma linha diferente ou se houver mudança externa significativa
       if (line !== formData._raw) {
         const s = cnabEngine.getSchema(line);
-        const parsed = cnabEngine.parseLine(line, { activeRules, rawLines, index: selectedLineIndex });
+        const parsed = cnabEngine.parseLine(line, { activeRules, disabledFields, rawLines, index: selectedLineIndex });
         setSchema(s);
         setFormData(parsed);
       }
@@ -34,7 +35,7 @@ export const EditorPanel = ({ onMinimize }) => {
       setSchema(null);
       setFormData({});
     }
-  }, [selectedLineIndex, rawLines[selectedLineIndex], activeRules]);
+  }, [selectedLineIndex, rawLines[selectedLineIndex], activeRules, disabledFields]);
 
   useEffect(() => {
     if (focusedField && inputRefs.current[focusedField]) {
@@ -51,7 +52,7 @@ export const EditorPanel = ({ onMinimize }) => {
   };
 
   const handleRawLineChange = (value) => {
-    const parsed = cnabEngine.parseLine(value, { activeRules, rawLines, index: selectedLineIndex });
+    const parsed = cnabEngine.parseLine(value, { activeRules, disabledFields, rawLines, index: selectedLineIndex });
     setFormData({ ...parsed, _raw: value });
   };
 

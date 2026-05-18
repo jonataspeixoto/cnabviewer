@@ -10,6 +10,7 @@ const EMPTY_ARRAY = [];
 const CnabLineComponent = ({ index, raw, isSelected, focusedField, cursorOffset, onSelect, showLimitLine }) => {
   const isContinuous = useCnabStore(state => state.visualSettings.isContinuous);
   const activeRules = useCnabStore(state => state.activeRules);
+  const disabledFields = useCnabStore(state => state.disabledFields);
   const lineAuditErrors = useCnabStore(state => state.auditErrorsByLine[index] || EMPTY_ARRAY);
 
   const {
@@ -26,8 +27,8 @@ const CnabLineComponent = ({ index, raw, isSelected, focusedField, cursorOffset,
 
   const parsed = useMemo(() => {
     const lines = useCnabStore.getState().rawLines;
-    return cnabEngine.parseLine(raw, { activeRules, rawLines: lines, index });
-  }, [raw, activeRules, index]);
+    return cnabEngine.parseLine(raw, { activeRules, disabledFields, rawLines: lines, index });
+  }, [raw, activeRules, disabledFields, index]);
 
   const errorsMap = useMemo(() => {
     const map = {};
