@@ -46,6 +46,16 @@ src/
 
 ---
 
+## 📖 Manual Técnico & Sistema de Busca Integrado
+
+O CNAB Viewer vem com o **Manual Técnico Oficial da FEBRABAN v10.9** completamente integrado à interface de edição:
+*   **Dual-Parser Ultra Preciso**: Escaneia tanto tabelas de leiaute quanto títulos em Markdown no manual físico, mapeando **393 regras oficiais** (incluindo chaves Pix `G100`-`G102`).
+*   **Busca Unificada em Tempo Real**: Digite termos como `"G001"` ou `"Header"` no painel lateral e navegue diretamente para as seções ou definições correspondentes.
+*   **Acesso Direto nos Campos (Foco Preservado)**: Botões de manual (`BookOpen`) integrados no editor e na `ContextBar` abrem a documentação mantendo o input selecionado focado e sem desfocar o cursor ativo (através de interceptação inteligente de eventos do mouse).
+*   **Documentação Rich de Regras Customizadas**: Páginas de explicação interativas integradas para regras exclusivas do nosso motor de auditoria (como `STRUC_B`, `isNumeric`, etc.).
+
+---
+
 ## 🛠️ Execução Local
 
 ### Pré-requisitos
