@@ -64,7 +64,7 @@ export const ContextBar = () => {
 
       <div className="flex items-center gap-1.5 bg-slate-800/50 px-2 py-1 rounded-md border border-slate-700/50">
         <button 
-          onClick={() => useCnabStore.getState().openDoc(null, schema?.label)}
+          onMouseDown={(e) => { e.preventDefault(); useCnabStore.getState().openDoc(null, schema?.label); }}
           className="flex items-center gap-1.5 text-white hover:text-blue-400 transition-colors whitespace-nowrap group"
         >
           <Layers className="w-3.5 h-3.5 text-amber-400 group-hover:scale-110 transition-transform" />
@@ -72,7 +72,7 @@ export const ContextBar = () => {
         </button>
         <div className="w-[1px] h-3 bg-slate-700 mx-1" />
         <button 
-          onClick={() => openDoc(null, schema?.label)}
+          onMouseDown={(e) => { e.preventDefault(); openDoc(null, schema?.label); }}
           className="flex items-center gap-1.5 text-blue-400/80 hover:text-blue-400 transition-colors text-[9px] font-bold uppercase tracking-tighter bg-blue-500/5 px-2 py-0.5 rounded border border-blue-500/10"
           title={`Ver Manual: ${schema?.label}`}
         >
@@ -92,8 +92,7 @@ export const ContextBar = () => {
               <button 
                 className="flex items-center gap-1.5 text-blue-400 hover:text-white hover:bg-blue-600/30 transition-all bg-blue-500/10 px-2 py-1 rounded border border-blue-500/30 ml-1 font-bold text-[9px] uppercase tracking-tighter cursor-pointer"
                 title={`Ver Manual: ${field.label}`}
-                onClick={(e) => {
-                  e.stopPropagation();
+                onMouseDown={(e) => {
                   e.preventDefault();
                   const rid = field.ruleId || field.rule;
                   console.log(`[ContextBar] Clicking field manual: label=${field.label}, ruleId=${rid}`);
