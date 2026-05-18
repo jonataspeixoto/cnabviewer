@@ -121,4 +121,294 @@ describe('Audit Logic', () => {
     const { errors } = performAudit({ rawLines, activeRules, disabledFields });
     expect(errors.some(e => e.message.includes('Trailer de Arquivo deve ter Lote 9999'))).toBe(true);
   });
+
+  it('should detect missing File Header', () => {
+    const rawLines = [
+      createLine('1', 1),
+      createLine('3', 1, 1),
+      createLine('5', 1),
+      createLine('9')
+    ];
+    const { errors } = performAudit({ rawLines, activeRules, disabledFields });
+    expect(errors.some(e => e.message.includes('Header de Lote (1) fora de ordem'))).toBe(true);
+  });
+
+  it('should detect duplicate File Header', () => {
+    const rawLines = [
+      createLine('0'),
+      createLine('0')
+    ];
+    const { errors } = performAudit({ rawLines, activeRules, disabledFields });
+    expect(errors.some(e => e.message.includes('inesperado ou duplicado'))).toBe(true);
+  });
+
+  it('should detect duplicate File Trailer', () => {
+    const rawLines = [
+      createLine('0'),
+      createLine('9'),
+      createLine('9')
+    ];
+    const { errors } = performAudit({ rawLines, activeRules, disabledFields });
+    expect(errors.some(e => e.message.includes('Trailer de Arquivo (9) duplicado'))).toBe(true);
+  });
+
+  it('should detect Batch without Trailer', () => {
+    const rawLines = [
+      createLine('0'),
+      createLine('1', 1),
+      createLine('3', 1, 1),
+      createLine('9')
+    ];
+    const { errors } = performAudit({ rawLines, activeRules, disabledFields });
+    expect(errors.some(e => e.message.includes('Trailer de Arquivo (9) encontrado sem fechar o lote atual'))).toBe(true);
+  });
+
+  it('should detect Batch without Header', () => {
+    const rawLines = [
+      createLine('0'),
+      createLine('3', 1, 1),
+      createLine('5', 1),
+      createLine('9')
+    ];
+    const { errors } = performAudit({ rawLines, activeRules, disabledFields });
+    expect(errors.some(e => e.message.includes('fora de um lote aberto'))).toBe(true);
+    expect(errors.some(e => e.message.includes('Trailer de Lote (5) inesperado'))).toBe(true);
+  });
+
+  it('should sum Segment N values correctly', () => {
+    let lineN = createLine('3', 1, 1);
+    lineN = lineN.substring(0, 13) + 'N' + lineN.substring(14); // Segmento N
+    const value = "000000000015000"; // 150.00
+    lineN = lineN.substring(0, 135) + value + lineN.substring(150);
+
+    let trailer5 = createLine('5', 1);
+    trailer5 = trailer5.substring(0, 23) + "000000000000000000" + trailer5.substring(41); // expectedValue = 0
+
+    const rawLines = [
+      createLine('0'),
+      createLine('1', 1),
+      lineN,
+      trailer5,
+      createLine('9', 9999, 0, { qLotes: 1, qRegs: 5 })
+    ];
+    
+    const { errors } = performAudit({ rawLines, activeRules, disabledFields });
+    expect(errors.some(e => e.message.includes('soma real é 150'))).toBe(true);
+  });
+
+  it('should sum Segment O values correctly', () => {
+    let lineO = createLine('3', 1, 1);
+    lineO = lineO.substring(0, 13) + 'O' + lineO.substring(14); // Segmento O
+    const value = "000000000025000"; // 250.00
+    lineO = lineO.substring(0, 144) + value + lineO.substring(159);
+
+    let trailer5 = createLine('5', 1);
+    trailer5 = trailer5.substring(0, 23) + "000000000000000000" + trailer5.substring(41); // expectedValue = 0
+
+    const rawLines = [
+      createLine('0'),
+      createLine('1', 1),
+      lineO,
+      trailer5,
+      createLine('9', 9999, 0, { qLotes: 1, qRegs: 5 })
+    ];
+    
+    const { errors } = performAudit({ rawLines, activeRules, disabledFields });
+    expect(errors.some(e => e.message.includes('soma real é 250'))).toBe(true);
+  });
+
+  it('should reject Segment J in a TED (03) Batch', () => {
+    let headerLote = createLine('1', 1);
+    headerLote = headerLote.substring(0, 9) + '2003' + headerLote.substring(13); // Tipo Serviço 20, Forma 03
+    
+    let segmentJ = createLine('3', 1, 1);
+    segmentJ = segmentJ.substring(0, 13) + 'J' + segmentJ.substring(14);
+
+    const rawLines = [
+      createLine('0'),
+      headerLote,
+      segmentJ,
+      createLine('5', 1),
+      createLine('9')
+    ];
+
+    const { errors } = performAudit({ rawLines, activeRules, disabledFields });
+    expect(errors.some(e => e.message.includes("Segmento 'J' é incompatível com a Forma de Lançamento '03'"))).toBe(true);
+  });
+
+  it('should reject Segment A in a Tributo (17) Batch', () => {
+    let headerLote = createLine('1', 1);
+    headerLote = headerLote.substring(0, 9) + '2217' + headerLote.substring(13); // Tipo Serviço 22, Forma 17
+    
+    let segmentA = createLine('3', 1, 1);
+    segmentA = segmentA.substring(0, 13) + 'A' + segmentA.substring(14);
+
+    const rawLines = [
+      createLine('0'),
+      headerLote,
+      segmentA,
+      createLine('5', 1),
+      createLine('9')
+    ];
+
+    const { errors } = performAudit({ rawLines, activeRules, disabledFields });
+    expect(errors.some(e => e.message.includes("Segmento 'A' é incompatível com a Forma de Lançamento '17'"))).toBe(true);
+  });
+
+  it('should allow Segment P, Q, R in a Cobrança (01) Batch', () => {
+    let headerLote = createLine('1', 1);
+    headerLote = headerLote.substring(0, 9) + '0100' + headerLote.substring(13); // Tipo Serviço 01, Forma 00 (ignorado)
+    
+    let segmentP = createLine('3', 1, 1);
+    segmentP = segmentP.substring(0, 13) + 'P' + segmentP.substring(14);
+    
+    let segmentQ = createLine('3', 1, 2);
+    segmentQ = segmentQ.substring(0, 13) + 'Q' + segmentQ.substring(14);
+
+    const rawLines = [
+      createLine('0'),
+      headerLote,
+      segmentP,
+      segmentQ,
+      createLine('5', 1),
+      createLine('9')
+    ];
+
+    const { errors } = performAudit({ rawLines, activeRules, disabledFields });
+    // Deve passar sem erros estruturais ou de compatibilidade de segmento
+    const segmentErrors = errors.filter(e => e.fieldName === 'codigo_segmento');
+    expect(segmentErrors.length).toBe(0);
+  });
+
+  it('should enforce Segment B after Segment A by default (STRUC_B)', () => {
+    let headerLote = createLine('1', 1);
+    headerLote = headerLote.substring(0, 9) + '0101' + headerLote.substring(13); 
+    
+    let segmentA = createLine('3', 1, 1);
+    segmentA = segmentA.substring(0, 13) + 'A' + segmentA.substring(14);
+    
+    // Inserindo Segmento J logo após o A (isso quebra a sequência A -> B e também incompatibilidade do lote)
+    let segmentJ = createLine('3', 1, 2);
+    segmentJ = segmentJ.substring(0, 13) + 'J' + segmentJ.substring(14);
+
+    const rawLines = [
+      createLine('0'),
+      headerLote,
+      segmentA,
+      segmentJ,
+      createLine('5', 1),
+      createLine('9')
+    ];
+
+    const { errors } = performAudit({ rawLines, activeRules, disabledFields });
+    expect(errors.some(e => e.message.includes("Segmento 'B' era esperado após o registro anterior"))).toBe(true);
+  });
+
+  it('should allow Segment A without B if STRUC_B is disabled', () => {
+    let headerLote = createLine('1', 1);
+    headerLote = headerLote.substring(0, 9) + '0101' + headerLote.substring(13); // Transferência normal
+    
+    let segmentA = createLine('3', 1, 1);
+    segmentA = segmentA.substring(0, 13) + 'A' + segmentA.substring(14);
+
+    const rawLines = [
+      createLine('0'),
+      headerLote,
+      segmentA,
+      createLine('5', 1),
+      createLine('9')
+    ];
+
+    // Desativando a regra explicitamente
+    const customRules = { ...activeRules, "STRUC_B": false };
+    
+    const { errors } = performAudit({ rawLines, activeRules: customRules, disabledFields });
+    
+    const structErrors = errors.filter(e => e.message.includes("Segmento 'B' era esperado"));
+    expect(structErrors.length).toBe(0);
+  });
 });
+
+describe('Rule Toggling System', () => {
+  const activeRules = { "G002": true, "G008": true }; // Exemplos
+  const disabledFields = [];
+
+  const createLine = (tipo, lote = null, seq = 0, extras = {}) => {
+    let line = ' '.repeat(240);
+    // Banco
+    line = '341' + line.substring(3);
+    // Lote
+    if (lote !== null) line = line.substring(0, 3) + String(lote).padStart(4, '0') + line.substring(7);
+    // Tipo
+    line = line.substring(0, 7) + tipo + line.substring(8);
+    // Sequencia
+    if (tipo !== '0' && tipo !== '9') {
+      line = line.substring(0, 8) + String(seq).padStart(5, '0') + line.substring(13);
+    }
+    return line;
+  };
+
+  it('should trigger a validation error for a field rule (e.g. P001 - Câmara) by default', () => {
+    let segmentA = createLine('3', 1, 1);
+    segmentA = segmentA.substring(0, 13) + 'A' + segmentA.substring(14);
+    // Câmara Centralizadora (Pos 18-20) - Regra P001 (Values: 018, 700, 009)
+    segmentA = segmentA.substring(0, 17) + '999' + segmentA.substring(20);
+
+    const rawLines = [
+      createLine('0'),
+      createLine('1', 1),
+      segmentA,
+      createLine('5', 1),
+      createLine('9')
+    ];
+
+    const { errors } = performAudit({ rawLines, activeRules: {}, disabledFields: [] });
+    // P001 deve gerar erro
+    const camaraErrors = errors.filter(e => e.fieldName === 'codigo_camara');
+    expect(camaraErrors.length).toBeGreaterThan(0);
+  });
+
+  it('should NOT trigger a validation error when the field rule (P001) is toggled off', () => {
+    let segmentA = createLine('3', 1, 1);
+    segmentA = segmentA.substring(0, 13) + 'A' + segmentA.substring(14);
+    // Câmara Centralizadora (Pos 18-20) 
+    segmentA = segmentA.substring(0, 17) + '999' + segmentA.substring(20);
+
+    const rawLines = [
+      createLine('0'),
+      createLine('1', 1),
+      segmentA,
+      createLine('5', 1),
+      createLine('9')
+    ];
+
+    // Desligando a Regra P001
+    const customRules = { "P001": false };
+    
+    const { errors } = performAudit({ rawLines, activeRules: customRules, disabledFields: [] });
+    const camaraErrors = errors.filter(e => e.fieldName === 'codigo_camara');
+    expect(camaraErrors.length).toBe(0);
+  });
+
+  it('should NOT trigger a validation error when the specific FIELD is ignored via disabledFields', () => {
+    let segmentA = createLine('3', 1, 1);
+    segmentA = segmentA.substring(0, 13) + 'A' + segmentA.substring(14);
+    segmentA = segmentA.substring(0, 17) + '999' + segmentA.substring(20);
+
+    const rawLines = [
+      createLine('0'),
+      createLine('1', 1),
+      segmentA,
+      createLine('5', 1),
+      createLine('9')
+    ];
+
+    const customDisabledFields = ['segmento_a:codigo_camara'];
+    
+    const { errors } = performAudit({ rawLines, activeRules: {}, disabledFields: customDisabledFields });
+    const camaraErrors = errors.filter(e => e.fieldName === 'codigo_camara');
+    expect(camaraErrors.length).toBe(0);
+  });
+});
+
+

@@ -38,3 +38,9 @@ CNAB_RULES["BANK_DV"] = {
   label: "Dígito Verificador Bancário",
   validate: validateBankDV
 };
+
+CNAB_RULES["STRUC_B"] = {
+  label: "Obrigatoriedade do Segmento B",
+  desc: "Exige que todo Segmento A seja imediatamente seguido por um Segmento B (Padrão FEBRABAN Rigoroso).",
+  validate: () => true // Validação feita via máquina de estados, não por campo individual
+};
